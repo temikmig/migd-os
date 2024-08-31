@@ -1,0 +1,10 @@
+.bg {
+    width: 100vw;
+    height: 100vh;
+    background-image: url(../../images/bg-3.jpg);
+    background-size: cover;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+}
