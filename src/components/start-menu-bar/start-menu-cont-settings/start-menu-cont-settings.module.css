@@ -1,0 +1,12 @@
+.startSettings {
+    width: 100%;
+    height: 60px;
+    background: rgb(209 205 205 / 50%);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0px 10px;
+    box-sizing: border-box;
+    border-radius: 0px 0px 15px 15px;
+}

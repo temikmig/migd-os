@@ -1,0 +1,13 @@
+.settingsIcon {
+    width: 40px;
+    height: 40px;
+    background-image: url(../../../../icons/settings.svg);
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px;
+}
+
+.settingsIcon:hover {
+    background-color: rgba(0,0,0,0.1);
+}

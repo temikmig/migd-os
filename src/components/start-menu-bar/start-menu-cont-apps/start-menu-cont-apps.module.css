@@ -1,0 +1,30 @@
+.startMenuAppsCont {
+    width: 420px;
+    padding-left: 10px;
+    /* padding-bottom: 10px; */
+    height: 100%;
+}
+
+.startMenuAppsSwitch {
+    display: flex;
+    height: 35px;
+    margin-bottom: 5px;
+}
+
+.startMenuAppsSwitchItem {
+    width: 50%;
+    font-size: 12px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    border-bottom: 2px transparent solid;
+    transition: 0.3s;
+}
+
+.startMenuAppsSwitchItemActive {
+    border-bottom: 2px #fff solid;
+    color: #fff;
+}

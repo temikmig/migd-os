@@ -1,0 +1,32 @@
+.stateBattery {
+    width: 22px;
+    height: 12px;
+    border: 1px #000 solid;
+    border-radius: 3px;
+    position: relative;
+    padding: 1px;
+    box-sizing: border-box;
+}
+
+.stateBatteryInside {
+    width: 100%;
+    height: 8px;
+    border-radius: 2px;
+    background: #000;
+}
+
+.stateBatteryInsideRed {
+    background: #800a0a;
+}
+
+.stateBattery:after {
+    content: '';
+    display: block;
+    width: 2px;
+    height: 6px;
+    border-radius: 2px;
+    background: #000;
+    position: absolute;
+    right: -4px;
+    top: 2px;
+}

@@ -23,6 +23,11 @@
     backdrop-filter: blur(5px);
 }
 
+.navBarMain .navBarIconCont {
+    align-items: center;
+    justify-content: center;
+}
+
 .navBar {
     padding: 0px 10px;
 }

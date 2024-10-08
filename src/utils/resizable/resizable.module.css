@@ -1,0 +1,84 @@
+.resizable {
+    position: absolute;
+    z-index: 3;
+}
+
+.handleTop {
+    width: 100%;
+    height: 8px;
+    position: absolute;
+    top: -4px;
+    left: 0px;
+    cursor: ns-resize;
+    z-index: 2;
+}
+
+.handleRight {
+    width: 8px;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    right: -4px;
+    cursor: ew-resize;
+    z-index: 2;
+}
+
+.handleBottom {
+    width: 100%;
+    height: 8px;
+    position: absolute;
+    bottom: -4px;
+    left: 0px;
+    cursor: ns-resize;
+    z-index: 2;
+}
+
+.handleLeft {
+    width: 8px;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: -4px;
+    cursor: ew-resize;
+    z-index: 2;
+}
+
+.handleTopRight {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    cursor: nesw-resize;
+    z-index: 2;
+}
+
+.handleBottomRight {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    cursor: nwse-resize;
+    z-index: 2;
+}
+
+.handleBottomLeft {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    bottom: -4px;
+    left: -4px;
+    cursor: nesw-resize;
+    z-index: 2;
+}
+
+.handleTopLeft {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    cursor: nwse-resize;
+    z-index: 2;
+}

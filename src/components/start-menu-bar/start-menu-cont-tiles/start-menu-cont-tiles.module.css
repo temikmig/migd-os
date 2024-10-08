@@ -1,0 +1,9 @@
+.startMenuTilesCont {
+    width: 310px;
+    height: 100%;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    padding: 0px 10px;
+}

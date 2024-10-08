@@ -1,0 +1,45 @@
+.startMenuTile {
+    display: inline-flex;
+    padding: 10px;
+    border: 1px rgba(0, 0, 0, 0.0) solid;
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    background: rgb(209 205 205 / 50%);
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* transition: 1s; */
+    position: relative;
+}
+
+/* .startMenuItem:hover {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px rgba(0, 0, 0, 0.3) solid;
+    border-radius: 5px;
+} */
+
+.startMenuTileIcon {
+    width: 100px;
+    height: 100px;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+.startMenuItemTile img {
+    width: 100px;
+    height: 100px;
+    pointer-events: none;
+}
+
+.startMenuItemName {
+    color: #fff;
+    font-size: 11px;
+    margin-top: 5px;
+    font-weight: bold;
+    text-shadow: 0px 1px 3px #000;
+    height: 30px;
+    line-height: 15px;
+    user-select: none;
+}

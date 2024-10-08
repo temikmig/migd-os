@@ -1,0 +1,47 @@
+.buttonCollapse {
+    fill: #84b2e4;
+    stroke: rgba(0, 0, 0, 0.3);
+    stroke-width: 1px;
+    transition: 0.2s;
+    transform-box: border-box;
+}
+
+.buttonCollapse:hover {
+    fill: #72a2d7;
+}
+
+.buttonCollapse:active {
+    fill: #6796ca;
+}
+
+.buttonExpand {
+    fill: #84b2e4;
+    stroke: rgba(0, 0, 0, 0.3);
+    stroke-width: 1px;
+    transition: 0.2s;
+    transform-box: border-box;
+}
+
+.buttonExpand:hover {
+    fill: #669bd2;
+}
+
+.buttonExpand:active {
+    fill: #6796ca;
+}
+
+.buttonClose {
+    fill: #e48484;
+    stroke: rgba(0, 0, 0, 0.3);
+    stroke-width: 1px;
+    transition: 0.2s;
+    transform-box: border-box;
+}
+
+.buttonClose:hover {
+    fill: #db5454;
+}
+
+.buttonClose:active {
+    fill: #b73838;
+}

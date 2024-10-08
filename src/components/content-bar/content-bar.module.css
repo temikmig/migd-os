@@ -1,3 +1,9 @@
 .contentBar {
-    flex: auto;
+    height: calc(100% - 70px);
+    width: 100%;
+    z-index: 2;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    /* background: rgba(0, 0, 0, 0.2); */
 }
