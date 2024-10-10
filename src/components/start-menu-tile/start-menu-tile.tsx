@@ -12,31 +12,17 @@ import { mergeRefs } from 'react-merge-refs';
 import { checkStartMenu } from '../../services/actions/start-menu';
 import { useSortable } from '@dnd-kit/sortable';
 
-const StartMenuTile = ({id, active, props}:any) => {
-    const {
-        isDragging,
-        attributes,
-        listeners,
-        setNodeRef,
-        transform,
-        transition, node
-    } = useSortable({ 
-        id: id, 
-        data: {
-            type: 'startMenuTile',
-            title: id
-        },
-        animateLayoutChanges: () => false 
-    });
+import { CSSTransition } from 'react-transition-group';
+import cssCont from '../app/app.module.css';
 
-    const style = {
-        left: undefined,
-        top: undefined,
-        transform: transform?dndKitCSS.Transform.toString(transform):undefined,
-        transition: transition||undefined,
-        opacity: isDragging?'0':'1'
-    };
-
+const StartMenuTile = ({id, active, size, props}:any) => {
+    const contTransition = {
+        enter: cssCont.contEnter,
+        enterActive: cssCont.contEnterActive,
+        exit: cssCont.contExit,
+        exitActive: cssCont.contExitActive
+    }
+    
     // console.log(transition);
 
 
@@ -175,13 +161,11 @@ const StartMenuTile = ({id, active, props}:any) => {
     // )
 
     return(
-        <div className={css.startMenuTile} onClick={сlickAction} ref={setNodeRef}
-        style={style}
-        {...props}
-        {...attributes}
-        {...listeners}>
+        
+        <div className={`${css.startMenuTile} ${size==2&&css.startMenuTileBig}`} onClick={сlickAction}>
             <div className={css.startMenuTileIcon}><img src={icon} /></div>
         </div>
+
     )
 }
 

@@ -12,30 +12,8 @@ import { mergeRefs } from 'react-merge-refs';
 import { checkStartMenu } from '../../services/actions/start-menu';
 import { useSortable } from '@dnd-kit/sortable';
 
-const StartMenuIcon = ({id, active, props}:any) => {
-    const {
-        isDragging,
-        attributes,
-        listeners,
-        setNodeRef,
-        transform,
-        transition, node
-    } = useSortable({ 
-        id: id, 
-        data: {
-            type: 'startMenuIcon',
-            title: id
-        },
-        animateLayoutChanges: () => false 
-    });
-
-    const style = {
-        left: undefined,
-        top: undefined,
-        transform: transform?dndKitCSS.Transform.toString(transform):undefined,
-        transition: transition||undefined,
-        opacity: isDragging?'0':'1'
-    };
+const StartMenuIcon = ({id, active}:any) => {
+    
 
     // console.log(transition);
 
@@ -175,11 +153,7 @@ const StartMenuIcon = ({id, active, props}:any) => {
     // )
 
     return(
-        <div className={css.startMenuItem} onClick={сlickAction} ref={setNodeRef}
-        style={style}
-        {...props}
-        {...attributes}
-        {...listeners}>
+        <div className={css.startMenuItem} onClick={сlickAction}>
             <div className={css.startMenuItemIcon}><img src={icon} /></div>
             <div className={css.startMenuItemName}>{ title }</div>
         </div>

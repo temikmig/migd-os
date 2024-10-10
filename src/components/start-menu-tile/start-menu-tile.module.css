@@ -6,12 +6,17 @@
     height: 150px;
     border-radius: 10px;
     background: rgb(209 205 205 / 50%);
+    backdrop-filter: blur(5px);
     box-sizing: border-box;
     align-items: center;
     justify-content: center;
     text-align: center;
     /* transition: 1s; */
     position: relative;
+}
+
+.startMenuTileBig {
+    width: 310px;
 }
 
 /* .startMenuItem:hover {

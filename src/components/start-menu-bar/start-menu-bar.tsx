@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import css from './start-menu-bar.module.css';
 import { CSSTransition } from 'react-transition-group';
 import cssCont from '../app/app.module.css';
@@ -11,7 +11,7 @@ import { snapCenterToCursor } from '@dnd-kit/modifiers';
 import StartMenuIcon from '../start-menu-icon/start-menu-icon';
 import StartMenuTile from '../start-menu-tile/start-menu-tile';
 
-const StartMenuBar = ({view, activeIcon, activeTile}:any) => {
+const StartMenuBar = ({view}:any) => {
     const contTransition = {
         enter: cssCont.contEnter,
         enterActive: cssCont.contEnterActive,
@@ -25,8 +25,8 @@ const StartMenuBar = ({view, activeIcon, activeTile}:any) => {
                 <div className={css.startMenuContainer}>
                     <StartMenuContSearch />
                     <div className={css.startMenuMainCont}>
-                        <StartMenuContApps activeIcon={activeIcon} />
-                        <StartMenuContTiles activeIcon={activeTile} />
+                        <StartMenuContApps />
+                        <StartMenuContTiles />
                     </div>
                     <StartMenuContSettings />
                 </div>

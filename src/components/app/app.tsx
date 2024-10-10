@@ -21,9 +21,11 @@ import {
 } from '@dnd-kit/core';
 import { arrayMove, SortableContext, rectSortingStrategy } from '@dnd-kit/sortable';
 import { snapCenterToCursor } from '@dnd-kit/modifiers';
-import { repositionPinedStartMenu } from '../../services/actions/start-menu';
+import { addStartMenuTiles, addStartMenuTilesUid, removeStartMenuTiles, removeStartMenuTilesUid, repositionStartMenuPined, repositionStartMenuTiles } from '../../services/actions/start-menu';
 import StartMenuIcon from '../start-menu-icon/start-menu-icon';
 import StartMenuTile from '../start-menu-tile/start-menu-tile';
+import Sortable from '../../utils/sortable/sortable';
+import uuid from 'react-uuid';
 
 const App = () => {
     const dispatch = useDispatch();
@@ -33,44 +35,106 @@ const App = () => {
     
     const backgroundBlurState = isStartMenu?2:isBlockScreen?3:1;
 
-    const pinedApplications = useSelector((store) => store.startMenu.pined);
+    const startMenuApplications = useSelector((store) => store.startMenu);
 
-    const [activeIcon, setActiveIcon]:any = useState(null);
-    const [activeTile, setActiveTile]:any = useState(null);
+    const pinedApplications = startMenuApplications.pined;
+    const tilesApplications = startMenuApplications.tiles;
+
+    const [activeDnd, setActiveDnd]:any = useState({id: null, uid: null, type: null});
+    const [startUid, setStartUid]:any = useState(null);
 
     function handleDragStart(ev:any) {
+        // console.log(ev);
+
+        const id = ev.active.data.current.title;
         const type = ev.active.data.current.type;
 
+        setStartUid(uuid());
+
+        setActiveDnd({id: id, uid: ev.active.id, type: type});
+
+        
+
+        
+    }
+
+    function handleDragOver(ev:any) {
+        console.log(startUid);
+        console.log(activeDnd);
+
+        const id = ev.active.data.current.title;
+        const type = ev.active.data.current.type;
+
+        
+
+        // console.log(tilesApplications.includes(ev.active.id))
+
+       
+        
         if(type=='startMenuIcon') {
-            setActiveIcon(ev.active.id);
+            
+            if(ev.collisions.map((item:any) => item.id).includes('startMenuTilesCont')) {
+                // console.log('on')
+                
+                if(!tilesApplications.map((item:any) => item.id).includes(id)) {
+                    dispatch(addStartMenuTilesUid(id, startUid));
+                    setActiveDnd({id: id, uid: startUid, type: 'startMenuTile'});
+                }
+            } else {
+                setActiveDnd({id: id, uid: ev.active.id, type: 'startMenuIcon'});
+                
+                if(activeDnd.type=='startMenuTile') {
+                    dispatch(removeStartMenuTiles(id));
+
+                    // setActiveDnd({id: id, uid: startUid, type: 'startMenuTile'});
+                    // console.log('off')
+                    // if(tilesApplications.map((item:any) => item.uid).includes(ev.active.uid)) dispatch(removeStartMenuTilesUid(ev.active.id)); 
+                }
+            }
         }
 
         if(type=='startMenuTile') {
-            setActiveTile(ev.active.id);
+            setActiveDnd({id: id, uid: ev.active.id, type: type});
+            if(!ev.collisions.map((item:any) => item.id).includes('startMenuTilesCont')) {
+                if(tilesApplications.map((item:any) => item.uid).includes(ev.active.id)) dispatch(removeStartMenuTiles(id));
+                 
+            }
         }
+
+        if(!id&&ev.collisions.map((item:any) => item.id).includes('startMenuTilesCont')&&activeDnd.type=='startMenuTile'&&!tilesApplications.map((item:any) => item.id).includes(id)) dispatch(addStartMenuTilesUid(activeDnd.id, ev.active.id));
     }
 
     function handleDragEnd(ev:any) { 
         const type = ev.active.data.current.type;
 
         if(type=='startMenuIcon') {
-            setActiveIcon(null);
-
             const { active, over } = ev;
             if (!over||active.id === over.id) {
                 return;
             }
 
-            const oldIndex = pinedApplications.findIndex((id:string) => id === active.id);
-            const newIndex = pinedApplications.findIndex((id:string) => id === over.id);
+            const oldIndex = pinedApplications.map((item:any) => item.uid).findIndex((id:string) => id === active.id);
+            const newIndex = pinedApplications.map((item:any) => item.uid).findIndex((id:string) => id === over.id);
             const repositionPinedApplications = arrayMove(pinedApplications, oldIndex, newIndex);
 
-            dispatch(repositionPinedStartMenu(repositionPinedApplications));
+            if(activeDnd.type!='startMenuTile') dispatch(repositionStartMenuPined(repositionPinedApplications));
         }
 
         if(type=='startMenuTile') {
-            setActiveTile(null);
+            const { active, over } = ev;
+            if (!over||active.id === over.id) {
+                return;
+            }
+
+            const oldIndex = tilesApplications.map((item:any) => item.uid).findIndex((id:string) => id === active.id);
+            const newIndex = tilesApplications.map((item:any) => item.uid).findIndex((id:string) => id === over.id);
+            const repositionTilesApplications = arrayMove(tilesApplications, oldIndex, newIndex);
+
+            dispatch(repositionStartMenuTiles(repositionTilesApplications));
         }
+
+        setStartUid(null);
+        setActiveDnd({id: null, uid: null, type: null});
     }
 
     const dndSensors = useSensors(
@@ -79,12 +143,12 @@ const App = () => {
 
     return(
         <main className={css.mainContainer}>
-            <DndContext collisionDetection={pointerWithin} onDragStart={handleDragStart} onDragEnd={handleDragEnd} autoScroll={false} sensors={dndSensors}>
+            <DndContext collisionDetection={pointerWithin} onDragStart={handleDragStart} onDragOver={handleDragOver} onDragEnd={handleDragEnd} autoScroll={false} sensors={dndSensors}>
                 <Background blurState={backgroundBlurState} />
-                <StartMenuBar view={isStartMenu} activeIcon={activeIcon} activeTile={activeTile} />
-                <DragOverlay modifiers={[snapCenterToCursor]}>
-                {activeIcon?(<StartMenuIcon id={activeIcon} active/>):null}    
-                {activeTile?(<StartMenuTile id={activeTile} active/>):null}    
+                <StartMenuBar view={isStartMenu} />
+                <DragOverlay >
+                {activeDnd.type=='startMenuIcon'?(<StartMenuIcon id={activeDnd.id} active/>):null}    
+                {activeDnd.type=='startMenuTile'?(<StartMenuTile id={activeDnd.id} active/>):null}    
                 </DragOverlay>
                 <ContentBar view={!isStartMenu} />
                 <BottomBar />
