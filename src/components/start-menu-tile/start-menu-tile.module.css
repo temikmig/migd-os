@@ -15,6 +15,10 @@
     position: relative;
 }
 
+.startMenuTile:active {
+    filter: brightness(0.75);
+}
+
 .startMenuTileBig {
     width: 310px;
 }
@@ -38,13 +42,23 @@
     pointer-events: none;
 }
 
-.startMenuItemName {
-    color: #fff;
-    font-size: 11px;
-    margin-top: 5px;
-    font-weight: bold;
-    text-shadow: 0px 1px 3px #000;
-    height: 30px;
-    line-height: 15px;
-    user-select: none;
+.startMenuItemTileEnter {
+    opacity: 0;
+    transform: scale(0.01);
+}
+  
+.startMenuItemTileEnterActive {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 200ms, transform 200ms;
+}
+  
+.startMenuItemTileExit {
+    opacity: 1;
+}
+  
+.startMenuItemTileExitActive {
+    opacity: 0;
+    transform: scale(0.01);
+    transition: opacity 200ms, transform 200ms;
 }

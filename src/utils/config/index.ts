@@ -10,6 +10,9 @@ export const defaultIcons = [{
 export const DOCUMENT_HEIGHT = window.innerHeight;
 export const DOCUMENT_WIDTH = window.innerWidth;
 
+export const FILEGUIDE_APP = '00000000-0000-0000-0000-000000000000';
+export const DELETE_BIN_APP = '00000000-0000-0000-0000-000000000001';
+
 export const defaultAppProps = {
     canExpand: false,
     canCollapse: true,

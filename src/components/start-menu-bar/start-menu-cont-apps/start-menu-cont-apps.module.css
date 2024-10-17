@@ -28,3 +28,39 @@
     border-bottom: 2px #fff solid;
     color: #fff;
 }
+
+.contEnter {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: 0.2s;
+    /* transform: scale(0.95); */
+}
+
+.contEnterL {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: 0.2s;
+    /* transform: scale(0.95); */
+}
+  
+.contEnterActive {
+    opacity: 1;
+    transform: translateX(0);
+    transition: 0.2s;
+}
+  
+.contExit {
+    opacity: 1;
+}
+  
+.contExitActive {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: 0.2s;
+}
+  
+.contExitActiveL {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: 0.2s;
+}

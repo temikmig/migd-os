@@ -21,8 +21,8 @@ import { arrayMove, SortableContext, rectSortingStrategy } from '@dnd-kit/sortab
 import { snapCenterToCursor } from '@dnd-kit/modifiers';
 import Sortable from '../../../../utils/sortable/sortable';
 
-const StartMenuContAppsListAll = () => {
-    const allApplications = useSelector((store) => store.applications.data);
+const StartMenuContAppsListAll = ({view}:any) => {
+    const allApplications = useSelector((store) => store.applications.data).filter((app:any) => app.list==true);
     // console.log(allApplications);
     const items = allApplications.sort((a:any, b:any) => {
         if (a.title > b.title) return 1;
@@ -30,7 +30,7 @@ const StartMenuContAppsListAll = () => {
         return 0;
     });
     
-    return(
+    return(      
         <SortableContext items={items.map((item:any) => item.uid)}>
             <div className={css.startMenuAppsContList}>
                 {items.map((item:any, index:number) => 

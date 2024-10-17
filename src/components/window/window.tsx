@@ -70,7 +70,7 @@ const Window:FC<TWindow> = ({title, id, properties, winProps, winStates, applica
 
     return(
         <Resizable style={{...style}} winProps={winProps} isExpand={isExpand} refs={mergeRefs([setNodeRef, outsideAlerterRef, insideAlerterRef])} id={id} {...attributes}>
-        <div className={`${css.windowCont} ${isExpand&&css.windowContExpand} ${isActive&&css.windowContActive}`} ref={refs}>
+        <div id={id} className={`${css.windowCont} ${isExpand&&css.windowContExpand} ${isActive&&css.windowContActive}`} ref={refs}>
             <div className={css.windowHeader} onDoubleClick={handleWindowExpand}>
                 <div className={css.windowHeaderHandler} {...listenersOnState}></div>
                 <div className={css.windowHeaderTitle}>{title}</div>

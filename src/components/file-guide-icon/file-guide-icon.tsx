@@ -13,6 +13,8 @@ import { mergeRefs } from 'react-merge-refs';
 const FileGuideIcon = ({id, active, props}:any) => {
     const [ isActive, setIsActive ] = useState(false);
 
+    const applications = useSelector((store) => store.applications.data);
+
     // useEffect(() => {
     //     setIsActive(true);
     // }, [])
@@ -22,6 +24,8 @@ const FileGuideIcon = ({id, active, props}:any) => {
     const desktopIconsPosition = useSelector((store) => store.desktopIconsPosition.data).find((icons:any) => icons.id==id)?.properties;
 
     const {name, application, type } = findNode(id, fileStructure);
+
+    const applicationId = applications.find((app:any) => app.name==application).id;
 
     const {attributes, listeners, setNodeRef} = useDraggable({
         id: id,
@@ -66,7 +70,8 @@ const FileGuideIcon = ({id, active, props}:any) => {
               isCollapse: false,
               isDragging: true
             },
-            application: application
+            application: application,
+            applicationId: applicationId
           }));
         setIsActive(false);
     }

@@ -1,7 +1,7 @@
 export type TNavBarIcon = {
-    icon: string;
-    main: boolean;
-    handleClick?: VoidFunction;
+    id: string;
+    sortable?: boolean;
+    isPined?: boolean;
 }
 
 export type TWindow = {
