@@ -5,7 +5,7 @@ import {
 } from 'react-redux';
 
 import { AppDispatch, RootState } from '../types';
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
   
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
 
@@ -50,3 +50,23 @@ export function useOutsideAlerter(onOutsideClick:any) {
   
     return ref;
 }
+
+export const useOutsideClick = (initialValue:boolean) => {
+  const [isActive, setIsActive] = useState(initialValue);
+  const ref:any = useRef(null);
+
+  const handleClick = (e:any) => {
+    if (ref.current && !ref.current.contains(e.target)) {
+      setIsActive(!isActive);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClick);
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  });
+
+  return { ref, isActive, setIsActive };
+};

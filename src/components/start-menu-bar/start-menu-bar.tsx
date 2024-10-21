@@ -10,8 +10,11 @@ import { DragOverlay } from '@dnd-kit/core';
 import { snapCenterToCursor } from '@dnd-kit/modifiers';
 import StartMenuIcon from '../start-menu-icon/start-menu-icon';
 import StartMenuTile from '../start-menu-tile/start-menu-tile';
+import { useDispatch, useOutsideAlerter } from '../../services/types/hooks';
+import { checkStartMenu } from '../../services/actions/start-menu';
 
 const StartMenuBar = ({view}:any) => {
+    const dispatch = useDispatch();
     const contTransition = {
         enter: cssCont.contEnter,
         enterActive: cssCont.contEnterActive,
@@ -19,10 +22,18 @@ const StartMenuBar = ({view}:any) => {
         exitActive: cssCont.contExitActive
     }
 
+    const handleOutside = () => {
+        dispatch(checkStartMenu(false));
+    };
+
+    const outsideAlerterRef = useOutsideAlerter(() => {
+        // dispatch(checkStartMenu(false));
+    });
+   
     return(
         <CSSTransition in={view} timeout={400} classNames={contTransition} unmountOnExit>
             <div className={css.startMenuCont}>
-                <div className={css.startMenuContainer}>
+                <div className={css.startMenuContainer} ref={outsideAlerterRef}>
                     <StartMenuContSearch />
                     <div className={css.startMenuMainCont}>
                         <StartMenuContApps />

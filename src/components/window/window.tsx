@@ -8,8 +8,8 @@ import { useDraggable } from '@dnd-kit/core';
 import { CSS as dndKitCSS} from '@dnd-kit/utilities';
 import Resizable from '../../utils/resizable/resizable'
 import { CSSTransition } from 'react-transition-group';
-import { useDispatch, useInsideAlerter, useOutsideAlerter } from '../../services/types/hooks';
-import { closeWindow, toActiveWindow, toDisactiveWindows, toExpandWindow } from '../../services/actions/open-windows';
+import { useDispatch, useInsideAlerter, useOutsideAlerter, useSelector } from '../../services/types/hooks';
+import { closeWindow, toActiveWindow, toCollapseWindow, toDisactiveWindows, toExpandWindow } from '../../services/actions/open-windows';
 import * as appsList from '../../applications';
 import { mergeRefs } from "react-merge-refs";
 import Application from '../../applications/application/application';
@@ -27,8 +27,14 @@ const Window:FC<TWindow> = ({title, id, properties, winProps, winStates, applica
         }
     });
 
-    const { isActive, isExpand, isCollapse, isDragging } = winStates;
+    const { isActive, isExpand, isCollapse, isDragging, isScreenActive } = winStates;
     const { canExpand, canCollapse } = winProps;
+
+    // const isScreenActive = false;
+
+    const isScreensShow = useSelector((store) => store.openedWindows.isScreensShow);
+    
+    // const isScreensShow = false;
 
     const listenersOnState = isDragging ? { ...listeners } : undefined;
 
@@ -38,7 +44,7 @@ const Window:FC<TWindow> = ({title, id, properties, winProps, winStates, applica
         width: !isExpand?`${properties.width}px`:`100%`,
         height: !isExpand?`${properties.height}px`:`100%`,
         transition: isExpand?`0.3s`:undefined,
-        zIndex: isActive?10:undefined, 
+        zIndex: isActive||isScreenActive?10:undefined, 
         transform: dndKitCSS.Translate.toString(transform)
     }
 
@@ -46,8 +52,17 @@ const Window:FC<TWindow> = ({title, id, properties, winProps, winStates, applica
         dispatch(closeWindow(id));
     };
 
-    const handleWindowExpand = () => {
-        dispatch(toExpandWindow(id, !isExpand));
+    const handleWindowExpand = (e:any) => {
+        if(canExpand) {
+            e.stopPropagation();
+
+            if(!isCollapse) dispatch(toExpandWindow(id, !isExpand));
+        }
+    };
+
+    const handleWindowCollapse = (e:any) => {
+        e.stopPropagation();
+        dispatch(toCollapseWindow(id, true));
     };
 
     let CurrentApp;
@@ -61,27 +76,29 @@ const Window:FC<TWindow> = ({title, id, properties, winProps, winStates, applica
     // dispatch(toActiveWindow(props.id));
 
     const outsideAlerterRef = useOutsideAlerter(() => {
-        isActive&&dispatch(toDisactiveWindows(id));
+        isActive&&dispatch(toDisactiveWindows());
     });
 
-    const insideAlerterRef = useInsideAlerter(() => {
+    const insideAlerter = (e:any) => {
         !isActive&&dispatch(toActiveWindow(id));
-    });
+    };
 
     return(
-        <Resizable style={{...style}} winProps={winProps} isExpand={isExpand} refs={mergeRefs([setNodeRef, outsideAlerterRef, insideAlerterRef])} id={id} {...attributes}>
-        <div id={id} className={`${css.windowCont} ${isExpand&&css.windowContExpand} ${isActive&&css.windowContActive}`} ref={refs}>
-            <div className={css.windowHeader} onDoubleClick={handleWindowExpand}>
-                <div className={css.windowHeaderHandler} {...listenersOnState}></div>
-                <div className={css.windowHeaderTitle}>{title}</div>
-                <div className={css.windowHeaderControl}>
-                    {canCollapse&&<WindowControlCollapse />}
-                    {canExpand&&<WindowControlExpand handleClick={handleWindowExpand} />}
-                    <WindowControlClose handleClick={handleWindowClose} />
+        <Resizable style={{...style}} winProps={winProps} isExpand={isExpand} refs={mergeRefs([setNodeRef, outsideAlerterRef])} id={id} {...attributes}>
+        <div onMouseDown={insideAlerter} className={`${css.windowCont} ${isExpand&&css.windowContExpand} ${isCollapse&&css.windowContCollapse} ${isActive&&css.windowContActive} ${isScreensShow&&!isScreenActive&&css.windowContScreenActive} ${isScreensShow&&css.activeScreenWindows}`} ref={refs}>
+            <div id={id}>
+                <div className={css.windowHeader} onDoubleClick={handleWindowExpand}>
+                    <div className={css.windowHeaderHandler} {...listenersOnState}></div>
+                    <div className={css.windowHeaderTitle}>{title}</div>
+                    <div className={css.windowHeaderControl}>
+                        {canCollapse&&<WindowControlCollapse handleClick={handleWindowCollapse} />}
+                        {canExpand&&<WindowControlExpand handleClick={handleWindowExpand} />}
+                        <WindowControlClose handleClick={handleWindowClose} />
+                    </div>
                 </div>
-            </div>
-            <div className={css.windowContent}>
-                <CurrentApp id={id} appId={applicationId} />
+                <div className={css.windowContent}>
+                    <CurrentApp id={id} appId={applicationId} />
+                </div>
             </div>
         </div>
         </Resizable>

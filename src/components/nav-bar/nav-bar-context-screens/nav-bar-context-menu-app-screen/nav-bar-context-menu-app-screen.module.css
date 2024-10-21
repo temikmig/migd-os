@@ -1,9 +1,9 @@
 .navBarContextMenuAppScreen {
-    height: 135px;
-    min-width: 100px;
+    height: 125px;
+    min-width: 120px;
     max-width: 150px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
     align-items: center;
     overflow: hidden;
@@ -41,7 +41,7 @@
     box-sizing: border-box;
     font-size: 12px;
     user-select: none;
-    height: 35px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;

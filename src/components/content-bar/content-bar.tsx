@@ -30,7 +30,11 @@ const ContentBar = ({view}:any) => {
 
     const [activeIcon, setActiveIcon]:any = useState(null);
 
+    const openedWindows = useSelector((store) => store.openedWindows.data);
+
     function handleDragStart(ev:any) {
+      const isActiveWindow = openedWindows.find((window:any) => window.id==ev.active.id).winStates.isActive;
+
       const type = ev.active.data.current.type;
 
       if(type=='fileGuideIcon') {
@@ -38,12 +42,9 @@ const ContentBar = ({view}:any) => {
       }
 
       if(type=='window') {
-        dispatch(toActiveWindow(ev.active.id));
+        if(!isActiveWindow) dispatch(toActiveWindow(ev.active.id));
       }
-
     }
-
-    const openedWindows = useSelector((store) => store.openedWindows.data);
 
     function handleDragEnd(ev:any) {
       const type = ev.active.data.current.type;

@@ -1,6 +1,6 @@
 .windowCont {
     border-radius: 10px;
-    border: 1px rgba(180, 180, 180, 0.9) solid;
+    /* border: 1px rgba(180, 180, 180, 0.9) solid; */
     background: rgba(209, 209, 209, 0.8);
     backdrop-filter: blur(5px);
     box-sizing: border-box;
@@ -10,6 +10,9 @@
     flex-direction: column;
     overflow: hidden;
     box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 30%);
+    opacity: 1;
+    transform: scale(1) translateY(0px);
+    transition: opacity 300ms, transform 300ms;
 }
 
 .windowContEnter {
@@ -38,11 +41,33 @@
     transition: 0.3s;
 }
 
+.windowCont.windowContCollapse {
+    opacity: 0;
+    transform: translateY(150px);
+    transition: opacity 300ms, transform 300ms;
+}
+
 .windowCont.windowContActive {
     box-shadow: 0px 0px 15px 0px rgb(0 0 0 / 50%);
     z-index: 10;
     /* transition: 0.5s; */
 }
+
+.windowCont.windowContScreenActive {
+    /* opacity: 0; */
+    background: transparent;
+    transition: 0.2s;
+}
+
+.windowCont.windowContScreenActive div {
+    opacity: 0;
+    /* background: transparent; */
+}
+
+.windowCont.windowContCollapse.activeScreenWindows {
+    opacity: 1;
+}
+
 
 .windowHeader {
     display: flex;

@@ -47,13 +47,15 @@ const NavBarIcon:FC<TNavBarIcon> = ({id, sortable, isPined}) => {
     }
 
     const сlickAction = (e:MouseEvent<HTMLDivElement>) => {
-        dispatch(checkStartMenu(false));
+        // if(isStartMenu) dispatch(checkStartMenu(false));
 
         setIsContextMenu(false);
 
         if(isOpenedApp) {
-            if(!isStartMenu) setShowScreens(true);
+            if(!isStartMenu) setShowScreens(true); else setIsContextMenu(true);
         } else {
+            dispatch(checkStartMenu(false));
+            
             setTimeout(() => {
                 handleOpenApp();
             }, 300);
@@ -77,8 +79,9 @@ const NavBarIcon:FC<TNavBarIcon> = ({id, sortable, isPined}) => {
     }
 
     const outsideAlerterRef = useOutsideAlerter(() => {
-        isContextMenu&&setIsContextMenu(false);
-        showScreens&&setShowScreens(false);
+        setShowScreens(false);
+        setIsContextMenu(false);
+        // console.log('outScreen')
     });
     
     return(

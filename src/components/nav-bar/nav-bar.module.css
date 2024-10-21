@@ -4,7 +4,7 @@
     box-sizing: border-box;
     border-radius: 25px;
     border: 1px rgb(209 205 205 / 10%) solid;
-    background: rgb(255 255 255 / 20%);
+    background: rgb(255 255 255 / 40%);
     backdrop-filter: blur(5px)
 }
 
@@ -20,8 +20,16 @@
 .navBarMain {
     border-radius: 25px;
     border-right: 1px rgb(209 205 205 / 10%) solid;
-    background: rgb(209 205 205 / 20%);
+    background: rgba(241, 238, 238, 0.2);
     backdrop-filter: blur(5px);
+}
+
+.navBarMain:hover {
+    background: rgba(241, 238, 238, 0.4);
+}
+
+.navBarMainActive {
+    background: rgba(241, 238, 238, 0.6);
 }
 
 .navBarMain .navBarIconCont {
@@ -36,6 +44,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.navBarOpened:empty {
+    display: none;
 }
 
 .navBar {

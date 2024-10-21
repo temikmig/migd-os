@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import css from './app.module.css';
 import ContentBar from '../content-bar/content-bar';
 import BottomBar from '../bottom-bar/bottom-bar';
-import { useDispatch, useSelector } from '../../services/types/hooks';
+import { useDispatch, useOutsideAlerter, useSelector } from '../../services/types/hooks';
 import Background from '../background/background';
 import StartMenuBar from '../start-menu-bar/start-menu-bar';
 
@@ -21,7 +21,7 @@ import {
 } from '@dnd-kit/core';
 import { arrayMove, SortableContext, rectSortingStrategy } from '@dnd-kit/sortable';
 import { snapCenterToCursor } from '@dnd-kit/modifiers';
-import { addStartMenuTiles, addStartMenuTilesUid, removeStartMenuTiles, removeStartMenuTilesUid, repositionStartMenuPined, repositionStartMenuTiles } from '../../services/actions/start-menu';
+import { addStartMenuTiles, addStartMenuTilesUid, checkStartMenu, removeStartMenuTiles, removeStartMenuTilesUid, repositionStartMenuPined, repositionStartMenuTiles } from '../../services/actions/start-menu';
 import StartMenuIcon from '../start-menu-icon/start-menu-icon';
 import StartMenuTile from '../start-menu-tile/start-menu-tile';
 import Sortable from '../../utils/sortable/sortable';
@@ -161,23 +161,25 @@ const App = () => {
         useSensor(PointerSensor, { activationConstraint: { distance: 10 } })
     );
 
-    const dropAnimation = isDrag?{
-        duration: 500,
-        easing: 'cubic-bezier(0.18, 0.67, 0.6, 1.22)',
-      }:null;
+    // const dropAnimation = isDrag?{
+    //     duration: 500,
+    //     easing: 'cubic-bezier(0.18, 0.67, 0.6, 1.22)',
+    // }:null;
 
     return(
         <main className={css.mainContainer} onContextMenu={(e:any) => e.preventDefault()}>
             <DndContext collisionDetection={pointerWithin} onDragStart={handleDragStart} onDragOver={handleDragOver} onDragEnd={handleDragEnd} autoScroll={false} sensors={dndSensors}>
                 <Background blurState={backgroundBlurState} />
                 <StartMenuBar view={isStartMenu} />
-                <DragOverlay dropAnimation={dropAnimation}>
-                {activeDnd.type=='startMenuIcon'?(<StartMenuIcon id={activeDnd.id} />):null}    
-                {activeDnd.type=='startMenuTile'?(<StartMenuTile id={activeDnd.id} />):null}    
-                {activeDnd.type=='navBarIcon'?(<NavBarIcon id={activeDnd.id} />):null}    
-                </DragOverlay>
                 <ContentBar view={!isStartMenu} />
                 <BottomBar />
+                <DragOverlay  modifiers={[snapCenterToCursor]}>
+                    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        {activeDnd.type=='startMenuIcon'?(<StartMenuIcon id={activeDnd.id} />):null}    
+                        {activeDnd.type=='startMenuTile'?(<StartMenuTile id={activeDnd.id} />):null}    
+                        {activeDnd.type=='navBarIcon'?(<NavBarIcon id={activeDnd.id} />):null}   
+                    </div> 
+                </DragOverlay>
             </DndContext>
         </main>
     )

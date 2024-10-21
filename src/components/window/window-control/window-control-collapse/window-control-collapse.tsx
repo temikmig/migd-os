@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import css from '../window-control.module.css';
 
-const WindowControlCollapse = () => {
+const WindowControlCollapse = ({handleClick}:any) => {
     return(
-        <svg width="18" height="18" viewBox="0 0 30 30">
+        <svg width="18" height="18" viewBox="0 0 30 30" onClick={handleClick}>
             <g id="WiD33OK5" transform="matrix(-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,28.749998211860657,27.4962504196167)">
                 <g transform="">
                     <g id="WiD33OK5_origin" transform="skewX(0) skewY(0)" className={css.buttonCollapse}>

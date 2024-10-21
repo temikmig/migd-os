@@ -18,6 +18,7 @@ export type TWindow = {
         isCollapse: boolean;
         isDragging: boolean;
         isActive: boolean;
+        isScreenActive: boolean;
     }
     winProps: {
         maxWidth?: number;

@@ -3,8 +3,11 @@ import {
     RESIZE_WINDOW, 
     REPOSITION_WINDOW,
     TO_ACTIVE_WINDOW,
+    TO_ACTIVE_SCREEN_WINDOW,
+    TO_DISACTIVE_SCREEN_WINDOW,
     TO_DISACTIVE_WINDOWS,
     TO_EXPAND_WINDOW,
+    TO_COLLAPSE_WINDOW,
     CLOSE_WINDOW
 } from '../constants/open-windows';
 
@@ -68,15 +71,29 @@ export const toActiveWindow = (id:any):any => ({
     id
 });
 
-export const toDisactiveWindows = (id:any):any => ({
-    type: TO_DISACTIVE_WINDOWS,
+export const toActiveScreenWindow = (id:any):any => ({
+    type: TO_ACTIVE_SCREEN_WINDOW,
     id
+});
+
+export const toDisactiveScreenWindow = ():any => ({
+    type: TO_DISACTIVE_SCREEN_WINDOW,
+});
+
+export const toDisactiveWindows = ():any => ({
+    type: TO_DISACTIVE_WINDOWS
 });
 
 export const toExpandWindow = (id:any, isExpand:boolean):any => ({
     type: TO_EXPAND_WINDOW,
     id,
     isExpand
+});
+
+export const toCollapseWindow = (id:any, isCollapse:boolean):any => ({
+    type: TO_COLLAPSE_WINDOW,
+    id,
+    isCollapse
 });
 
 export const closeWindow = (uid:any):any => ({

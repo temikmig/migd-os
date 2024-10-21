@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useRef } from 'react';
 import css from './nav-bar-context-menu.module.css';
 import { TNavBarIcon } from '../../../utils/types';
-import { useDispatch, useSelector } from '../../../services/types/hooks';
+import { useDispatch, useOutsideAlerter, useSelector } from '../../../services/types/hooks';
 import { closeWindow } from '../../../services/actions/open-windows';
 import { actionOpenApp } from '../../../ui/ui';
 import { FILEGUIDE_APP } from '../../../utils/config';
@@ -52,8 +52,13 @@ const NavBarContextMenu:any = ({appId, handleOpenApp, setIsContextMenu}:any) => 
         }, 300);
     }
 
+    const outsideAlerterRef = useOutsideAlerter(() => {
+        setIsContextMenu(false);
+        console.log('outContext')
+    });
+
     return(
-        <div className={css.startMenuContextMenuCont}>
+        <div className={css.startMenuContextMenuCont} ref={outsideAlerterRef}>
             <div className={css.startMenuContextMenu}>
                 {!isPined?
                 <div className={css.startMenuContextMenuGroup}>   

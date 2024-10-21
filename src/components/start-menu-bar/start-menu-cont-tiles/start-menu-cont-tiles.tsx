@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import css from './start-menu-cont-tiles.module.css';
 import StartMenuTile from '../../start-menu-tile/start-menu-tile';
 import { useSelector } from '../../../services/types/hooks';
@@ -11,6 +11,8 @@ import cssTile from '../../start-menu-tile/start-menu-tile.module.css';
 
 const StartMenuContTiles = () => {
     const items = useSelector((store) => store.startMenu.tiles);
+
+    const sortableItems = useMemo(() => items.map((item:any) => item.uid), [items]);
 
     const { isOver, setNodeRef } = useDroppable({
         id: "startMenuTilesCont",
@@ -27,7 +29,7 @@ const StartMenuContTiles = () => {
       }
 
     return(
-        <SortableContext items={items.map((item:any) => item.uid)}>
+        <SortableContext items={sortableItems}>
         <div className={css.startMenuTilesCont} ref={setNodeRef}>
             {/* <TransitionGroup component={null}> */}
             {items.map((item:any, index:number) => {

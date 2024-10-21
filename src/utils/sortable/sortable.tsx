@@ -30,11 +30,10 @@ const Sortable = (props:any) => {
     const style = {
         left: undefined,
         top: undefined,
-        transform: transform?dndKitCSS.Transform.toString(transform):'',
+        transform: transform?dndKitCSS.Transform.toString(transform):undefined,
         // transition: 'transform 400ms ease',
         transition: transition,
         opacity: isDragging?'0.2':'1',
-        // width: isDragging&&props.type=='startMenuTile'?0:undefined
     };
 
     return(
