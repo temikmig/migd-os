@@ -284,8 +284,7 @@ const Resizable = (props:any) => {
             top: mod.top,
             left: mod.left,
             width: mod.width,
-            height: mod.height,
-            active: true
+            height: mod.height
         }));
 
         document.onmousemove = null;

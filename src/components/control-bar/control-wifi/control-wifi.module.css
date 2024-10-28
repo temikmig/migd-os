@@ -1,0 +1,14 @@
+.controlWifiCont {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+}
+
+h1.header {
+    padding: 0px 0px 0px 0px;
+    margin: 0px;
+    font-size: 14px;
+    color: #353535;
+    user-select: none;
+}

@@ -19,6 +19,10 @@
     background: #800a0a;
 }
 
+.stateBatteryInsideGreen {
+    background: #068a46;
+}
+
 .stateBattery:after {
     content: '';
     display: block;

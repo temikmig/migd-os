@@ -1,0 +1,40 @@
+.controlCenterCont {
+    width: 310px;
+    /* box-sizing: border-box; */
+    border-radius: 10px;
+    border: 1px rgb(209 205 205 / 10%) solid;
+    background: #aeaeae;
+    /* backdrop-filter: blur(5px); */
+    position: absolute;
+    bottom: 50px;
+    right: 0px;
+    z-index: 9999;
+    filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.3));
+    overflow: hidden;
+}
+
+.controlCenterHandlerCont {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+    padding: 10px;
+}
+
+.controlCenterHandlerSliderCont {
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    /* border-top: 1px rgb(148, 148, 148) solid; */
+    background: #c8c8c8;
+    box-shadow: 0px -2px 5px -1px rgba(0, 0, 0, 0.25);
+}
+
+.controlCenterHandlerSlider {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    background: #cbcbcb;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+}

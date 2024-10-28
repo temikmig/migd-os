@@ -21,7 +21,9 @@ import { SwitchTransition } from 'react-transition-group';
 import { CSSTransition } from 'react-transition-group';
 
 const StartMenuContApps = () => {
-    const [ showPined, setShowPined ] = useState(true);
+    const pined = useSelector((store) => store.startMenu.pined);
+
+    const [ showPined, setShowPined ] = useState((pined.length>0?true:false));
 
     const contTransition = {
         enter: showPined?css.contEnter:css.contEnterL,
@@ -37,13 +39,13 @@ const StartMenuContApps = () => {
     return(
         <div className={css.startMenuAppsCont}>
             <div className={css.startMenuAppsSwitch}>
-                <div className={`${css.startMenuAppsSwitchItem} ${showPined&&css.startMenuAppsSwitchItemActive}`} onClick={e => setShowPined(true)}>Закрепленные</div>
+                {pined.length>0&&<div className={`${css.startMenuAppsSwitchItem} ${showPined&&css.startMenuAppsSwitchItemActive}`} onClick={e => setShowPined(true)}>Закрепленные</div>}
                 <div className={`${css.startMenuAppsSwitchItem} ${!showPined&&css.startMenuAppsSwitchItemActive}`} onClick={e => setShowPined(false)}>Все приложения</div>
             </div>
             <SwitchTransition>
                 <CSSTransition timeout={300} classNames={contTransition} nodeRef={nodeRef} key={showPined?'pined':'all'}>
                     <div ref={nodeRef}>
-                    {showPined?<StartMenuContAppsListPined />:<StartMenuContAppsListAll />}
+                    {showPined?<StartMenuContAppsListPined setShowPined={setShowPined} />:<StartMenuContAppsListAll setShowPined={setShowPined} />}
                     </div>
                 </CSSTransition>
             </SwitchTransition>

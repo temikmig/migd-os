@@ -14,20 +14,12 @@ const WindowsBar = () => {
       exitActive: cssWindow.windowContExitActive
     }
 
-    const winCollapseTransition = {
-      enter: cssWindow.windowCollapseContEnter,
-      enterActive: cssWindow.windowCollapseContEnterActive,
-      exit: cssWindow.windowCollapseContExit,
-      exitActive: cssWindow.windowCollapseContExitActive
-    }
-
-    const openedWindows = useSelector((store) => store.openedWindows.data);//.filter((window:any) => window.winStates.isCollapse==false);
+    const openedWindows = useSelector((store) => store.openedWindows.data);
   
     return(
             <TransitionGroup component={null}>
               {openedWindows&&openedWindows.map((openedWindow:any) => {
                 const itemRef:any = React.createRef();
-                // const isCollapse = openedWindow.winStates.isCollapse;
                 return(
                 <CSSTransition nodeRef={itemRef} classNames={winTransition} timeout={300} key={openedWindow.id}>
                   <Window refs={itemRef} title={openedWindow.title} key={openedWindow.id} id={openedWindow.id} properties={openedWindow.properties} winProps={openedWindow.winProps} winStates={openedWindow.winStates} application={openedWindow.application} applicationId={openedWindow.applicationId}  />

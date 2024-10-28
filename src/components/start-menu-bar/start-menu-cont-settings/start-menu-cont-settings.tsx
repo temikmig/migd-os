@@ -8,7 +8,7 @@ const StartMenuContSettings = ({view}:any) => {
     return(
         <div className={css.startSettings}>
             <StartMenuContSettingsSettings />
-            <StartMenuContSettingsShutdown />
+            {/* <StartMenuContSettingsShutdown /> */}
         </div>
     );
 }

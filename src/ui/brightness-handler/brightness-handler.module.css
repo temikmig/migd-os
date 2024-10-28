@@ -1,0 +1,14 @@
+.brightnessHandlerCont {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    user-select: none;
+}
+
+.brightnessHandlerIcon {
+    width: 20px;
+}
+
+.brightnessHandlerSlider {
+    flex: auto;
+}

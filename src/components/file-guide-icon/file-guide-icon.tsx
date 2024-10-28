@@ -65,7 +65,6 @@ const FileGuideIcon = ({id, active, props}:any) => {
             },
             winProps: currentProps,
             winStates: {
-              isActive: true,
               isExpand: false,
               isCollapse: false,
               isDragging: true

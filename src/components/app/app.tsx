@@ -109,7 +109,7 @@ const App = () => {
 
         if(type=='startMenuIcon') {
             const { active, over } = ev;
-            if (!over||active.id === over.id) {
+            if (!over||active.id === over.id||pinedApplications.length==0) {
                 return;
             }
 
@@ -166,8 +166,12 @@ const App = () => {
     //     easing: 'cubic-bezier(0.18, 0.67, 0.6, 1.22)',
     // }:null;
 
+    const brightnessLevel = useSelector((store) => store.system.brightness);
+    const brightness = 30+(0.7*brightnessLevel);
+
+
     return(
-        <main className={css.mainContainer} onContextMenu={(e:any) => e.preventDefault()}>
+        <main id="main" style={{filter: 'brightness('+brightness+'%)'}} className={css.mainContainer} onContextMenu={(e:any) => e.preventDefault()}>
             <DndContext collisionDetection={pointerWithin} onDragStart={handleDragStart} onDragOver={handleDragOver} onDragEnd={handleDragEnd} autoScroll={false} sensors={dndSensors}>
                 <Background blurState={backgroundBlurState} />
                 <StartMenuBar view={isStartMenu} />

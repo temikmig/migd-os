@@ -6,6 +6,7 @@ import { startMenuReducer } from './start-menu';
 import { desktopIconsPositionReducer } from './desktop-icons';
 import { applicationsReducer } from './applications';
 import { navBarReducer } from './nav-bar';
+import { systemReducer } from './system';
 
 export const rootReducer = combineReducers({
     openedWindows: openedWindowsReducer,
@@ -13,5 +14,6 @@ export const rootReducer = combineReducers({
     startMenu: startMenuReducer,
     desktopIconsPosition: desktopIconsPositionReducer,
     applications: applicationsReducer,
-    navBar: navBarReducer
+    navBar: navBarReducer,
+    system: systemReducer
 });

@@ -1,3 +1,7 @@
+.dateBarCont {
+    position: relative;
+}
+
 .dateBar {
     height: 40px;
     width: 100px;
@@ -10,6 +14,19 @@
     background: rgb(255 255 255 / 20%);
     backdrop-filter: blur(5px);
     flex-direction: column;
+    user-select: none;
+}
+
+.dateBarActive {
+    background: rgb(255 255 255 / 60%);
+}
+
+.dateBar:hover {
+    background: rgb(255 255 255 / 30%);
+}
+
+.dateBarActive:hover {
+    background: rgb(255 255 255 / 50%);
 }
 
 .dateBarClock {

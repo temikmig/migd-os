@@ -13,7 +13,9 @@ import {
 
 const initialState:any = {
     data: [],
-    isScreensShow: false
+    isScreensShow: false,
+    activeWindow: null,
+    activeScreenWindow: null
 };
 
 export const openedWindowsReducer = (state = initialState, action:any) => { 
@@ -21,7 +23,8 @@ export const openedWindowsReducer = (state = initialState, action:any) => {
         case OPEN_WINDOW: return { 
             ...state, 
             data: [...state.data, action.windowData],
-            isScreensShow: false
+            isScreensShow: false,
+            activeWindow: action.windowData.id
         }
 
         case RESIZE_WINDOW: {
@@ -30,7 +33,8 @@ export const openedWindowsReducer = (state = initialState, action:any) => {
             return { 
                 ...state, 
                 data: state.data.map((window:any) => action.id==window.id?{...window, properties: windowProperties}:{...window}),
-                isScreensShow: false
+                isScreensShow: false,
+                activeWindow: action.id
             }
         }
 
@@ -39,8 +43,9 @@ export const openedWindowsReducer = (state = initialState, action:any) => {
             
             return { 
                 ...state, 
-                data: state.data.map((window:any) => action.id==window.id?{...window, winStates: {...window.winStates, isCollapse: false, isActive: true}}:{...window, winStates: {...window.winStates,  isActive: false}}),
-                isScreensShow: false
+                data: state.data.map((window:any) => action.id==window.id?{...window, winStates: {...window.winStates, isCollapse: false}}:{...window, winStates: {...window.winStates}}),
+                isScreensShow: false,
+                activeWindow: action.id
             }
         }
 
@@ -49,23 +54,24 @@ export const openedWindowsReducer = (state = initialState, action:any) => {
             
             return { 
                 ...state, 
-                data: state.data.map((window:any) => action.id==window.id?{...window, winStates: {...window.winStates, isScreenActive: true}}:{...window, winStates: {...window.winStates,  isScreenActive: false}}),
-                isScreensShow: true
+                isScreensShow: true,
+                activeScreenWindow: action.id
             }
         }
 
         case TO_DISACTIVE_SCREEN_WINDOW: {      
             return { 
                 ...state, 
-                isScreensShow: false
+                isScreensShow: false,
+                activeScreenWindow: null
             }
         }
 
         case TO_DISACTIVE_WINDOWS: { 
             return { 
                 ...state, 
-                data: state.data.map((window:any) => { return {...window, winStates: {...window.winStates, isActive: false}}}),
-                isScreensShow: false
+                isScreensShow: false,
+                activeWindow: null
             }
         }
 
@@ -85,7 +91,8 @@ export const openedWindowsReducer = (state = initialState, action:any) => {
             return { 
                 ...state, 
                 data: state.data.map((window:any) => action.id==window.id?{...window, winStates: {...window.winStates, isCollapse: isCollapse}}:{...window, winStates: {...window.winStates}}),
-                isScreensShow: false
+                isScreensShow: false,
+                activeWindow: null
             }
         }
 

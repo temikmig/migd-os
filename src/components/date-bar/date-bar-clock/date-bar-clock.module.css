@@ -1,0 +1,14 @@
+.dateBarClockCont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dateBarClockTime {
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.dateBarClockDate {
+    font-size: 10px;
+}

@@ -12,6 +12,7 @@ import cssContextMenu from '../nav-bar-context-menu/nav-bar-context-menu.module.
 import { createPortal } from 'react-dom';
 import { toActiveWindow } from '../../../services/actions/open-windows';
 import NavBarContextScreens from '../nav-bar-context-screens/nav-bar-context-screens';
+import ContextMenuBottom from '../../../utils/context-menu-bottom/context-menu-bottom';
 
 
 const NavBarIcon:FC<TNavBarIcon> = ({id, sortable, isPined}) => {
@@ -89,18 +90,8 @@ const NavBarIcon:FC<TNavBarIcon> = ({id, sortable, isPined}) => {
             <div className={css.navBarIcon}>
                 <img src={sortable&&id==FILEGUIDE_APP?'/apps-icons/folder.svg':icon} />
             </div>
-            <TransitionGroup component={null}>
-            {showScreens&&
-            <CSSTransition classNames={navBarContextTransitions} timeout={200}>
-                <NavBarContextScreens appId={id} setShowScreens={setShowScreens} />
-            </CSSTransition>
-            }
-            {isContextMenu&&
-            <CSSTransition classNames={navBarContextTransitions} timeout={200}>
-                <NavBarContextMenu appId={id} handleOpenApp={handleOpenApp} setIsContextMenu={setIsContextMenu} />
-            </CSSTransition>
-            }
-            </TransitionGroup>
+            <ContextMenuBottom view={showScreens}><NavBarContextScreens appId={id} setShowScreens={setShowScreens} /></ContextMenuBottom>
+            <ContextMenuBottom view={isContextMenu}><NavBarContextMenu appId={id} handleOpenApp={handleOpenApp} setIsContextMenu={setIsContextMenu} /></ContextMenuBottom>
         </div>
     )
 }

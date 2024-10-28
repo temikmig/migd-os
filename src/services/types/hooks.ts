@@ -5,7 +5,7 @@ import {
 } from 'react-redux';
 
 import { AppDispatch, RootState } from '../types';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
   
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
 
@@ -69,4 +69,21 @@ export const useOutsideClick = (initialValue:boolean) => {
   });
 
   return { ref, isActive, setIsActive };
+};
+
+export const useContextMenu = () => {
+  const [contextMenuVisible, setContextMenuVisible] = useState(false);
+  const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
+
+  const showContextMenu = useCallback((e:any) => {
+    e.preventDefault();
+    setMenuPosition({ x: e.pageX, y: e.pageY });
+    setContextMenuVisible(true);
+  }, []);
+
+  const hideContextMenu = useCallback(() => {
+    setContextMenuVisible(false);
+  }, []);
+
+  return { showContextMenu, hideContextMenu, contextMenuVisible, menuPosition };
 };

@@ -27,14 +27,13 @@ const Window:FC<TWindow> = ({title, id, properties, winProps, winStates, applica
         }
     });
 
-    const { isActive, isExpand, isCollapse, isDragging, isScreenActive } = winStates;
+    const { isExpand, isCollapse, isDragging } = winStates;
     const { canExpand, canCollapse } = winProps;
 
-    // const isScreenActive = false;
+    const { isScreensShow, activeWindow, activeScreenWindow }  = useSelector((store) => store.openedWindows);
 
-    const isScreensShow = useSelector((store) => store.openedWindows.isScreensShow);
-    
-    // const isScreensShow = false;
+    const isActive = activeWindow==id?true:false;
+    const isScreenActive = activeScreenWindow==id?true:false;
 
     const listenersOnState = isDragging ? { ...listeners } : undefined;
 
@@ -44,7 +43,8 @@ const Window:FC<TWindow> = ({title, id, properties, winProps, winStates, applica
         width: !isExpand?`${properties.width}px`:`100%`,
         height: !isExpand?`${properties.height}px`:`100%`,
         transition: isExpand?`0.3s`:undefined,
-        zIndex: isActive||isScreenActive?10:undefined, 
+        pointerEvents: isCollapse?`none`:undefined,
+        zIndex: isActive||isScreenActive?10:isCollapse?1:undefined, 
         transform: dndKitCSS.Translate.toString(transform)
     }
 

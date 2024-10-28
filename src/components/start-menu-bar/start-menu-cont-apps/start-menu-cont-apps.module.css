@@ -12,7 +12,8 @@
 }
 
 .startMenuAppsSwitchItem {
-    width: 50%;
+    min-width: 50%;
+    flex: auto;
     font-size: 12px;
     font-weight: bold;
     color: rgba(255, 255, 255, 0.5);

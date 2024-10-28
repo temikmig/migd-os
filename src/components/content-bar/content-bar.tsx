@@ -30,10 +30,10 @@ const ContentBar = ({view}:any) => {
 
     const [activeIcon, setActiveIcon]:any = useState(null);
 
-    const openedWindows = useSelector((store) => store.openedWindows.data);
+    const openedWindows = useSelector((store) => store.openedWindows);
 
     function handleDragStart(ev:any) {
-      const isActiveWindow = openedWindows.find((window:any) => window.id==ev.active.id).winStates.isActive;
+      const isActiveWindow = openedWindows.activeWindow==ev.active.id?true:false;
 
       const type = ev.active.data.current.type;
 
@@ -65,7 +65,7 @@ const ContentBar = ({view}:any) => {
       }
 
       if(type=='window') {
-        const openedWindow:any = openedWindows.find((window:any) => window.id === ev.active.id);
+        const openedWindow:any = openedWindows.data.find((window:any) => window.id === ev.active.id);
 
         dispatch(repositionWindow(ev.active.id, {
           left: openedWindow.properties.left + ev.delta.x,

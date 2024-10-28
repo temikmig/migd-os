@@ -1,6 +1,6 @@
 import { 
     REPOSITION_NAV_BAR,
-    ADD_NAV_BAR_UID,
+    ADD_NAV_BAR,
     REMOVE_NAV_BAR
 } from '../constants/nav-bar';
 
@@ -28,7 +28,7 @@ export const navBarReducer = (state = initialState, action:any) => {
             apps: action.navBarApps
         }
 
-        case ADD_NAV_BAR_UID: return { 
+        case ADD_NAV_BAR: return { 
             ...state, 
             apps: [{id: action.id, uid: action.uid}, ...state.apps]
         }

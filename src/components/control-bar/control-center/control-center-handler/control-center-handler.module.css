@@ -1,0 +1,34 @@
+.controlCenterHandler {
+    width: 90px;
+    height: 60px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background: #cbcbcb;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    padding: 10px 0px 0px 0px;
+    user-select: none;
+}
+
+.controlCenterHandlerActive {
+    background: #4d9eef;
+    color: #fff;
+}
+
+.controlCenterHandlerActive svg g {
+    fill: #fff;
+}
+
+.controlCenterHandlerIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+}
+
+.controlCenterHandlerTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    height: 30px;
+}

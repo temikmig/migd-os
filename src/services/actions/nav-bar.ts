@@ -1,6 +1,7 @@
 import uuid from 'react-uuid';
 import {
     REPOSITION_NAV_BAR,
+    ADD_NAV_BAR,
     ADD_NAV_BAR_UID,
     REMOVE_NAV_BAR
 } from '../constants/nav-bar';
@@ -10,8 +11,18 @@ export const repositionNavBar = (navBarApps:any):any => ({
     navBarApps
 });
 
+export const addNavBar = (id:string):any => {
+    const uid = uuid();
+    
+    return({
+        type: ADD_NAV_BAR, 
+        id,
+        uid
+    });
+};
+
 export const addNavBarUid = (id:string, uid:string):any => ({
-    type: ADD_NAV_BAR_UID, 
+    type: ADD_NAV_BAR, 
     id, 
     uid
 });

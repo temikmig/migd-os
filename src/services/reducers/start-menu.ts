@@ -1,6 +1,12 @@
 import { 
     CHECK_START_MENU, 
+
     REPOSITION_START_MENU_PINED,
+    ADD_START_MENU_PINED,
+    ADD_START_MENU_PINED_UID,
+    REMOVE_START_MENU_PINED,
+    REMOVE_START_MENU_PINED_UID,
+    
     REPOSITION_START_MENU_TILES,
     ADD_START_MENU_TILES,
     ADD_START_MENU_TILES_UID,
@@ -62,6 +68,26 @@ export const startMenuReducer = (state = initialState, action:any) => {
         case REPOSITION_START_MENU_PINED: return { 
             ...state, 
             pined: action.startMenuApps
+        }
+
+        case ADD_START_MENU_PINED: return { 
+            ...state, 
+            pined: [{id: action.id, uid: action.uid}, ...state.pined]
+        }
+
+        case ADD_START_MENU_PINED_UID: return { 
+            ...state, 
+            pined: [{id: action.id, uid: action.uid}, ...state.pined]
+        }
+
+        case REMOVE_START_MENU_PINED: return { 
+            ...state, 
+            pined: state.pined.filter((item:any) => action.id!==item.id)
+        }
+
+        case REMOVE_START_MENU_PINED_UID: return { 
+            ...state, 
+            pined: state.pined.filter((item:any) => action.uid!==item.uid)
         }
 
         case REPOSITION_START_MENU_TILES: return { 

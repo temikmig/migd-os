@@ -31,6 +31,7 @@ const NavBarContextMenuAppScreen:any = ({id, title, setShowScreens}:any) => {
         setShowScreens(false);
 
         dispatch(toActiveWindow(id));
+        dispatch(toDisactiveScreenWindow());
     }
 
     const handleMouseEnter = (e:any) => {

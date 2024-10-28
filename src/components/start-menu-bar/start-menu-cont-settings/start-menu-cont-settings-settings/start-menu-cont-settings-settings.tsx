@@ -4,7 +4,7 @@ import { CSSTransition } from 'react-transition-group';
 
 const StartMenuContSettingsSettings = ({view}:any) => {
     return(
-        <div className={css.settingsIcon}></div>
+        <div className={css.settingsIcon}>Открыть настройки</div>
     );
 }
 

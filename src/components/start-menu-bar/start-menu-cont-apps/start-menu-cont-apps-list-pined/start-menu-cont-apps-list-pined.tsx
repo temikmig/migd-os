@@ -21,7 +21,7 @@ import { arrayMove, SortableContext, rectSortingStrategy } from '@dnd-kit/sortab
 import { snapCenterToCursor } from '@dnd-kit/modifiers';
 import Sortable from '../../../../utils/sortable/sortable';
 
-const StartMenuContAppsListPined = ({view}:any) => {
+const StartMenuContAppsListPined = ({view, setShowPined}:any) => {
     const items = useSelector((store) => store.startMenu.pined);
 
     const sortableItems = useMemo(() => items.map((item:any) => item.uid), [items]);
@@ -38,7 +38,7 @@ const StartMenuContAppsListPined = ({view}:any) => {
             <div className={css.startMenuAppsContList} ref={setNodeRef}>
                 {items.map((item:any, index:number) => 
                 <Sortable type="startMenuIcon" id={item.id} uid={item.uid} key={item.uid} >
-                    <StartMenuIcon id={item.id} index={index}  key={item.uid}/>  
+                    <StartMenuIcon setShowPined={setShowPined} id={item.id} index={index}  key={item.uid}/>  
                 </Sortable> 
                 )} 
             </div>

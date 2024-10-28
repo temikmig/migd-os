@@ -43,6 +43,7 @@
 
 .windowCont.windowContCollapse {
     opacity: 0;
+    pointer-events: none;
     transform: translateY(150px);
     transition: opacity 300ms, transform 300ms;
 }

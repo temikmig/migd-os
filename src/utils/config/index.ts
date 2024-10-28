@@ -13,6 +13,9 @@ export const DOCUMENT_WIDTH = window.innerWidth;
 export const FILEGUIDE_APP = '00000000-0000-0000-0000-000000000000';
 export const DELETE_BIN_APP = '00000000-0000-0000-0000-000000000001';
 
+export const CALENDAR_BEG = {year: 1900, month: 0};
+export const CALENDAR_END =  {year: 2100, month: 11};
+
 export const defaultAppProps = {
     canExpand: false,
     canCollapse: true,

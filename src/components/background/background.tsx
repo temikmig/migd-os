@@ -24,7 +24,7 @@ const Background = ({blurState}:any) => {
 
     return(
         <div className={`${css.background} ${backgroundClass}`} onMouseDown={handleOutside}>
-            <img src="/backgrounds/bg-4.jpg" />
+            <img src="/backgrounds/bg-1.jpg" />
         </div>
     )
 }
