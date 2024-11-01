@@ -1,35 +1,28 @@
-import React, { FC, useEffect, useRef } from 'react';
+import { FC, useEffect } from 'react';
 import css from './nav-bar-context-screens.module.css';
-import { TNavBarIcon } from '../../../utils/types';
-import { useDispatch, useOutsideAlerter, useOutsideClick, useSelector } from '../../../services/types/hooks';
-import { closeWindow } from '../../../services/actions/open-windows';
-import { actionOpenApp } from '../../../ui/ui';
-import { FILEGUIDE_APP } from '../../../utils/config';
-import { addNavBarUid, removeNavBar } from '../../../services/actions/nav-bar';
-import uuid from 'react-uuid';
-import { useScreenshot } from 'use-react-screenshot';
+import { useSelector } from '../../../services/types/hooks';
 import NavBarContextMenuAppScreen from './nav-bar-context-menu-app-screen/nav-bar-context-menu-app-screen';
+import { IApplicationItem } from '../../../services/reducers/applications';
+import { IOpenWindowItem } from '../../../services/reducers/open-windows';
 
-const NavBarContextScreens:any = ({appId, handleOpenApp, setShowScreens}:any) => {
-    const dispatch = useDispatch();
+type T = {
+    appId: string,
+    setShowScreens: (showScreens:boolean) => void
+}
 
+const NavBarContextScreens:FC<T> = ({appId, setShowScreens}) => {
     const applications = useSelector((store) => store.applications.data);
 
-    const { title } = applications.find((app:any) => app.id==appId);
+    const { title } = applications.find((app:IApplicationItem) => app.id==appId);
 
     const allOpenedWindows = useSelector((store) => store.openedWindows.data);
 
-    const openedWindows = allOpenedWindows.filter((item:any) => item.applicationId==appId).map((item:any) => item.id);
+    const openedWindows = allOpenedWindows.filter((item:IOpenWindowItem) => item.applicationId==appId).map((item:IOpenWindowItem) => item.id);
     
     useEffect(() => {
         if(openedWindows.length==0) setShowScreens(false);
     }, [openedWindows]);
 
-    // const outsideAlerterRef = useOutsideAlerter(() => {
-    //     setShowScreens(false);
-    //     console.log('outScreen')
-    // });
-    
     return(
         <div className={css.startMenuContextMenuCont}>
             <div className={css.startMenuContextMenu}>

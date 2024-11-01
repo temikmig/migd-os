@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, MouseEvent, useState } from 'react';
 import css from './control-center.module.css';
 import { useDispatch, useSelector } from '../../../services/types/hooks';
 import { changeBluetooth, changeFlightmode, changeFocusmode, changeHotspot, changeVpn, changeWifi } from '../../../services/actions/system';
@@ -12,32 +12,32 @@ import ControlCenterHandlerIconFocusmode from './control-center-handler-icons/co
 import ControlCenterHandlerIconHotspot from './control-center-handler-icons/control-center-handler-icon-hotspot';
 import ControlCenterHandlerIconVPN from './control-center-handler-icons/control-center-handler-icon-vpn';
 
-const ControlCenter:any = () => {
+const ControlCenter:FC = () => {
     const { wifi, bluetooth, flightmode, focusmode, hotspot, vpn } = useSelector((store) => store.system);
 
     const dispatch = useDispatch();
 
-    const handleChangeWifi = (e:any) => {
+    const handleChangeWifi = (e:MouseEvent<HTMLDivElement>) => {
         dispatch(changeWifi(!wifi));
     }
 
-    const handleChangeBluetooth = (e:any) => {
+    const handleChangeBluetooth = (e:MouseEvent<HTMLDivElement>) => {
         dispatch(changeBluetooth(!bluetooth));
     }
 
-    const handleChangeFlightmode = (e:any) => {
+    const handleChangeFlightmode = (e:MouseEvent<HTMLDivElement>) => {
         dispatch(changeFlightmode(!flightmode));
     }
 
-    const handleChangeFocusmode = (e:any) => {
+    const handleChangeFocusmode = (e:MouseEvent<HTMLDivElement>) => {
         dispatch(changeFocusmode(!focusmode));
     }
 
-    const handleChangeHotspot = (e:any) => {
+    const handleChangeHotspot = (e:MouseEvent<HTMLDivElement>) => {
         dispatch(changeHotspot(!hotspot));
     }
 
-    const handleChangeVPN = (e:any) => {
+    const handleChangeVPN = (e:MouseEvent<HTMLDivElement>) => {
         dispatch(changeVpn(!vpn));
     }
 

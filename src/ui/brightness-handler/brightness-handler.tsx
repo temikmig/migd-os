@@ -1,18 +1,18 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import { FC, MouseEvent } from 'react';
 import css from './brightness-handler.module.css';
-import VolumeIcon from '../volume-icon/volume-icon';
 import SliderComponent from '../slider-component/slider-component';
 import { useDispatch, useSelector } from '../../services/types/hooks';
-import { changeBrightness, changeVolume } from '../../services/actions/system';
+import { changeBrightness } from '../../services/actions/system';
 import BrightnessIcon from '../brightness-icon/brightness-icon';
 
-const BrightnessHandler:any = () => {
+const BrightnessHandler:FC = () => {
     const brightnessLevel = useSelector((store) => store.system.brightness);
 
     const dispatch = useDispatch();
 
-    const handleChandeBrightness = (e:any) => {
-        const value = e.target.value;
+    const handleChandeBrightness = (e:MouseEvent<HTMLInputElement>) => {
+        const inputTarget = e.target as HTMLInputElement;
+        const value = Number(inputTarget.value);
         
         dispatch(changeBrightness(value));
     }

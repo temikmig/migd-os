@@ -1,11 +1,12 @@
-import React, { useRef } from 'react';
+import { FC, MouseEvent } from 'react';
 import css from './background.module.css';
-import ContentBar from '../content-bar/content-bar';
-import BottomBar from '../bottom-bar/bottom-bar';
-import { checkStartMenu } from '../../services/actions/start-menu';
 import { useDispatch } from '../../services/types/hooks';
 
-const Background = ({blurState}:any) => {
+type T = {
+    blurState: 1|2|3
+}
+
+const Background:FC<T> = ({blurState}) => {
 
     let backgroundClass
     switch (blurState) {
@@ -17,7 +18,7 @@ const Background = ({blurState}:any) => {
 
     const dispatch = useDispatch();
 
-    const handleOutside = () => {
+    const handleOutside = (e:MouseEvent<HTMLDivElement>) => {
         // dispatch(checkStartMenu(false));
         // console.log('adf');
     };

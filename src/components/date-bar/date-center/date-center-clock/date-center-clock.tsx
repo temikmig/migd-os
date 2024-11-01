@@ -1,8 +1,12 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, MouseEvent } from 'react';
 import css from './date-center-clock.module.css';
 import { ui_addNull, ui_heightCalendar, ui_monthName } from '../../../../ui/ui';
 
-const DateCenterClock:any = ({calendarRef}:any) => {
+type T = {
+    calendarRef: any
+}
+
+const DateCenterClock:FC<T> = ({calendarRef}) => {
     const date = new Date();
 
     const year = date.getFullYear();
@@ -35,7 +39,7 @@ const DateCenterClock:any = ({calendarRef}:any) => {
         return () => clearInterval(interval);
     }, []);
 
-    const handleToday = (e:any) => {
+    const handleToday = (e:MouseEvent<HTMLDivElement>) => {
         calendarRef.current.scrollTop = ui_heightCalendar({year: year, month: month, day: 1});
     }
 

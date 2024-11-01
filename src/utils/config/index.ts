@@ -27,7 +27,7 @@ export const defaultAppSizes = {
     height: 350
 }
 
-export function findNode(id:any, currentNode:any):any {
+export function findNode(id:string, currentNode:{id: string, children: any}):any {
     let currentChild, result;
 
     if(id==currentNode.id) {

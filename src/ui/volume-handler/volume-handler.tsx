@@ -1,24 +1,18 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState, MouseEvent } from 'react';
 import css from './volume-handler.module.css';
 import VolumeIcon from '../volume-icon/volume-icon';
 import SliderComponent from '../slider-component/slider-component';
 import { useDispatch, useSelector } from '../../services/types/hooks';
 import { changeVolume } from '../../services/actions/system';
 
-const VolumeHandler:any = () => {
+const VolumeHandler:FC = () => {
     const volumeLevel = useSelector((store) => store.system.volume);
-
-    // const [ volumeLevel, setVolumeLevel ] = useState(volume);
 
     const dispatch = useDispatch();
 
-    // const handleInputVolume = (e:any) => {
-    //     setVolumeLevel(e.target.value);
-    // }
-
-    const handleChangeVolume = (e:any) => {
-        const value = e.target.value;
-        
+    const handleChangeVolume = (e:MouseEvent<HTMLInputElement>) => {
+        const inputTarget = e.target as HTMLInputElement;
+        const value = Number(inputTarget.value);
         dispatch(changeVolume(value));
     }
   

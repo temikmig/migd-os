@@ -1,29 +1,29 @@
-import React, { useState, MouseEvent, useEffect } from 'react';
+import React, { MouseEvent, FC } from 'react';
 import css from './start-menu-icon.module.css';
-import { useDraggable } from '@dnd-kit/core';
-import { CSS as dndKitCSS } from '@dnd-kit/utilities';
-import { defaultAppProps, defaultAppSizes, defaultIcons, DOCUMENT_HEIGHT, DOCUMENT_WIDTH, findNode } from '../../utils/config';
+import { defaultAppProps, defaultAppSizes } from '../../utils/config';
 
 import * as appsList from '../../applications';
-import { useContextMenu, useDispatch, useOutsideAlerter, useSelector } from '../../services/types/hooks';
-import { openWindow } from '../../services/actions/open-windows';
-import uuid from 'react-uuid';
-import { mergeRefs } from 'react-merge-refs';
+import { useContextMenu, useDispatch, useSelector } from '../../services/types/hooks';
 import { addStartMenuPined, addStartMenuTiles, checkStartMenu, removeStartMenuPined, removeStartMenuTiles } from '../../services/actions/start-menu';
-import { useSortable } from '@dnd-kit/sortable';
 import { actionOpenApp } from '../../ui/ui';
 import { ContextMenu } from '../../utils/context-menu/context-menu';
 import { addNavBar, removeNavBar } from '../../services/actions/nav-bar';
+import { IApplicationItem } from '../../services/reducers/applications';
 
-const StartMenuIcon = ({id, active, setShowPined}:any) => {
+type T = {
+    id: string,
+    setShowPined: any//(showPined:boolean) => void
+}
+
+const StartMenuIcon:FC<T> = ({id, setShowPined}) => {
     const applications = useSelector((store) => store.applications.data);
     const pined = useSelector((store) => store.startMenu.pined);
 
-    const isPinedIcon = useSelector((store) => store.startMenu.pined)?.some((application:any) => application.id === id);
-    const isTilePinedIcon = useSelector((store) => store.startMenu.tiles)?.some((application:any) => application.id === id);
-    const isNavBarPinedIcon = useSelector((store) => store.navBar.apps)?.some((application:any) => application.id === id);
+    const isPinedIcon = useSelector((store) => store.startMenu.pined)?.some((application:IApplicationItem) => application.id === id);
+    const isTilePinedIcon = useSelector((store) => store.startMenu.tiles)?.some((application:IApplicationItem) => application.id === id);
+    const isNavBarPinedIcon = useSelector((store) => store.navBar.apps)?.some((application:IApplicationItem) => application.id === id);
 
-    const { title, icon, name } = applications.find((app:any) => app.id==id);
+    const { title, icon, name } = applications.find((app:IApplicationItem) => app.id==id);
 
     const dispatch = useDispatch();
 
@@ -49,29 +49,29 @@ const StartMenuIcon = ({id, active, setShowPined}:any) => {
 
     const { showContextMenu, hideContextMenu, contextMenuVisible, menuPosition } = useContextMenu();
     
-    const handleAddStartMenuTiles = (e:any) => {
+    const handleAddStartMenuTiles = (e:MouseEvent<HTMLDivElement>) => {
         dispatch(addStartMenuTiles(id))
     }
 
-    const handleRemoveStartMenuTiles = (e:any) => {
+    const handleRemoveStartMenuTiles = (e:MouseEvent<HTMLDivElement>) => {
         dispatch(removeStartMenuTiles(id))
     }
 
-    const handleAddStartMenuPined = (e:any) => {
+    const handleAddStartMenuPined = (e:MouseEvent<HTMLDivElement>) => {
         dispatch(addStartMenuPined(id))
     }
 
-    const handleRemoveStartMenuPined = (e:any) => {
+    const handleRemoveStartMenuPined = (e:MouseEvent<HTMLDivElement>) => {
         if(pined.length==1) setShowPined(false);
 
         dispatch(removeStartMenuPined(id));
     }
 
-    const handleAddNavBar = (e:any) => {
+    const handleAddNavBar = (e:MouseEvent<HTMLDivElement>) => {
         dispatch(addNavBar(id))
     }
 
-    const handleRemoveNavBar = (e:any) => {
+    const handleRemoveNavBar = (e:MouseEvent<HTMLDivElement>) => {
         dispatch(removeNavBar(id))
     }
     
@@ -89,7 +89,7 @@ const StartMenuIcon = ({id, active, setShowPined}:any) => {
         ]
     ];
 
-    const handleContextMenu = (e:any) => {
+    const handleContextMenu = (e:MouseEvent<HTMLDivElement>) => {
         showContextMenu(e);
     } 
 

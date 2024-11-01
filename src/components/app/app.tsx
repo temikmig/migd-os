@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { MouseEvent, useRef, useState } from 'react';
 import css from './app.module.css';
 import ContentBar from '../content-bar/content-bar';
 import BottomBar from '../bottom-bar/bottom-bar';
@@ -29,6 +29,8 @@ import uuid from 'react-uuid';
 import NavBarIcon from '../nav-bar/nav-bar-icon/nav-bar-icon';
 import { addNavBarUid, removeNavBar, repositionNavBar } from '../../services/actions/nav-bar';
 import { adjustScale } from '@dnd-kit/core/dist/utilities';
+import { INavBarItem } from '../../services/reducers/nav-bar';
+import { IStartMenuItem } from '../../services/reducers/start-menu';
 
 const App = () => {
     const dispatch = useDispatch();
@@ -44,9 +46,9 @@ const App = () => {
     const tilesApplications = startMenuApplications.tiles;
     const navBarApplications = useSelector((store) => store.navBar.apps);
 
-    const [activeDnd, setActiveDnd]:any = useState({id: null, uid: null, type: null});
-    const [startUid, setStartUid]:any = useState(null);
-    const [isDrag, setIsDrag]:any = useState(false);
+    const [activeDnd, setActiveDnd] = useState<{id: string, uid: string, type: string}>({id: '', uid: '', type: ''});
+    const [startUid, setStartUid] = useState('');
+    const [isDrag, setIsDrag] = useState(false);
 
     function handleDragStart(ev:any) {
         const id = ev.active.data.current.title;
@@ -64,8 +66,8 @@ const App = () => {
 
         
         const collision = ev.collisions.map((item:any) => item.id);
-        const includeTilesApplications = tilesApplications.map((item:any) => item.id);
-        const includeNavBarApplications = navBarApplications.map((item:any) => item.id);
+        const includeTilesApplications = tilesApplications.map((item:IStartMenuItem) => item.id);
+        const includeNavBarApplications = navBarApplications.map((item:INavBarItem) => item.id);
 
         if(type=='startMenuIcon') {
             if(collision.includes('startMenuTilesCont')||collision.includes('navBarCont')) {
@@ -115,9 +117,9 @@ const App = () => {
 
             if(over.id!='startMenuIconsCont'&&over.data.current.type!=type) setIsDrag(false);
 
-            const oldIndex = pinedApplications.map((item:any) => item.uid).findIndex((id:string) => id === active.id);
-            const newIndex = pinedApplications.map((item:any) => item.uid).findIndex((id:string) => id === over.id);
-            const repositionPinedApplications = arrayMove(pinedApplications, oldIndex, newIndex);
+            const oldIndex = pinedApplications.map((item:IStartMenuItem) => item.uid).findIndex((id:string) => id === active.id);
+            const newIndex = pinedApplications.map((item:IStartMenuItem) => item.uid).findIndex((id:string) => id === over.id);
+            const repositionPinedApplications:Array<IStartMenuItem> = arrayMove(pinedApplications, oldIndex, newIndex);
 
             if(activeDnd.type!='startMenuTile'&&activeDnd.type!='navBarIcon') dispatch(repositionStartMenuPined(repositionPinedApplications));
         }
@@ -130,9 +132,9 @@ const App = () => {
 
             if(over.id!='startMenuTilesCont'&&over.data.current.type!=type) setIsDrag(false);
 
-            const oldIndex = tilesApplications.map((item:any) => item.uid).findIndex((id:string) => id === active.id);
-            const newIndex = tilesApplications.map((item:any) => item.uid).findIndex((id:string) => id === over.id);
-            const repositionTilesApplications = arrayMove(tilesApplications, oldIndex, newIndex);
+            const oldIndex = tilesApplications.map((item:IStartMenuItem) => item.uid).findIndex((id:string) => id === active.id);
+            const newIndex = tilesApplications.map((item:IStartMenuItem) => item.uid).findIndex((id:string) => id === over.id);
+            const repositionTilesApplications:Array<IStartMenuItem> = arrayMove(tilesApplications, oldIndex, newIndex);
 
             dispatch(repositionStartMenuTiles(repositionTilesApplications));
         }
@@ -146,15 +148,15 @@ const App = () => {
             if(over.id!='navBarCont') setIsDrag(false);
             if(over.id!='startMenuIconsCont'&&over.data.current.type!=type) setIsDrag(false);
 
-            const oldIndex = navBarApplications.map((item:any) => item.uid).findIndex((id:string) => id === active.id);
-            const newIndex = navBarApplications.map((item:any) => item.uid).findIndex((id:string) => id === over.id);
-            const repositionNavBarApplications = arrayMove(navBarApplications, oldIndex, newIndex);
-
+            const oldIndex = navBarApplications.map((item:INavBarItem) => item.uid).findIndex((id:string) => id === active.id);
+            const newIndex = navBarApplications.map((item:INavBarItem) => item.uid).findIndex((id:string) => id === over.id);
+            const repositionNavBarApplications:Array<INavBarItem> = arrayMove(navBarApplications, oldIndex, newIndex);
+                
             dispatch(repositionNavBar(repositionNavBarApplications));
         }
         
-        setActiveDnd({id: null, uid: null, type: null});
-        setStartUid(null);
+        setActiveDnd({id: '', uid: '', type: ''});
+        setStartUid('');
     }
 
     const dndSensors = useSensors(
@@ -171,7 +173,7 @@ const App = () => {
 
 
     return(
-        <main id="main" style={{filter: 'brightness('+brightness+'%)'}} className={css.mainContainer} onContextMenu={(e:any) => e.preventDefault()}>
+        <main id="main" style={{filter: 'brightness('+brightness+'%)'}} className={css.mainContainer} onContextMenu={(e:MouseEvent<HTMLDivElement>) => e.preventDefault()}>
             <DndContext collisionDetection={pointerWithin} onDragStart={handleDragStart} onDragOver={handleDragOver} onDragEnd={handleDragEnd} autoScroll={false} sensors={dndSensors}>
                 <Background blurState={backgroundBlurState} />
                 <StartMenuBar view={isStartMenu} />
@@ -179,7 +181,7 @@ const App = () => {
                 <BottomBar />
                 <DragOverlay  modifiers={[snapCenterToCursor]}>
                     <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                        {activeDnd.type=='startMenuIcon'?(<StartMenuIcon id={activeDnd.id} />):null}    
+                        {activeDnd.type=='startMenuIcon'?(<StartMenuIcon id={activeDnd.id} setShowPined={null} />):null}    
                         {activeDnd.type=='startMenuTile'?(<StartMenuTile id={activeDnd.id} />):null}    
                         {activeDnd.type=='navBarIcon'?(<NavBarIcon id={activeDnd.id} />):null}   
                     </div> 

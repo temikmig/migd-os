@@ -60,3 +60,12 @@ export function actionOpenApp(id: string, name: string, currentSizes: { height: 
         applicationId: id
     });
 }
+
+export const checkResponse = (res:Response) => {
+    return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+};
+
+export async function fetchRequest(url:string, options?:any) {
+    const res = await fetch(url, options);
+    return checkResponse(res);
+  }

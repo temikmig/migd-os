@@ -8,11 +8,12 @@ import { snapCenterToCursor } from '@dnd-kit/modifiers';
 import Sortable from '../../../utils/sortable/sortable';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import cssTile from '../../start-menu-tile/start-menu-tile.module.css';
+import { IStartMenuItem } from '../../../services/reducers/start-menu';
 
 const StartMenuContTiles = () => {
     const items = useSelector((store) => store.startMenu.tiles);
 
-    const sortableItems = useMemo(() => items.map((item:any) => item.uid), [items]);
+    const sortableItems = useMemo(() => items.map((item:IStartMenuItem) => item.uid), [items]);
 
     const { isOver, setNodeRef } = useDroppable({
         id: "startMenuTilesCont",
@@ -21,28 +22,16 @@ const StartMenuContTiles = () => {
         },
     });
 
-    const winTransition = {
-        enter: cssTile.startMenuItemTileEnter,
-        enterActive: cssTile.startMenuItemTileEnterActive,
-        exit: cssTile.startMenuItemTileExit,
-        exitActive: cssTile.startMenuItemTileExitActive
-      }
-
     return(
         <SortableContext items={sortableItems}>
         <div className={css.startMenuTilesCont} ref={setNodeRef}>
-            {/* <TransitionGroup component={null}> */}
-            {items.map((item:any, index:number) => {
-                // const itemRef:any = React.createRef();
+            {items.map((item:IStartMenuItem) => {
             return (
             <Sortable type="startMenuTile" id={item.id} uid={item.uid} key={item.uid}>
-                {/* <CSSTransition nodeRef={itemRef} classNames={winTransition} timeout={300}> */}
-                <StartMenuTile id={item.id} size={1} />
-                {/* </CSSTransition> */}
+                <StartMenuTile id={item.id} />
             </Sortable>
             )
             })}
-            {/* </TransitionGroup> */}
         </div>
         </SortableContext>
     );

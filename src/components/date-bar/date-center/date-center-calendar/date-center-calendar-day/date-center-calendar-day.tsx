@@ -1,7 +1,12 @@
-import React, { FC, useState } from 'react';
+import { FC } from 'react';
 import css from './date-center-calendar-day.module.css';
+import { ICalendarDayItem } from '../date-center-calendar';
 
-const DateCenterCalendarDay:any = ({day}:any) => {
+type T = {
+    day: ICalendarDayItem
+}
+
+const DateCenterCalendarDay:FC<T> = ({day}) => {
     const currDate = new Date();
     const currYear = new Date().getFullYear();
     const currMonth = new Date().getMonth();

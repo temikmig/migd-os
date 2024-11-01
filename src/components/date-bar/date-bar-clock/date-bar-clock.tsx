@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import css from './date-bar-clock.module.css';
 import { ui_addNull, ui_monthName } from '../../../ui/ui';
 
-const DateBarClock = () => {
+const DateBarClock:FC = () => {
     const date = new Date();
 
     const timestamp = Math.floor(date.getTime()/1000);

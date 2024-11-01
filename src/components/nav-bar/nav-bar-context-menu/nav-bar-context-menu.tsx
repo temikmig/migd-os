@@ -1,33 +1,34 @@
-import React, { FC, useEffect, useRef } from 'react';
+import { FC, MouseEvent } from 'react';
 import css from './nav-bar-context-menu.module.css';
-import { TNavBarIcon } from '../../../utils/types';
 import { useDispatch, useOutsideAlerter, useSelector } from '../../../services/types/hooks';
-import { closeWindow } from '../../../services/actions/open-windows';
-import { actionOpenApp } from '../../../ui/ui';
-import { FILEGUIDE_APP } from '../../../utils/config';
 import { addNavBarUid, removeNavBar } from '../../../services/actions/nav-bar';
 import uuid from 'react-uuid';
-import { useScreenshot } from 'use-react-screenshot';
 import { checkStartMenu } from '../../../services/actions/start-menu';
+import { IOpenWindowItem } from '../../../services/reducers/open-windows';
+import { INavBarItem } from '../../../services/reducers/nav-bar';
 
-const NavBarContextMenu:any = ({appId, handleOpenApp, setIsContextMenu}:any) => {
+type T = {
+    appId: string, 
+    handleOpenApp: () => void,
+    setIsContextMenu: (IsContextMenu:boolean) => void
+}
+
+const NavBarContextMenu:FC<T> = ({appId, handleOpenApp, setIsContextMenu}) => {
     const dispatch = useDispatch();
 
     const allOpenedWindows = useSelector((store) => store.openedWindows.data);
 
-    const openedWindows = allOpenedWindows.filter((item:any) => item.applicationId==appId).map((item:any) => item.id);
+    const openedWindows = allOpenedWindows.filter((item:IOpenWindowItem) => item.applicationId==appId).map((item:IOpenWindowItem) => item.id);
 
-    const isPined = useSelector((store) => store.navBar.apps).some((app:any) => app.id==appId);
+    const isPined = useSelector((store) => store.navBar.apps).some((app:INavBarItem) => app.id==appId);
 
-    const handleCloseWindow = (e:any) => {
+    const handleCloseWindow = (e:MouseEvent<SVGElement>) => {
         e.stopPropagation();
 
         setIsContextMenu(false);
-
-        // dispatch(closeWindow(windowId));
     }
 
-    const handleAddNavBar = (e:any) => {
+    const handleAddNavBar = (e:MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
 
         const uid = uuid();
@@ -35,13 +36,13 @@ const NavBarContextMenu:any = ({appId, handleOpenApp, setIsContextMenu}:any) => 
         dispatch(addNavBarUid(appId, uid));
     }
 
-    const handleRemoveNavBar = (e:any) => {
+    const handleRemoveNavBar = (e:MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
         
         dispatch(removeNavBar(appId));
     }
 
-    const handleOpenWindow = (e:any) => {
+    const handleOpenWindow = (e:MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
 
         setIsContextMenu(false);

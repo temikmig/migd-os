@@ -1,30 +1,22 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, MouseEvent } from 'react';
 import css from './state-wifi.module.css';
 import cssCont from './../control-bar.module.css';
 import ControlWifi from '../control-wifi/control-wifi';
 import { useOutsideAlerter, useSelector } from '../../../services/types/hooks';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import ContextMenuBottom from '../../../utils/context-menu-bottom/context-menu-bottom';
 
-const StateWifi:any = () => {
+const StateWifi:FC = () => {
     const wifi = useSelector((store) => store.system.wifi);
 
     const [ openedControl, setOpenedControl ] = useState(false);
 
-    const handleClick = (e:any) => {
+    const handleClick = (e:MouseEvent<HTMLDivElement>) => {
         setOpenedControl(!openedControl);
     }
 
     const outsideAlerterRef = useOutsideAlerter(() => {
         setOpenedControl(false);
     });
-
-    const controlContainerTransitions = {
-        enter: cssCont.controlContainerEnter,
-        enterActive: cssCont.controlContainerEnterActive,
-        exit: cssCont.controlContainerExit,
-        exitActive: cssCont.controlContainerExitActive
-    }
 
     return(
         <div className={cssCont.controlBarIconContainer} ref={outsideAlerterRef}>

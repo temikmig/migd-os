@@ -1,9 +1,7 @@
 import React, { FC } from 'react';
 import css from './nav-bar-icon-main.module.css';
-import { TNavBarIcon } from '../../../utils/types';
-import { useSelector } from '../../../services/types/hooks';
 
-const NavBarIconMain:any = () => {
+const NavBarIconMain:FC = () => {
     return(
         <div className={css.navBarIconMainCont}>
             <div className={css.navBarIconMain}>

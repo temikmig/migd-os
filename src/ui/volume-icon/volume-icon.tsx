@@ -1,7 +1,10 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
-import css from './slider-component.module.css';
+import { FC } from 'react';
 
-const VolumeIcon:any = ({level}:any) => {
+type T = {
+    level: number
+}
+
+const VolumeIcon:FC<T> = ({level}) => {
     const color = level>0?"#000":"#00000050";
     return(
         <svg width="20px" height="20px" viewBox="0,0,256,256">

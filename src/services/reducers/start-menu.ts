@@ -1,3 +1,4 @@
+import { TStartMenuActions } from '../actions/start-menu';
 import { 
     CHECK_START_MENU, 
 
@@ -14,7 +15,18 @@ import {
     REMOVE_START_MENU_TILES_UID
 } from '../constants/start-menu';
 
-const initialState:any = {
+interface IStartMenu {
+    opened: boolean,
+    pined: Array<IStartMenuItem>,
+    tiles: Array<IStartMenuItem>
+}
+
+export interface IStartMenuItem {
+    id: string,
+    uid: string
+}
+
+const initialState:IStartMenu = {
     opened: false,
     pined: [
         {
@@ -26,7 +38,7 @@ const initialState:any = {
             uid: 'd9c56c50-b68b-4360-b700-3221c7dd36b6'
         },
         {
-            id: 'de8f2862-268c-4735-80dd-35ac71b6da4c',
+            id: '00000000-0000-0000-0000-000000000004',
             uid: 'fb008373-e661-4200-a513-d15dfc820615'
         },
         {
@@ -39,26 +51,18 @@ const initialState:any = {
         }
     ],
     tiles: [
-        // {
-        //     id: '00000000-0000-0000-0000-000000000002',
-        //     uid: '688f11f5-784b-484d-9ee3-ea82a1ee9a5d'
-        // },
-        // {
-        //     id: '54166b1e-4c18-4546-a3b0-7dc5683a3bb4',
-        //     uid: '86186d4c-2e12-433a-9e87-88f10d77d038'
-        // },
-        // {
-        //     id: 'b344c8b5-0d99-4d58-a562-bc195b8ba455',
-        //     uid: '40c7ef35-76df-47b6-a77f-23387225493d'
-        // },
-        // {
-        //     id: '372b16fa-ac69-4679-9f38-37c9baf9a202',
-        //     uid: '8b34e6bc-f511-4eeb-afe2-d9118207f2e2'
-        // }
+        {
+            id: '00000000-0000-0000-0000-000000000003',
+            uid: '688f11f5-784b-484d-9ee3-ea82a1ee9a5d'
+        },
+        {
+            id: '00000000-0000-0000-0000-000000000004',
+            uid: '86186d4c-2e12-433a-9e87-88f10d77d038'
+        }
     ]
 };
 
-export const startMenuReducer = (state = initialState, action:any) => { 
+export const startMenuReducer = (state = initialState, action:TStartMenuActions) => { 
     switch (action.type) {
         case CHECK_START_MENU: return { 
             ...state, 
@@ -82,12 +86,12 @@ export const startMenuReducer = (state = initialState, action:any) => {
 
         case REMOVE_START_MENU_PINED: return { 
             ...state, 
-            pined: state.pined.filter((item:any) => action.id!==item.id)
+            pined: state.pined.filter((item) => action.id!==item.id)
         }
 
         case REMOVE_START_MENU_PINED_UID: return { 
             ...state, 
-            pined: state.pined.filter((item:any) => action.uid!==item.uid)
+            pined: state.pined.filter((item) => action.uid!==item.uid)
         }
 
         case REPOSITION_START_MENU_TILES: return { 
@@ -107,12 +111,12 @@ export const startMenuReducer = (state = initialState, action:any) => {
 
         case REMOVE_START_MENU_TILES: return { 
             ...state, 
-            tiles: state.tiles.filter((item:any) => action.id!==item.id)
+            tiles: state.tiles.filter((item) => action.id!==item.id)
         }
 
         case REMOVE_START_MENU_TILES_UID: return { 
             ...state, 
-            tiles: state.tiles.filter((item:any) => action.uid!==item.uid)
+            tiles: state.tiles.filter((item) => action.uid!==item.uid)
         }
 
         default: return state

@@ -1,8 +1,8 @@
 import React, { FC, useEffect, useState } from 'react';
 import css from './clock.module.css';
 import { ui_addNull, ui_monthName } from '../../ui/ui';
-
-// export const appIcon = '/apps-icons/calculator.svg';
+import { Component } from './component/component';
+import { Moon } from './component/moon/moon';
 
 export const appProps = {
     canExpand: false,
@@ -11,12 +11,14 @@ export const appProps = {
 }
 
 export const appSizes = {
-    width: 250,
-    height: 350
+    width: 800,
+    height: 400
 }
 
 export const App:FC = () => {
-    return(<>1</>)
+    return(
+        <Component />
+    )
 }
 
 export const AppTile:FC = () => {

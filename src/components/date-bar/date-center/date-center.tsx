@@ -3,7 +3,7 @@ import css from './date-center.module.css';
 import DateCenterClock from './date-center-clock/date-center-clock';
 import DateCenterCalendar from './date-center-calendar/date-center-calendar';
 
-const DateCenter:any = () => {
+const DateCenter:FC = () => {
     const calendarRef:any = useRef();
 
     return(

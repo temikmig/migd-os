@@ -1,18 +1,16 @@
-import React from 'react';
+import { FC, MouseEvent } from 'react';
 import css from './bottom-bar.module.css';
 import NavBar from '../nav-bar/nav-bar';
 import ControlBar from '../control-bar/control-bar';
 import DateBar from '../date-bar/date-bar';
-import { checkStartMenu } from '../../services/actions/start-menu';
 import { useDispatch, useSelector } from '../../services/types/hooks';
-import { toDisactiveWindows } from '../../services/actions/open-windows';
 
-const BottomBar = () => {
+const BottomBar:FC = () => {
     const dispatch = useDispatch();
 
     const isStartMenu = useSelector((store) => store.startMenu.opened);
 
-    const handleOutside = () => {
+    const handleOutside = (e:MouseEvent<HTMLDivElement>) => {
         // if(isStartMenu) dispatch(checkStartMenu(false));
     };
     

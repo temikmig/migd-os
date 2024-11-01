@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+import { FC, MouseEvent } from 'react';
 import css from './window.module.css';
 import { TWindow } from '../../utils/types';
 import WindowControlExpand from './window-control/window-control-expand/window-control-expand';
@@ -7,8 +7,7 @@ import WindowControlCollapse from './window-control/window-control-collapse/wind
 import { useDraggable } from '@dnd-kit/core';
 import { CSS as dndKitCSS} from '@dnd-kit/utilities';
 import Resizable from '../../utils/resizable/resizable'
-import { CSSTransition } from 'react-transition-group';
-import { useDispatch, useInsideAlerter, useOutsideAlerter, useSelector } from '../../services/types/hooks';
+import { useDispatch, useOutsideAlerter, useSelector } from '../../services/types/hooks';
 import { closeWindow, toActiveWindow, toCollapseWindow, toDisactiveWindows, toExpandWindow } from '../../services/actions/open-windows';
 import * as appsList from '../../applications';
 import { mergeRefs } from "react-merge-refs";
@@ -52,7 +51,7 @@ const Window:FC<TWindow> = ({title, id, properties, winProps, winStates, applica
         dispatch(closeWindow(id));
     };
 
-    const handleWindowExpand = (e:any) => {
+    const handleWindowExpand = (e:MouseEvent) => {
         if(canExpand) {
             e.stopPropagation();
 
@@ -60,7 +59,7 @@ const Window:FC<TWindow> = ({title, id, properties, winProps, winStates, applica
         }
     };
 
-    const handleWindowCollapse = (e:any) => {
+    const handleWindowCollapse = (e:MouseEvent) => {
         e.stopPropagation();
         dispatch(toCollapseWindow(id, true));
     };
@@ -79,14 +78,14 @@ const Window:FC<TWindow> = ({title, id, properties, winProps, winStates, applica
         isActive&&dispatch(toDisactiveWindows());
     });
 
-    const insideAlerter = (e:any) => {
+    const insideAlerter = (e:MouseEvent<HTMLDivElement>) => {
         !isActive&&dispatch(toActiveWindow(id));
     };
 
     return(
         <Resizable style={{...style}} winProps={winProps} isExpand={isExpand} refs={mergeRefs([setNodeRef, outsideAlerterRef])} id={id} {...attributes}>
-        <div onMouseDown={insideAlerter} className={`${css.windowCont} ${isExpand&&css.windowContExpand} ${isCollapse&&css.windowContCollapse} ${isActive&&css.windowContActive} ${isScreensShow&&!isScreenActive&&css.windowContScreenActive} ${isScreensShow&&css.activeScreenWindows}`} ref={refs}>
-            <div id={id}>
+        <div id={id} onMouseDown={insideAlerter} className={`${css.windowCont} ${isExpand&&css.windowContExpand} ${isCollapse&&css.windowContCollapse} ${isActive&&css.windowContActive} ${isScreensShow&&!isScreenActive&&css.windowContScreenActive} ${isScreensShow&&css.activeScreenWindows}`} ref={refs}>
+            {/* <div> */}
                 <div className={css.windowHeader} onDoubleClick={handleWindowExpand}>
                     <div className={css.windowHeaderHandler} {...listenersOnState}></div>
                     <div className={css.windowHeaderTitle}>{title}</div>
@@ -99,7 +98,7 @@ const Window:FC<TWindow> = ({title, id, properties, winProps, winStates, applica
                 <div className={css.windowContent}>
                     <CurrentApp id={id} appId={applicationId} />
                 </div>
-            </div>
+            {/* </div> */}
         </div>
         </Resizable>
     )

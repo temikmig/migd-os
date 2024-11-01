@@ -1,12 +1,11 @@
-import React from 'react';
-import css from './windows-bar.module.css';
+import React, { FC } from 'react';
 import cssWindow from '../window/window.module.css';
 import Window from '../window/window';
-import { useDroppable } from '@dnd-kit/core';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { useDispatch, useSelector } from '../../services/types/hooks';
+import { useSelector } from '../../services/types/hooks';
+import { TWindow } from '../../utils/types';
 
-const WindowsBar = () => {
+const WindowsBar:FC = () => {
     const winTransition = {
       enter: cssWindow.windowContEnter,
       enterActive: cssWindow.windowContEnterActive,
@@ -18,7 +17,7 @@ const WindowsBar = () => {
   
     return(
             <TransitionGroup component={null}>
-              {openedWindows&&openedWindows.map((openedWindow:any) => {
+              {openedWindows&&openedWindows.map((openedWindow:TWindow) => {
                 const itemRef:any = React.createRef();
                 return(
                 <CSSTransition nodeRef={itemRef} classNames={winTransition} timeout={300} key={openedWindow.id}>

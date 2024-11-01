@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import css from './start-menu-cont-apps.module.css';
 import StartMenuIcon from '../../start-menu-icon/start-menu-icon';
 import { useSelector } from '../../../services/types/hooks';
@@ -20,7 +20,7 @@ import StartMenuContAppsListPined from './start-menu-cont-apps-list-pined/start-
 import { SwitchTransition } from 'react-transition-group';
 import { CSSTransition } from 'react-transition-group';
 
-const StartMenuContApps = () => {
+const StartMenuContApps:FC = () => {
     const pined = useSelector((store) => store.startMenu.pined);
 
     const [ showPined, setShowPined ] = useState((pined.length>0?true:false));

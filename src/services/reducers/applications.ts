@@ -4,7 +4,19 @@
 
 import { DELETE_BIN_APP, FILEGUIDE_APP} from "../../utils/config";
 
-const initialState:any = {
+export interface IApplications {
+    data: Array<IApplicationItem>
+}
+
+export interface IApplicationItem {
+    id: string,
+    name: string,
+    title: string,
+    icon: string,
+    list: boolean
+}
+
+const initialState:IApplications = {
     data: [
         {
             id: FILEGUIDE_APP,
@@ -39,13 +51,6 @@ const initialState:any = {
             name: 'Calendar',
             title: 'Календарь',
             icon: '/apps-icons/calendar.svg',
-            list: true
-        }, 
-        {
-            id: '00000000-0000-0000-0000-000000000005',
-            name: 'WebGuide',
-            title: 'Web Guide',
-            icon: '/apps-icons/browser.svg',
             list: true
         }, 
         {

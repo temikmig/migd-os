@@ -1,11 +1,11 @@
-import React, { FC, useState } from 'react';
+import React, { FC, SyntheticEvent, useState } from 'react';
 import css from './control-wifi.module.css';
 import cssCont from './../control-bar.module.css';
 import Switch from "react-switch";
 import { useDispatch, useSelector } from '../../../services/types/hooks';
 import { changeWifi } from '../../../services/actions/system';
 
-const ControlWifi:any = () => {
+const ControlWifi:FC = () => {
     const wifi = useSelector((store) => store.system.wifi);
 
     const dispatch = useDispatch();

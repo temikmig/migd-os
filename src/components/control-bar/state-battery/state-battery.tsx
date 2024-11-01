@@ -1,18 +1,17 @@
-import React, { FC, useState } from 'react';
+import React, { FC, MouseEvent, useState } from 'react';
 import css from './state-battery.module.css';
 import cssCont from './../control-bar.module.css';
 import { useBattery } from 'react-use';
 import ControlBattery from '../control-battery/control-battery';
 import { useOutsideAlerter } from '../../../services/types/hooks';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import ContextMenuBottom from '../../../utils/context-menu-bottom/context-menu-bottom';
 
-const StateBattery:any = () => {
+const StateBattery:FC = () => {
     const battery = useBattery();
 
     const [ openedControl, setOpenedControl ] = useState(false);
 
-    const handleClick = (e:any) => {
+    const handleClick = (e:MouseEvent<HTMLDivElement>) => {
         setOpenedControl(!openedControl);
     }
 
@@ -21,7 +20,7 @@ const StateBattery:any = () => {
     });
 
     return(
-        (battery.isSupported&&battery.fetched)&& 
+        (battery.isSupported&&battery.fetched)?
         <div className={cssCont.controlBarIconContainer}  ref={outsideAlerterRef}>
             <div className={`${cssCont.controlBarIconCont} ${openedControl&&cssCont.controlBarIconContActive}`}>
                 <div className={cssCont.controlBarIconCont} onClick={handleClick}>
@@ -32,7 +31,7 @@ const StateBattery:any = () => {
             </div>
             <ContextMenuBottom view={openedControl}><ControlBattery level={battery.level} charging={battery.charging} /></ContextMenuBottom>
         </div>
-        
+        :null
     )
 }
 

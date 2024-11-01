@@ -1,11 +1,17 @@
-import React, { FC, useState } from 'react';
+import { FC } from 'react';
 import css from './date-center-calendar-week.module.css';
 import DateCenterCalendarDay from '../date-center-calendar-day/date-center-calendar-day';
+import { ICalendarDayItem } from '../date-center-calendar';
 
-const DateCenterCalendarWeek:any = ({days}:any) => {
+type T = {
+    days: Array<ICalendarDayItem>
+}
+
+const DateCenterCalendarWeek:FC<T> = ({days}) => {
+    console.log(days)
     return(
         <div className={css.dateCenterCalendarWeek}>
-            {days.map((day:any, index:number) => <DateCenterCalendarDay key={index} day={day} />)}
+            {days.map((day, index) => <DateCenterCalendarDay key={index} day={day} />)}
         </div>
     );
 }

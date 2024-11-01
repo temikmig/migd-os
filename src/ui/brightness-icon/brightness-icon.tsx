@@ -1,7 +1,10 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
-import css from './slider-component.module.css';
+import { FC } from 'react';
 
-const BrightnessIcon:any = ({level}:any) => {
+type T = {
+    level: number
+}
+
+const BrightnessIcon:FC<T> = ({level}) => {
     const color = level>0?"#000":"#00000050";
 
     const widthLevel = 8 + 35*level/100;

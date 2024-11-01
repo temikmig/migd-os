@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import { FC } from 'react';
 import css from './start-menu-cont-search.module.css';
-import { CSSTransition } from 'react-transition-group';
 
-const StartMenuContSearch = ({view}:any) => {
+type T = {
+    view?: boolean
+}
+
+const StartMenuContSearch:FC<T> = ({view}) => {
     return(
         <div className={css.startSearchBox}>
             <input type="text" placeholder="Поиск..."></input>

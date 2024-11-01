@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import { createRef, FC, MouseEvent, useEffect, useRef, useState } from 'react';
 import css from './context-menu.module.css';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { useOutsideAlerter } from '../../services/types/hooks';
@@ -6,12 +6,27 @@ import { mergeRefs } from 'react-merge-refs';
 import uuid from 'react-uuid';
 import { createPortal } from 'react-dom';
 
-export const ContextMenuCont:any = ({position, contextMenuItems, hideContextMenu}:any) => {
+type TContextMenu = {
+    visible?: boolean;
+    position: {
+        x: number,
+        y: number
+    };
+    contextMenuItems: IContextMenuItems[][];
+    hideContextMenu: () => void
+}
+
+interface IContextMenuItems {
+    title: string, 
+    action: (e:MouseEvent<HTMLDivElement>) => void
+}
+
+export const ContextMenuCont:FC<TContextMenu> = ({position, contextMenuItems, hideContextMenu}) => {
     const outsideAlerterRef = useOutsideAlerter(() => {
         hideContextMenu();
     });
 
-    const contextMenuRef:any = useRef(null);
+    const contextMenuRef = useRef<any>(null);
 
     const [ positionLeft, setPositionLeft ] = useState(position.x); 
     const [ positionTop, setPositionTop ] = useState(position.y); 
@@ -33,16 +48,17 @@ export const ContextMenuCont:any = ({position, contextMenuItems, hideContextMenu
 
     return(
         <div ref={mergeRefs([contextMenuRef, outsideAlerterRef])} style={style} className={css.contextMenu}>
-            {contextMenuItems.map((group:any) => 
-                <div className={css.contextMenuGroup}>
-                    {group.map((item:any) => <div className={css.contextMenuItem} onMouseUp={hideContextMenu} onClick={item.action}>{item.title}</div>)}
+            {contextMenuItems.map((group, index) => 
+                <div className={css.contextMenuGroup} key={index}>
+                    {group.map((item, index) => <div key={index} className={css.contextMenuItem} onMouseUp={hideContextMenu} onClick={item.action}>{item.title}</div>)}
                 </div>
             )}
         </div>
     )
 }
 
-export const ContextMenu:any = ({visible, position, contextMenuItems, hideContextMenu}:any) => {
+
+export const ContextMenu:FC<TContextMenu> = ({visible, position, contextMenuItems, hideContextMenu}) => {
     const transitions = {
         enter: css.contextMenuEnter,
         enterActive: css.contextMenuEnterActive,
@@ -53,13 +69,15 @@ export const ContextMenu:any = ({visible, position, contextMenuItems, hideContex
     const uid = uuid();
 
     const mainContainer:any = document.querySelector('#main');
-    
+
+    const itemRef:any = createRef();
+
     return(
         <>
         {mainContainer&&createPortal(
         <TransitionGroup component={null}>
             {visible&&
-            <CSSTransition key={uid} classNames={transitions} timeout={200}>
+            <CSSTransition itemRef={itemRef} key={uid} classNames={transitions} timeout={200}>
                 <ContextMenuCont position={position} contextMenuItems={contextMenuItems} hideContextMenu={hideContextMenu} />
             </CSSTransition>}
         </TransitionGroup>,

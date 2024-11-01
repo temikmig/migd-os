@@ -1,3 +1,4 @@
+import { TSystemActions } from '../actions/system';
 import { 
     CHANGE_VOLUME,
     CHANGE_BRIGHTNESS,
@@ -9,7 +10,18 @@ import {
     CHANGE_VPN
 } from '../constants/system';
 
-const initialState:any = {
+interface ISystem {
+    volume: number,
+    brightness: number,
+    wifi: boolean,
+    bluetooth: boolean, 
+    flightmode: boolean, 
+    focusmode: boolean, 
+    hotspot: boolean, 
+    vpn: boolean
+}
+
+const initialState:ISystem = {
     volume: 100,
     brightness: 100,
     wifi: true,
@@ -20,7 +32,7 @@ const initialState:any = {
     vpn: false
 };
 
-export const systemReducer = (state = initialState, action:any) => { 
+export const systemReducer = (state = initialState, action:TSystemActions):ISystem => { 
     switch (action.type) {
         case CHANGE_VOLUME: return { 
             ...state, 

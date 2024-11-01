@@ -1,11 +1,17 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, MouseEvent } from 'react';
 import css from './nav-bar-context-menu-app-screen.module.css';
 import { useScreenshot } from 'use-react-screenshot';
 import { useDispatch } from '../../../../services/types/hooks';
 import { closeWindow, toActiveScreenWindow, toDisactiveScreenWindow, toActiveWindow } from '../../../../services/actions/open-windows';
 import WindowControlClose from '../../../window/window-control/window-control-close/window-control-close';
 
-const NavBarContextMenuAppScreen:any = ({id, title, setShowScreens}:any) => {
+type T = {
+    id: string,
+    title: string, 
+    setShowScreens: (showScreens:boolean) => void
+}
+
+const NavBarContextMenuAppScreen:FC<T> = ({id, title, setShowScreens}) => {
     const element = document.getElementById(id);
 
     const dispatch = useDispatch();
@@ -17,15 +23,13 @@ const NavBarContextMenuAppScreen:any = ({id, title, setShowScreens}:any) => {
         if(id) getImage();
     }, []);
 
-    const handleCloseWindow = (e:any) => {
+    const handleCloseWindow = (e:MouseEvent<SVGElement>) => {
         e.stopPropagation();
-
-        // setShowScreens(false);
 
         dispatch(closeWindow(id));
     }
 
-    const handleChangeWindow = (e:any) => {
+    const handleChangeWindow = (e:MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
 
         setShowScreens(false);
@@ -34,13 +38,13 @@ const NavBarContextMenuAppScreen:any = ({id, title, setShowScreens}:any) => {
         dispatch(toDisactiveScreenWindow());
     }
 
-    const handleMouseEnter = (e:any) => {
+    const handleMouseEnter = (e:MouseEvent<HTMLDivElement>) => {
 
         dispatch(toActiveScreenWindow(id));
         console.log('on');
     }
 
-    const handleMouseLeave = (e:any) => {
+    const handleMouseLeave = (e:MouseEvent<HTMLDivElement>) => {
         dispatch(toDisactiveScreenWindow());
         console.log('off');
     }

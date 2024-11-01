@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import css from './start-menu-bar.module.css';
 import { CSSTransition } from 'react-transition-group';
 import cssCont from '../app/app.module.css';
@@ -13,7 +13,11 @@ import StartMenuTile from '../start-menu-tile/start-menu-tile';
 import { useDispatch, useOutsideAlerter } from '../../services/types/hooks';
 import { checkStartMenu } from '../../services/actions/start-menu';
 
-const StartMenuBar = ({view}:any) => {
+type T = {
+    view: boolean
+}
+
+const StartMenuBar:FC<T> = ({view}) => {
     const dispatch = useDispatch();
     const contTransition = {
         enter: cssCont.contEnter,
@@ -26,14 +30,10 @@ const StartMenuBar = ({view}:any) => {
         dispatch(checkStartMenu(false));
     };
 
-    const outsideAlerterRef = useOutsideAlerter(() => {
-        // dispatch(checkStartMenu(false));
-    });
-   
     return(
         <CSSTransition in={view} timeout={400} classNames={contTransition} unmountOnExit>
             <div className={css.startMenuCont}>
-                <div className={css.startMenuContainer} ref={outsideAlerterRef}>
+                <div className={css.startMenuContainer}>
                     <StartMenuContSearch />
                     <div className={css.startMenuMainCont}>
                         <StartMenuContApps />

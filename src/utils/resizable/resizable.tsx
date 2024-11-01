@@ -2,12 +2,20 @@ import React, { FC, useRef, useState, MouseEvent, MouseEventHandler, SyntheticEv
 import css from './resizable.module.css';
 import { useDispatch } from '../../services/types/hooks';
 import { resizeWindow, toActiveWindow } from '../../services/actions/open-windows';
+import { DraggableAttributes } from '@dnd-kit/core';
+import { TWinProps } from '../types';
 
-const Resizable = (props:any) => {
+type TResizable = {
+    children: string | JSX.Element,
+    winProps: TWinProps,
+    isExpand: boolean,
+    id: string,
+    style: any,
+    refs: any,
+    attributes?: DraggableAttributes
+};
 
-
-// dispatch(toActiveWindow(props.id));
-
+const Resizable:FC<TResizable> = (props) => {
     const resizableRef = useRef<HTMLDivElement>();
 
     const dispatch = useDispatch();

@@ -1,14 +1,23 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import { useEffect, useState, MouseEvent, FC } from 'react';
 import css from './date-center-calendar.module.css';
-import { ui_dateAdd, ui_daysofmonth, ui_heightCalendar, ui_monthNameI } from '../../../../ui/ui';
-import DateCenterCalendarDay from './date-center-calendar-day/date-center-calendar-day';
+import { ui_heightCalendar, ui_monthNameI } from '../../../../ui/ui';
 import { CALENDAR_BEG, CALENDAR_END } from '../../../../utils/config';
 import DateCenterCalendarMonth from './date-center-calendar-month/date-center-calendar-month';
 import HandleUp from '../../../../ui/handle-up/handle-up';
 import HandleDown from '../../../../ui/handle-down/handle-down';
 import DateCenterCalendarWDay from './date-center-calendar-wday/date-center-calendar-wday';
 
-const DateCenterCalendar:any = ({calendarRef}:any) => {
+type T = {
+    calendarRef: any
+}
+
+export interface ICalendarDayItem {
+    day: number, 
+    month: number,
+    year: number
+}
+
+const DateCenterCalendar:FC<T> = ({calendarRef}) => {
     const currDate = new Date();
     const currYear = currDate.getFullYear();
     const currMonth = currDate.getMonth();
@@ -22,7 +31,7 @@ const DateCenterCalendar:any = ({calendarRef}:any) => {
         calendarRef.current.scrollTop = ui_heightCalendar({year: currYear, month: currMonth, day: 1});
     }, []);
 
-    const handleScroll = (e:any) => {
+    const handleScroll = (e:MouseEvent<HTMLDivElement>) => {
         const pos = Math.ceil(e.currentTarget.scrollTop);
         const sDate = new Date(currYear, currMonth, 1 + (pos - scroll) / 30 * 7 + 21);
 
@@ -32,17 +41,15 @@ const DateCenterCalendar:any = ({calendarRef}:any) => {
         if(pos >= 0&&pos<calendarHeight-120) setMonthList([{year: sYear, month: sMonth}]);
     }
 
-    const handlePrev = (e:any) => {
+    const handlePrev = (e:MouseEvent<SVGElement>) => {
         const pMonth = monthList[0].month-1;
-        console.log(pMonth);
-
 
         const pYear = pMonth==11?monthList[0].year-1:monthList[0].year;
 
         calendarRef.current.scrollTop = ui_heightCalendar({year: pYear, month: pMonth, day: 1});
     }
 
-    const handleNext = (e:any) => {
+    const handleNext = (e:MouseEvent<SVGElement>) => {
         const nMonth = monthList[0].month+1;
         const nYear = nMonth==0?monthList[0].year+1:monthList[0].year;
 
@@ -61,7 +68,7 @@ const DateCenterCalendar:any = ({calendarRef}:any) => {
                 </div>
             </div>
             <div className={css.dateCenterCalendarWeekdaysCont}>
-                {wdays.map((weekDay:any, index:number) => <DateCenterCalendarWDay active key={index} wday={weekDay} />)}
+                {wdays.map((weekDay, index) => <DateCenterCalendarWDay key={index} wday={weekDay} />)}
             </div>
             <div className={css.dateCenterCalendarCont} onScroll={handleScroll} ref={calendarRef}>
                 <div className={css.dateCenterCalendarBody} style={{height: calendarHeight}}>

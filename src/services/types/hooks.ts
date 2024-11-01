@@ -5,7 +5,7 @@ import {
 } from 'react-redux';
 
 import { AppDispatch, RootState } from '../types';
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, MouseEvent } from 'react';
   
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
 
@@ -75,7 +75,7 @@ export const useContextMenu = () => {
   const [contextMenuVisible, setContextMenuVisible] = useState(false);
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
 
-  const showContextMenu = useCallback((e:any) => {
+  const showContextMenu = useCallback((e:MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     setMenuPosition({ x: e.pageX, y: e.pageY });
     setContextMenuVisible(true);

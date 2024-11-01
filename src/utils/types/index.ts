@@ -20,16 +20,18 @@ export type TWindow = {
         isActive: boolean;
         isScreenActive: boolean;
     }
-    winProps: {
-        maxWidth?: number;
-        minWidth?: number;
-        maxHeight?: number;
-        minHeight?: number;
-        canExpand?: boolean;
-        canCollapse?: boolean;
-        canResize?: boolean;
-    },
+    winProps: TWinProps,
     refs: any,
     application: string;
     applicationId?: string;
+}
+
+export type TWinProps = {
+    maxWidth?: number;
+    minWidth?: number;
+    maxHeight?: number;
+    minHeight?: number;
+    canExpand?: boolean;
+    canCollapse?: boolean;
+    canResize?: boolean;
 }

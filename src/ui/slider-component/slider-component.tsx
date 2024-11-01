@@ -1,7 +1,14 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, MouseEvent } from 'react';
 import css from './slider-component.module.css';
 
-const SliderComponent:any = ({handleChange, handleInput, width, color, value}:any) => {
+type T = {
+    handleChange: (e:MouseEvent<HTMLInputElement>) => void,
+    handleInput: (e:MouseEvent<HTMLInputElement>) => void,
+    color: string,
+    value: number
+}
+
+const SliderComponent:FC<T> = ({handleChange, handleInput, color, value}) => {
     const inputRef:any = useRef();
 
     useEffect(()=>{

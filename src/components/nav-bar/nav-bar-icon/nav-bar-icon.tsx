@@ -1,30 +1,29 @@
-import React, { FC, MouseEvent, useRef, useState } from 'react';
+import { FC, MouseEvent, useState } from 'react';
 import css from './nav-bar-icon.module.css';
 import { TNavBarIcon } from '../../../utils/types';
 import { useDispatch, useOutsideAlerter, useSelector } from '../../../services/types/hooks';
 import * as appsList from '../../../applications';
 import { checkStartMenu } from '../../../services/actions/start-menu';
 import { actionOpenApp } from '../../../ui/ui';
-import { defaultAppProps, defaultAppSizes, defaultIcons, FILEGUIDE_APP } from '../../../utils/config';
+import { defaultAppProps, defaultAppSizes, FILEGUIDE_APP } from '../../../utils/config';
 import NavBarContextMenu from '../nav-bar-context-menu/nav-bar-context-menu';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import cssContextMenu from '../nav-bar-context-menu/nav-bar-context-menu.module.css';
-import { createPortal } from 'react-dom';
-import { toActiveWindow } from '../../../services/actions/open-windows';
 import NavBarContextScreens from '../nav-bar-context-screens/nav-bar-context-screens';
 import ContextMenuBottom from '../../../utils/context-menu-bottom/context-menu-bottom';
+import { IApplicationItem } from '../../../services/reducers/applications';
+import { IOpenWindowItem } from '../../../services/reducers/open-windows';
 
 
-const NavBarIcon:FC<TNavBarIcon> = ({id, sortable, isPined}) => {
+const NavBarIcon:FC<TNavBarIcon> = ({id, sortable}) => {
     const applications = useSelector((store) => store.applications.data);
 
-    const { icon, name } = applications.find((app:any) => app.id==id);
+    const { icon, name } = applications.find((app:IApplicationItem) => app.id==id);
 
     const openedWindows = useSelector((store) => store.openedWindows.data);
 
-    const isOpenedApp = openedWindows.find((app:any) => app.applicationId==id);
+    const isOpenedApp:boolean = openedWindows.find((app:IOpenWindowItem) => app.applicationId==id);
 
-    const isStartMenu = useSelector((store) => store.startMenu.opened);
+    const isStartMenu:boolean = useSelector((store) => store.startMenu.opened);
 
     const [ isContextMenu, setIsContextMenu ] = useState(false);
     const [ showScreens, setShowScreens ] = useState(false);
@@ -48,8 +47,6 @@ const NavBarIcon:FC<TNavBarIcon> = ({id, sortable, isPined}) => {
     }
 
     const сlickAction = (e:MouseEvent<HTMLDivElement>) => {
-        // if(isStartMenu) dispatch(checkStartMenu(false));
-
         setIsContextMenu(false);
 
         if(isOpenedApp) {
@@ -69,9 +66,6 @@ const NavBarIcon:FC<TNavBarIcon> = ({id, sortable, isPined}) => {
         e.preventDefault();
     }
 
-    // const  = (id=='00000000-0000-0000-0000-000000000002'?true:false);
-    // console.log(id);
-
     const navBarContextTransitions = {
         enter: cssContextMenu.contextMenuEnter,
         enterActive: cssContextMenu.contextMenuEnterActive,
@@ -82,7 +76,6 @@ const NavBarIcon:FC<TNavBarIcon> = ({id, sortable, isPined}) => {
     const outsideAlerterRef = useOutsideAlerter(() => {
         setShowScreens(false);
         setIsContextMenu(false);
-        // console.log('outScreen')
     });
     
     return(

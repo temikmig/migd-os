@@ -1,7 +1,11 @@
-import React, { FC } from 'react';
+import { FC, MouseEvent } from 'react';
 import css from '../window-control.module.css';
 
-const WindowControlClose = ({handleClick}:any) => {
+type T = {
+    handleClick: (e:MouseEvent<SVGElement>) => void
+}
+
+const WindowControlClose:FC<T> = ({handleClick}) => {
     return(
         <svg width="18" height="18" viewBox="0 0 30 30" onClick={handleClick}>
             <g transform="matrix(1,0,0,1,2.5,2.5)" className={css.buttonClose}>

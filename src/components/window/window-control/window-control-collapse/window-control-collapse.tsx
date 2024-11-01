@@ -1,7 +1,11 @@
-import React, { FC } from 'react';
+import { FC, MouseEvent } from 'react';
 import css from '../window-control.module.css';
 
-const WindowControlCollapse = ({handleClick}:any) => {
+type T = {
+    handleClick: (e:MouseEvent<SVGElement>) => void
+}
+
+const WindowControlCollapse:FC<T> = ({handleClick}) => {
     return(
         <svg width="18" height="18" viewBox="0 0 30 30" onClick={handleClick}>
             <g id="WiD33OK5" transform="matrix(-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,28.749998211860657,27.4962504196167)">

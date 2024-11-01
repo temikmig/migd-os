@@ -1,25 +1,22 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import css from './content-bar.module.css';
-import cssWindow from '../window/window.module.css';
-import Window from '../window/window';
-import { DndContext, PointerSensor, useDroppable, useSensor, useSensors } from '@dnd-kit/core';
+import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { restrictToParentElement } from '@dnd-kit/modifiers';
-import { TWindow } from '../../utils/types';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { CSSTransition } from 'react-transition-group';
 import DesktopBar from '../desktop-bar/desktop-bar';
 import { useDispatch, useSelector } from '../../services/types/hooks';
 import { repositionWindow, toActiveWindow } from '../../services/actions/open-windows';
-import { mergeRefs } from 'react-merge-refs';
 import cssCont from '../app/app.module.css';
 import WindowsBar from '../windows-bar/windows-bar';
 import { repositionDesktopIcon } from '../../services/actions/desktop-icons';
+import { IOpenWindowItem } from '../../services/reducers/open-windows';
 
-const ContentBar = ({view}:any) => {
+type T = {
+  view: boolean
+}
+
+const ContentBar:FC<T> = ({view}) => {
     const dispatch = useDispatch();
-
-   
-
-    // console.log(setNodeRef);
 
     const contTransition = {
       enter: cssCont.contEnter,
@@ -28,7 +25,7 @@ const ContentBar = ({view}:any) => {
       exitActive: cssCont.contExitActive
     }
 
-    const [activeIcon, setActiveIcon]:any = useState(null);
+    const [activeIcon, setActiveIcon] = useState(null);
 
     const openedWindows = useSelector((store) => store.openedWindows);
 
@@ -65,7 +62,7 @@ const ContentBar = ({view}:any) => {
       }
 
       if(type=='window') {
-        const openedWindow:any = openedWindows.data.find((window:any) => window.id === ev.active.id);
+        const openedWindow:IOpenWindowItem = openedWindows.data.find((window:IOpenWindowItem) => window.id === ev.active.id);
 
         dispatch(repositionWindow(ev.active.id, {
           left: openedWindow.properties.left + ev.delta.x,

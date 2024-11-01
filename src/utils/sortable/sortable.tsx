@@ -1,8 +1,15 @@
 import { useSortable } from '@dnd-kit/sortable';
-import React, { useState, MouseEvent, useEffect } from 'react';
+import { FC } from 'react';
 import { CSS as dndKitCSS } from '@dnd-kit/utilities';
 
-const Sortable = (props:any) => {
+type TSortable = {
+    children: string | JSX.Element,
+    uid: string,
+    type: string,
+    id: string
+};
+
+const Sortable:FC<TSortable> = (props) => {
     const {
         isDragging,
         attributes,
@@ -24,8 +31,6 @@ const Sortable = (props:any) => {
         animateLayoutChanges: () => false 
         
     });
-
-    // console.log(transition);
 
     const style = {
         left: undefined,

@@ -10,97 +10,120 @@ import {
     TO_COLLAPSE_WINDOW,
     CLOSE_WINDOW
 } from '../constants/open-windows';
+import { IOpenWindowItem, IWindowPproperties } from '../reducers/open-windows';
 
-export interface IOpenWindowAction {
+interface IOpenWindowAction {
     readonly type: typeof OPEN_WINDOW;
-    readonly windowData: any;
+    readonly windowData: IOpenWindowItem;
 }
 
-export interface IResizeWindowAction {
+interface IResizeWindowAction {
     readonly type: typeof RESIZE_WINDOW;
-    readonly id: any;
-    readonly windowProperties: any;
+    readonly id: string;
+    readonly windowProperties: IWindowPproperties;
 }
 
-export interface IRepositionWindowAction {
+interface IRepositionWindowAction {
     readonly type: typeof REPOSITION_WINDOW;
-    readonly id: any;
-    readonly windowProperties: any;
+    readonly id: string;
+    readonly windowProperties: IWindowPproperties;
 }
 
-export interface IToActiveWindowAction {
+interface IToActiveWindowAction {
     readonly type: typeof TO_ACTIVE_WINDOW;
-    readonly id: any;
+    readonly id: string;
 }
 
-export interface IToDisactiveWindowsAction {
+interface IToActiveScreenWindowAction {
+    readonly type: typeof TO_ACTIVE_SCREEN_WINDOW;
+    readonly id: string;
+}
+
+interface IToDisactiveScreenWindowAction {
+    readonly type: typeof TO_DISACTIVE_SCREEN_WINDOW;
+}
+
+interface IToDisactiveWindowsAction {
     readonly type: typeof TO_DISACTIVE_WINDOWS;
-    readonly id: any;
 }
 
-export interface IToExpandWindowAction {
+interface IToCollapseWindowAction {
+    readonly type: typeof TO_COLLAPSE_WINDOW;
+    readonly id: string;
+    readonly isCollapse: boolean;
+}
+
+interface IToExpandWindowAction {
     readonly type: typeof TO_EXPAND_WINDOW;
-    readonly id: any;
+    readonly id: string;
     readonly isExpand: boolean;
 }
 
-export interface ICloseWindowAction {
+interface ICloseWindowAction {
     readonly type: typeof CLOSE_WINDOW;
     readonly uid: string;
 }
 
-export const openWindow = (windowData:any):any => ({
+export const openWindow = (windowData:any):IOpenWindowAction => ({
     type: OPEN_WINDOW,
     windowData
 });
 
-export const resizeWindow = (id:any, windowProperties:any):any => ({
+export const resizeWindow = (id:string, windowProperties:any):IResizeWindowAction => ({
     type: RESIZE_WINDOW,
     id,
     windowProperties
 });
 
-export const repositionWindow = (id:any, windowProperties:any):any => ({
+export const repositionWindow = (id:string, windowProperties:any):IRepositionWindowAction => ({
     type: REPOSITION_WINDOW,
     id,
     windowProperties
 });
 
-export const toActiveWindow = (id:any):any => ({
+export const toActiveWindow = (id:string):IToActiveWindowAction => ({
     type: TO_ACTIVE_WINDOW,
     id
 });
 
-export const toActiveScreenWindow = (id:any):any => ({
+export const toActiveScreenWindow = (id:string):IToActiveScreenWindowAction => ({
     type: TO_ACTIVE_SCREEN_WINDOW,
     id
 });
 
-export const toDisactiveScreenWindow = ():any => ({
+export const toDisactiveScreenWindow = ():IToDisactiveScreenWindowAction => ({
     type: TO_DISACTIVE_SCREEN_WINDOW,
 });
 
-export const toDisactiveWindows = ():any => ({
+export const toDisactiveWindows = ():IToDisactiveWindowsAction => ({
     type: TO_DISACTIVE_WINDOWS
 });
 
-export const toExpandWindow = (id:any, isExpand:boolean):any => ({
+export const toExpandWindow = (id:string, isExpand:boolean):IToExpandWindowAction => ({
     type: TO_EXPAND_WINDOW,
     id,
     isExpand
 });
 
-export const toCollapseWindow = (id:any, isCollapse:boolean):any => ({
+export const toCollapseWindow = (id:string, isCollapse:boolean):IToCollapseWindowAction => ({
     type: TO_COLLAPSE_WINDOW,
     id,
     isCollapse
 });
 
-export const closeWindow = (uid:any):any => ({
+export const closeWindow = (uid:string):ICloseWindowAction => ({
     type: CLOSE_WINDOW,
     uid
 });
 
 export type TOpenedWindowsActions =
   | IOpenWindowAction
+  | IResizeWindowAction
+  | IRepositionWindowAction
+  | IToActiveWindowAction
+  | IToActiveScreenWindowAction
+  | IToDisactiveScreenWindowAction
+  | IToDisactiveWindowsAction
+  | IToExpandWindowAction
+  | IToCollapseWindowAction
   | ICloseWindowAction;

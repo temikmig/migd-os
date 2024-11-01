@@ -1,31 +1,21 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, MouseEvent } from 'react';
 import css from './state-volume.module.css';
 import cssCont from './../control-bar.module.css';
 import ControlVolume from '../control-volume/control-volume';
 import { useOutsideAlerter, useSelector } from '../../../services/types/hooks';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import VolumeIcon from '../../../ui/volume-icon/volume-icon';
 import ContextMenuBottom from '../../../utils/context-menu-bottom/context-menu-bottom';
 
-const StateVolume:any = () => {
-    const volumeLevel = 100;
-
+const StateVolume:FC = () => {
     const [ openedControl, setOpenedControl ] = useState(false);
 
-    const handleClick = (e:any) => {
+    const handleClick = (e:MouseEvent<HTMLDivElement>) => {
         setOpenedControl(!openedControl);
     }
 
     const outsideAlerterRef = useOutsideAlerter(() => {
         setOpenedControl(false);
     });
-
-    const controlContainerTransitions = {
-        enter: cssCont.controlContainerEnter,
-        enterActive: cssCont.controlContainerEnterActive,
-        exit: cssCont.controlContainerExit,
-        exitActive: cssCont.controlContainerExitActive
-    }
 
     const volume = useSelector((store) => store.system.volume);
 
