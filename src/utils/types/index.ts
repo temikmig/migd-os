@@ -24,6 +24,7 @@ export type TWindow = {
     refs: any,
     application: string;
     applicationId?: string;
+    structureId?: string;
 }
 
 export type TWinProps = {

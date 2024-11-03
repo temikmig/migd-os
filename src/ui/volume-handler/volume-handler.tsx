@@ -14,12 +14,16 @@ const VolumeHandler:FC = () => {
         const inputTarget = e.target as HTMLInputElement;
         const value = Number(inputTarget.value);
         dispatch(changeVolume(value));
+
+        // document.querySelectorAll('audio, video').forEach((element:any) => { 
+        //     element.volume = (value/100); 
+        // }); 
     }
   
     return(
         <div className={css.volumeHandlerCont}>
             <div className={css.volumeHandlerIcon}>
-                <VolumeIcon level={volumeLevel} />
+                <VolumeIcon color="#000000" level={volumeLevel} />
             </div>
             <div className={css.volumeHandlerSlider}>
                 <SliderComponent value={volumeLevel} color="#353535" handleChange={handleChangeVolume} handleInput={handleChangeVolume} />

@@ -46,3 +46,37 @@ export function findNode(id:string, currentNode:{id: string, children: any}):any
         return false;
     }
 }
+
+export function findNodeType(type:string, currentNode:{type: string, children: any}):any {
+    let currentChild, result = [];
+
+    for(let i in currentNode.children) {
+        currentChild = currentNode.children[i];
+        
+        if(currentChild.type==type) {
+            result.push(currentChild.id)
+        }
+
+        result.push(findNodeType(type, currentChild));
+    }
+
+    return result.flat();
+}
+
+export function findUp(id:string, currentNode:{id: string, children: any}):any {
+    if(id==currentNode.id) {
+        return [id];
+    } 
+    
+    let result:any = [];
+
+    for(let i in currentNode.children) {
+        result = result.concat(findUp(id, currentNode.children[i]));
+    }
+       
+    if(result.length > 0) {
+        result.push(currentNode.id);
+    }
+
+    return result;
+}

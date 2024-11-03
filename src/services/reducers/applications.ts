@@ -52,6 +52,27 @@ const initialState:IApplications = {
             title: 'Календарь',
             icon: '/apps-icons/calendar.svg',
             list: true
+        },
+        {
+            id: '00000000-0000-0000-0000-000000000005',
+            name: 'ImageGuide',
+            title: 'Изображения',
+            icon: '/apps-icons/image-guide.svg',
+            list: true
+        },
+        {
+            id: '00000000-0000-0000-0000-000000000006',
+            name: 'AudioGuide',
+            title: 'Аудиоплеер',
+            icon: '/apps-icons/audio-guide.svg',
+            list: true
+        },
+        {
+            id: '00000000-0000-0000-0000-000000000007',
+            name: 'VideoGuide',
+            title: 'Видеоплеер',
+            icon: '/apps-icons/video-guide.svg',
+            list: true
         }, 
         {
             id: 'bc117402-e668-4c1f-ae59-c11d7ed7386b',

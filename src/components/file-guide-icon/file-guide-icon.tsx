@@ -1,6 +1,6 @@
-import React, { useState, MouseEvent, useEffect } from 'react';
+import React, { useState, MouseEvent, useEffect, useRef, FC } from 'react';
 import css from './file-guide-icon.module.css';
-import { useDraggable } from '@dnd-kit/core';
+import { useDraggable, useDroppable } from '@dnd-kit/core';
 import { CSS as dndKitCSS } from '@dnd-kit/utilities';
 import { defaultIcons, DOCUMENT_HEIGHT, DOCUMENT_WIDTH, findNode } from '../../utils/config';
 
@@ -9,33 +9,35 @@ import { useDispatch, useOutsideAlerter, useSelector } from '../../services/type
 import { openWindow } from '../../services/actions/open-windows';
 import uuid from 'react-uuid';
 import { mergeRefs } from 'react-merge-refs';
+import { repositionDesktopIcon } from '../../services/actions/desktop-icons';
 
-const FileGuideIcon = ({id, active, props}:any) => {
+type T = {
+    id: string,
+    active?: boolean,
+    desktopRef?: any
+}
+
+const FileGuideIcon:FC<T> = ({id, active}) => {
     const [ isActive, setIsActive ] = useState(false);
 
     const applications = useSelector((store) => store.applications.data);
-
-    // useEffect(() => {
-    //     setIsActive(true);
-    // }, [])
 
     const fileStructure = useSelector((store) => store.fileStructure.data);
 
     const desktopIconsPosition = useSelector((store) => store.desktopIconsPosition.data).find((icons:any) => icons.id==id)?.properties;
 
-    const {name, application, type } = findNode(id, fileStructure);
+    const { title, application, type, content } = findNode(id, fileStructure);
 
     const applicationId = applications.find((app:any) => app.name==application).id;
 
-    const {attributes, listeners, setNodeRef} = useDraggable({
-        id: id,
+    const { isOver, setNodeRef  } = useDroppable({
+        id: "fileGuideIcon",
         data: {
-            type: 'fileGuideIcon',
-            title: id
-        }
+            accepts: [],
+        },
     });
 
-    const listenersOnState = 1 ? { ...listeners } : undefined;
+    // const listenersOnState = 1 ? { ...listeners } : undefined;
 
     const apps = appsList;
 
@@ -43,7 +45,7 @@ const FileGuideIcon = ({id, active, props}:any) => {
     const currentProps = eval('apps.'+application+'.appProps');
     const currentSizes = eval('apps.'+application+'.appSizes');
 
-    const icon = (application=='FileGuide')?defaultIcons.find(item => item.type==type)?.icon:currentIcon;
+    const icon = (application=='ImageGuide')?'images/'+content:currentIcon;
 
     const dispatch = useDispatch();
 
@@ -70,29 +72,39 @@ const FileGuideIcon = ({id, active, props}:any) => {
               isDragging: true
             },
             application: application,
-            applicationId: applicationId
+            applicationId: applicationId,
+            structureId: id
           }));
         setIsActive(false);
-    }
-
-
-
-    const styles = {
-        left: !active&&desktopIconsPosition?`${desktopIconsPosition.left}px`:undefined,
-        top: !active&&desktopIconsPosition?`${desktopIconsPosition.top}px`:undefined,
-        // position: desktopIconsPosition?'absolute' as 'absolute':'relative' as 'relative'
-        
-        // transform: dndKitCSS.Translate.toString(transform)
     }
 
     const outsideAlerterRef = useOutsideAlerter(() => {
         isActive&&setIsActive(false);
     });
 
+    const [ gridPosition, setGridPosition ] = useState({left: 0, top: 0})
+
+    const iconRef = useRef<any>(null);
+
+    useEffect(() => {
+        const icon = iconRef?.current.getBoundingClientRect();
+
+        const posLeft = Math.ceil((icon.x+65)/130);
+        const posTop = Math.ceil((icon.y+65)/130);
+
+        if(!active) {
+            setGridPosition({left: posLeft, top: posTop});
+
+            dispatch(repositionDesktopIcon(id, {
+                left: posLeft, top: posTop
+            }));
+        }
+    }, [gridPosition]);
+
     return(
-        <div ref={mergeRefs([outsideAlerterRef, setNodeRef])} style={styles} className={`${css.fileGuideItem} ${isActive&&css.fileGuideItemActive}`} onMouseDown={clickAction} onDoubleClick={doubleClickAction}>
-            <div className={css.fileGuideItemIcon} {...attributes} {...listenersOnState}><img src={icon} /></div>
-            <div className={css.fileGuideItemName}>{name}</div>
+        <div ref={mergeRefs([outsideAlerterRef, setNodeRef, iconRef])} className={`${css.fileGuideItem} ${isActive&&css.fileGuideItemActive}`} onMouseDown={clickAction} onDoubleClick={doubleClickAction}>
+            <div className={css.fileGuideItemIcon}><img src={icon} /></div>
+            <div className={css.fileGuideItemName}>{title}</div>
         </div>
     )
 }

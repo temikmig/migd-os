@@ -22,7 +22,7 @@ const StateVolume:FC = () => {
     return(
         <div className={cssCont.controlBarIconContainer} ref={outsideAlerterRef}>
             <div className={`${css.controlBarIconCont} ${openedControl&&cssCont.controlBarIconContActive}`} onClick={handleClick}>
-                <VolumeIcon level={volume} />
+                <VolumeIcon color="#000000" level={volume} />
             </div>
             <ContextMenuBottom view={openedControl}><ControlVolume /></ContextMenuBottom>
         </div>

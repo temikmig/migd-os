@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import css from './file-guide.module.css';
 import { useDroppable } from '@dnd-kit/core';
 
-// export const appIcon = '/apps-icons/file-guide.svg';
+export const appIcon = '/apps-icons/folder.svg';
 
 export const appProps = {
     canExpand: true,

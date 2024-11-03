@@ -13,7 +13,7 @@ import * as appsList from '../../applications';
 import { mergeRefs } from "react-merge-refs";
 import Application from '../../applications/application/application';
 
-const Window:FC<TWindow> = ({title, id, properties, winProps, winStates, application, applicationId, refs}) => {
+const Window:FC<TWindow> = ({title, id, properties, winProps, winStates, application, applicationId, structureId, refs}) => {
     const apps = appsList;
 
     const dispatch = useDispatch();
@@ -96,7 +96,7 @@ const Window:FC<TWindow> = ({title, id, properties, winProps, winStates, applica
                     </div>
                 </div>
                 <div className={css.windowContent}>
-                    <CurrentApp id={id} appId={applicationId} />
+                    <CurrentApp id={id} structureId={structureId} appId={applicationId} />
                 </div>
             {/* </div> */}
         </div>

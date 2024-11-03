@@ -10,6 +10,7 @@ import cssCont from '../app/app.module.css';
 import WindowsBar from '../windows-bar/windows-bar';
 import { repositionDesktopIcon } from '../../services/actions/desktop-icons';
 import { IOpenWindowItem } from '../../services/reducers/open-windows';
+import { IDesktopIconItem } from '../../services/reducers/desktop-icons';
 
 type T = {
   view: boolean
@@ -28,6 +29,11 @@ const ContentBar:FC<T> = ({view}) => {
     const [activeIcon, setActiveIcon] = useState(null);
 
     const openedWindows = useSelector((store) => store.openedWindows);
+    // const iconsPositions = useSelector((store) => store.desktopIconsPosition);
+
+    // const iconsPositionsList = iconsPositions.length>0&&iconsPositions.map((icon:IDesktopIconItem) => icon.properties);
+
+    // console.log(iconsPositionsList);
 
     function handleDragStart(ev:any) {
       const isActiveWindow = openedWindows.activeWindow==ev.active.id?true:false;
@@ -36,6 +42,7 @@ const ContentBar:FC<T> = ({view}) => {
 
       if(type=='fileGuideIcon') {
         setActiveIcon(ev.active.id);
+        
       }
 
       if(type=='window') {
@@ -47,15 +54,16 @@ const ContentBar:FC<T> = ({view}) => {
       const type = ev.active.data.current.type;
 
       if(type=='fileGuideIcon') {
+        console.log(ev)
+
         const target = ev.activatorEvent.target.parentNode.parentNode;
         const targetProps = target.getBoundingClientRect();
         const desktopProps = target.parentNode.getBoundingClientRect();
-        const rLeft = target.offsetLeft + ev.delta.x;
-        const rTop = target.offsetTop + ev.delta.y;
-
+        const rLeft =  Math.ceil((target.offsetLeft + ev.delta.x+65)/130);
+        const rTop =  Math.ceil((target.offsetTop + ev.delta.y+65)/130);
+        
         dispatch(repositionDesktopIcon(ev.active.id, {
-            left: rLeft<0?0:rLeft+targetProps.width>desktopProps.right?desktopProps.right-targetProps.width:rLeft,
-            top: rTop<0?0:rTop+targetProps.height>desktopProps.bottom?desktopProps.bottom-targetProps.height:rTop
+          left: rLeft, top: rTop
         }));
 
         setActiveIcon(null);

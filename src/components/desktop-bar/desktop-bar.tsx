@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { useState, MouseEvent, useRef } from 'react';
 import css from './desktop-bar.module.css';
 import FileGuideIcon from '../file-guide-icon/file-guide-icon';
 import { DndContext, DragOverlay, MouseSensor, PointerSensor, pointerWithin, TouchSensor, useDroppable, useSensor, useSensors } from '@dnd-kit/core';
@@ -9,6 +9,8 @@ import { openWindow } from '../../services/actions/open-windows';
 import uuid from 'react-uuid';
 import { repositionDesktopIcon } from '../../services/actions/desktop-icons';
 import { ContextMenu } from '../../utils/context-menu/context-menu';
+import { mergeRefs } from 'react-merge-refs';
+import Draggable from '../../utils/draggable/draggable';
 
 const DesktopBar = ({activeIcon}:any) => {
     const { setNodeRef } = useDroppable({
@@ -57,10 +59,14 @@ const DesktopBar = ({activeIcon}:any) => {
         alert('Открыть настройки');
     }
     
+    const desktopRef = useRef(null);
+
     return(
-        <div className={css.desktopCont} ref={setNodeRef} onContextMenu={handleContextMenu}>
+        <div className={css.desktopCont} ref={mergeRefs([setNodeRef, desktopRef])} onContextMenu={handleContextMenu}>
             {desktopIcons.map((item:any) => 
-            <FileGuideIcon id={item.id} key={item.id} />
+            <Draggable id={item.id} uid={item.id} key={item.id} type="fileGuideIcon">
+                <FileGuideIcon id={item.id} />
+            </Draggable>
             )}
             <DragOverlay>
                 {activeIcon?(<FileGuideIcon id={activeIcon} active/>):null}

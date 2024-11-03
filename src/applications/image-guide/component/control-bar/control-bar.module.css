@@ -1,0 +1,23 @@
+.controlBarContainer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.2) 0%, transparent 30%, transparent 70%, rgba(255,255,255,0.2) 100%);
+}
+
+.controlBarCont {
+    width: calc(100% - 20px);
+    height: 50px;
+    background-color: rgba(214, 219, 225, 0.2);
+    filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.3));
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}

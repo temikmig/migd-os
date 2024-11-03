@@ -19,6 +19,15 @@ export const ui_startOfWeek = (dt:Date):any => {
     return day;
 }
 
+export const ui_to_time = (time:number):string => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time - minutes * 60;
+
+    const hours = Math.floor(time / 3600);
+
+    return ui_addNull(hours)+':'+ui_addNull(minutes)+':'+ui_addNull(seconds);
+}
+
 export const ui_heightCalendar = (end:any) => {
     
 

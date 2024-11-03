@@ -21,7 +21,7 @@ const WindowsBar:FC = () => {
                 const itemRef:any = React.createRef();
                 return(
                 <CSSTransition nodeRef={itemRef} classNames={winTransition} timeout={300} key={openedWindow.id}>
-                  <Window refs={itemRef} title={openedWindow.title} key={openedWindow.id} id={openedWindow.id} properties={openedWindow.properties} winProps={openedWindow.winProps} winStates={openedWindow.winStates} application={openedWindow.application} applicationId={openedWindow.applicationId}  />
+                  <Window refs={itemRef} title={openedWindow.title} key={openedWindow.id} id={openedWindow.id} properties={openedWindow.properties} winProps={openedWindow.winProps} winStates={openedWindow.winStates} application={openedWindow.application} applicationId={openedWindow.applicationId} structureId={openedWindow.structureId}  />
                 </CSSTransition>
                 )})}
             </TransitionGroup>

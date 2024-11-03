@@ -9,9 +9,9 @@ const actionTo = (numA:number, numB:number, action:number) => {
 
     switch(action) {
         case 1:
-        case 2: result = new Decimal(evaluate(numA+'+'+numB)).toFixed(10); break;
+        case 2: result = new Decimal(evaluate(numA+'+'+numB)).toFixed(7); break;
         case 3: 
-        case 4: result = new Decimal(evaluate(numA+'*'+numB)).toFixed(10); break;
+        case 4: result = new Decimal(evaluate(numA+'*'+numB)).toFixed(7); break;
     }
 
     return result;
