@@ -112,6 +112,7 @@ export const Component:FC<T> = ({id, structureId}) => {
                 </Wave>
                 {audio}
             </div>
+            <div style={{display: 'none'}}><VolumeHandler volume={state.volume} controls={controls} /></div>
             {showControl&&
             <ControlBar handleMouseMove={handleMouseMove} handleMouseEnter={handleMouseEnter}>
                 <>

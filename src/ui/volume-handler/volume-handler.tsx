@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from '../../services/types/hooks';
 import { changeVolume } from '../../services/actions/system';
 
 const VolumeHandler:FC = () => {
-    const volumeLevel = useSelector((store) => store.system.volume);
+    const { volume } = useSelector((store) => store.system);
 
     const dispatch = useDispatch();
 
@@ -23,10 +23,10 @@ const VolumeHandler:FC = () => {
     return(
         <div className={css.volumeHandlerCont}>
             <div className={css.volumeHandlerIcon}>
-                <VolumeIcon color="#000000" level={volumeLevel} />
+                <VolumeIcon color="#000000" level={volume.value} />
             </div>
             <div className={css.volumeHandlerSlider}>
-                <SliderComponent value={volumeLevel} color="#353535" handleChange={handleChangeVolume} handleInput={handleChangeVolume} />
+                <SliderComponent value={volume.value} color="#353535" handleChange={handleChangeVolume} handleInput={handleChangeVolume} />
             </div>
         </div>
     );

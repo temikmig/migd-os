@@ -1,15 +1,17 @@
-import React, { useState, MouseEvent, useEffect, useRef, FC } from 'react';
+import React, { useState, MouseEvent, useEffect, useRef, FC, useContext } from 'react';
 import css from './file-guide-icon.module.css';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
 import { CSS as dndKitCSS } from '@dnd-kit/utilities';
-import { defaultIcons, DOCUMENT_HEIGHT, DOCUMENT_WIDTH, findNode } from '../../utils/config';
+import { defaultIcons, DOCUMENT_HEIGHT, DOCUMENT_WIDTH, FILEGUIDE_APP, findNode } from '../../utils/config';
 
 import * as appsList from '../../applications';
-import { useDispatch, useOutsideAlerter, useSelector } from '../../services/types/hooks';
+import { useContextMenu, useDispatch, useOutsideAlerter, useSelector } from '../../services/types/hooks';
 import { openWindow } from '../../services/actions/open-windows';
 import uuid from 'react-uuid';
 import { mergeRefs } from 'react-merge-refs';
 import { repositionDesktopIcon } from '../../services/actions/desktop-icons';
+import { fileGuideContext } from '../../applications/file-guide/file-guide';
+import { ContextMenu } from '../../utils/context-menu/context-menu';
 
 type T = {
     id: string,
@@ -18,13 +20,11 @@ type T = {
 }
 
 const FileGuideIcon:FC<T> = ({id, active}) => {
-    const [ isActive, setIsActive ] = useState(false);
-
     const applications = useSelector((store) => store.applications.data);
 
     const fileStructure = useSelector((store) => store.fileStructure.data);
 
-    const desktopIconsPosition = useSelector((store) => store.desktopIconsPosition.data).find((icons:any) => icons.id==id)?.properties;
+    const { strId, setStrId, backList, setBackList, forwardList, setForwardList, activeIcon, setActiveIcon } = useContext(fileGuideContext);
 
     const { title, application, type, content } = findNode(id, fileStructure);
 
@@ -51,61 +51,79 @@ const FileGuideIcon:FC<T> = ({id, active}) => {
 
     const clickAction = (e:MouseEvent<HTMLDivElement>) => {
         // e.stopPropagation();
-        setIsActive(true);
+        setActiveIcon(id);
     }
 
     const doubleClickAction = (e:MouseEvent<HTMLDivElement>) => {
         // e.stopPropagation();
+        if(applicationId==FILEGUIDE_APP) {
+            setStrId(id);
+            setBackList([...backList, strId])
+            setForwardList([]);
+        } else {
+            openAction();
+        }
+        setActiveIcon('');
+    }
+
+    const openAction = () => {
         dispatch(openWindow({
             id: uuid(),
             
             properties: {
-              top: (DOCUMENT_HEIGHT / 2) - (currentSizes.height / 2),
-              left: (DOCUMENT_WIDTH / 2) - (currentSizes.width / 2),
-              width: currentSizes.width,
-              height: currentSizes.height
+            top: (DOCUMENT_HEIGHT / 2) - (currentSizes.height / 2),
+            left: (DOCUMENT_WIDTH / 2) - (currentSizes.width / 2),
+            width: currentSizes.width,
+            height: currentSizes.height
             },
             winProps: currentProps,
             winStates: {
-              isExpand: false,
-              isCollapse: false,
-              isDragging: true
+            isExpand: false,
+            isCollapse: false,
+            isDragging: true
             },
             application: application,
             applicationId: applicationId,
             structureId: id
-          }));
-        setIsActive(false);
+        }));
     }
 
+    const { showContextMenu, hideContextMenu, contextMenuVisible, menuPosition } = useContextMenu();
+
+    const contextMenuItems = [
+        [
+            {title: 'Открыть'+(applicationId==FILEGUIDE_APP?' в новом окне':''), action: openAction}
+        ],
+        [
+            {title: 'Копировать', action: (e:any) => {}},
+            {title: 'Вырезать', action: (e:any) => {}},
+        ],
+        [
+            {title: 'Переименовать', action: (e:any) => {}},
+            {title: 'Удалить', action: (e:any) => {}},
+        ]
+    ];
+
+    const handleContextMenu = (e:MouseEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        showContextMenu(e);
+    } 
+
     const outsideAlerterRef = useOutsideAlerter(() => {
-        isActive&&setIsActive(false);
+        hideContextMenu();
+        if(activeIcon==id) {
+            setActiveIcon('');
+        }
     });
 
-    const [ gridPosition, setGridPosition ] = useState({left: 0, top: 0})
-
-    const iconRef = useRef<any>(null);
-
-    useEffect(() => {
-        const icon = iconRef?.current.getBoundingClientRect();
-
-        const posLeft = Math.ceil((icon.x+65)/130);
-        const posTop = Math.ceil((icon.y+65)/130);
-
-        if(!active) {
-            setGridPosition({left: posLeft, top: posTop});
-
-            dispatch(repositionDesktopIcon(id, {
-                left: posLeft, top: posTop
-            }));
-        }
-    }, [gridPosition]);
-
     return(
-        <div ref={mergeRefs([outsideAlerterRef, setNodeRef, iconRef])} className={`${css.fileGuideItem} ${isActive&&css.fileGuideItemActive}`} onMouseDown={clickAction} onDoubleClick={doubleClickAction}>
-            <div className={css.fileGuideItemIcon}><img src={icon} /></div>
-            <div className={css.fileGuideItemName}>{title}</div>
-        </div>
+        <>
+            <div ref={mergeRefs([outsideAlerterRef, setNodeRef])} className={`${css.fileGuideItem} ${activeIcon==id&&css.fileGuideItemActive}`} onMouseDown={clickAction} onDoubleClick={doubleClickAction} onContextMenu={handleContextMenu}>
+                <div className={css.fileGuideItemIcon}><img src={icon} /></div>
+                <div className={css.fileGuideItemName}>{title}</div>
+            </div>
+            <ContextMenu visible={contextMenuVisible} position={menuPosition} contextMenuItems={contextMenuItems} hideContextMenu={hideContextMenu} />
+        </>
     )
 }
 

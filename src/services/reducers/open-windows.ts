@@ -1,6 +1,7 @@
 import { TOpenedWindowsActions } from '../actions/open-windows';
 import { 
     OPEN_WINDOW, 
+    OPEN_WINDOW_ONCE,
     RESIZE_WINDOW,
     REPOSITION_WINDOW,
     TO_ACTIVE_WINDOW,
@@ -57,6 +58,13 @@ export const openedWindowsReducer = (state = initialState, action:TOpenedWindows
             data: [...state.data, action.windowData],
             isScreensShow: false,
             activeWindow: action.windowData.id
+        }
+
+        case OPEN_WINDOW_ONCE: return { 
+            ...state, 
+            data: [...state.data, state.data.map((window) => window.application!=action.windowData.application?window:'')],
+            // isScreensShow: false,
+            // activeWindow: action.windowData.id
         }
 
         case RESIZE_WINDOW: {

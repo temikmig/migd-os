@@ -11,6 +11,7 @@ import { repositionDesktopIcon } from '../../services/actions/desktop-icons';
 import { ContextMenu } from '../../utils/context-menu/context-menu';
 import { mergeRefs } from 'react-merge-refs';
 import Draggable from '../../utils/draggable/draggable';
+import FileGuideIconDesktop from '../file-guide-icon-desktop/file-guide-icon-desktop';
 
 const DesktopBar = ({activeIcon}:any) => {
     const { setNodeRef } = useDroppable({
@@ -65,11 +66,11 @@ const DesktopBar = ({activeIcon}:any) => {
         <div className={css.desktopCont} ref={mergeRefs([setNodeRef, desktopRef])} onContextMenu={handleContextMenu}>
             {desktopIcons.map((item:any) => 
             <Draggable id={item.id} uid={item.id} key={item.id} type="fileGuideIcon">
-                <FileGuideIcon id={item.id} />
+                <FileGuideIconDesktop id={item.id} />
             </Draggable>
             )}
             <DragOverlay>
-                {activeIcon?(<FileGuideIcon id={activeIcon} active/>):null}
+                {activeIcon?(<FileGuideIconDesktop id={activeIcon} active/>):null}
             </DragOverlay>
             <ContextMenu visible={contextMenuVisible} position={menuPosition} contextMenuItems={contextMenuItems} hideContextMenu={hideContextMenu} />
         </div>

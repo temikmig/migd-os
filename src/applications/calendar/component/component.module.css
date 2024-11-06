@@ -1,0 +1,109 @@
+.calendarContainer {
+    width: 100%;
+    height: calc(100%);
+    overflow-y: scroll;
+    user-select: none;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    position: relative;
+    top: -38px;
+    display: flex;
+    flex-direction: column;
+}
+
+.calendarCont {
+    width: 100%;
+    flex: auto;
+    overflow-y: scroll;
+    user-select: none;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    background: #d8d8d8;
+}
+
+.calendarCont::-webkit-scrollbar {
+    display: none;
+  }
+
+.calendarBody {
+    width: 100%;
+    position: relative;
+}
+
+.calendarHeaderWeekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: 1fr;
+    height: 30px;
+    gap: 1px;
+}
+
+.calendarHeader {
+    border-bottom: 1px #c6c6c6 solid;
+    user-select: none;
+}
+
+.calendarHeaderMonth {
+    height: 50px;
+    display: flex;
+    font-size: 15px;
+    padding: 10px 0px 0px 10px;
+    box-sizing: border-box;
+    font-size: 28px;
+    font-weight: bold;
+    color: #222;
+}
+
+.calendarHeaderHandlerCont {
+    display: flex;
+    padding: 0px 10px;
+    gap: 5px;
+}
+
+.calendarHeaderHandlerCont div {
+    min-width: 14px;
+    padding: 0px 5px;
+    height: 24px;
+    background: #efefef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    font-size: 12px;
+    transition: 0.2s;
+}
+
+.calendarHeaderHandlerCont div:hover {
+    background: #e2e2e2;
+}
+
+.calendarHeaderHandlerCont div:active {
+    transform: scale(0.9);
+}
+
+.calendarHeaderHandlerCont div svg {
+    width: 12px;
+    height: 12px;
+}
+
+.calendarHandlerContBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.calendarHandlerContBar svg {
+    width: 20px;
+    height: 20px;
+    transition: 0.2s;
+}
+
+.calendarHandlerContBar svg:hover {
+    fill: #6c6c6c
+}
+
+.calendarHandlerContBar svg:active {
+    transform: scale(0.9);
+}

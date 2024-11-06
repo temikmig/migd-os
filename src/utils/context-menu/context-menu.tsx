@@ -13,7 +13,8 @@ type TContextMenu = {
         y: number
     };
     contextMenuItems: IContextMenuItems[][];
-    hideContextMenu: () => void
+    hideContextMenu: () => void,
+    nodeRef?: any
 }
 
 interface IContextMenuItems {
@@ -21,7 +22,7 @@ interface IContextMenuItems {
     action: (e:MouseEvent<HTMLDivElement>) => void
 }
 
-export const ContextMenuCont:FC<TContextMenu> = ({position, contextMenuItems, hideContextMenu}) => {
+export const ContextMenuCont:FC<TContextMenu> = ({position, contextMenuItems, hideContextMenu, nodeRef}) => {
     const outsideAlerterRef = useOutsideAlerter(() => {
         hideContextMenu();
     });
@@ -47,10 +48,10 @@ export const ContextMenuCont:FC<TContextMenu> = ({position, contextMenuItems, hi
     };
 
     return(
-        <div ref={mergeRefs([contextMenuRef, outsideAlerterRef])} style={style} className={css.contextMenu}>
+        <div ref={mergeRefs([contextMenuRef, outsideAlerterRef, nodeRef])} style={style} className={css.contextMenu}>
             {contextMenuItems.map((group, index) => 
                 <div className={css.contextMenuGroup} key={index}>
-                    {group.map((item, index) => <div key={index} className={css.contextMenuItem} onMouseUp={hideContextMenu} onClick={item.action}>{item.title}</div>)}
+                    {group.map((item, index) => <div key={index} className={css.contextMenuItem} onMouseDown={hideContextMenu} onClick={item.action}>{item.title}</div>)}
                 </div>
             )}
         </div>
@@ -70,15 +71,15 @@ export const ContextMenu:FC<TContextMenu> = ({visible, position, contextMenuItem
 
     const mainContainer:any = document.querySelector('#main');
 
-    const itemRef:any = createRef();
+    const itemRef:any = useRef(null);
 
     return(
         <>
         {mainContainer&&createPortal(
         <TransitionGroup component={null}>
             {visible&&
-            <CSSTransition itemRef={itemRef} key={uid} classNames={transitions} timeout={200}>
-                <ContextMenuCont position={position} contextMenuItems={contextMenuItems} hideContextMenu={hideContextMenu} />
+            <CSSTransition nodeRef={itemRef} key={uid} classNames={transitions} timeout={200}>
+                <ContextMenuCont nodeRef={itemRef} position={position} contextMenuItems={contextMenuItems} hideContextMenu={hideContextMenu} />
             </CSSTransition>}
         </TransitionGroup>,
         mainContainer )}

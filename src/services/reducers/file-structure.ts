@@ -19,14 +19,14 @@ const initialState:any = {
                 location: ':root',
                 application: 'FileGuide',
                 children: [
-                    // {
-                    //     id: '5a01d6cc-4b2c-4529-8701-90fb89300763',
-                    //     name: 'Папка',
-                    //     title: 'Папка',
-                    //     type: 'folder',
-                    //     location: ':root/:desktop',
-                    //     application: 'FileGuide',
-                    // },
+                    {
+                        id: '5a01d6cc-4b2c-4529-8701-90fb89300763',
+                        name: 'Папка',
+                        title: 'Папка',
+                        type: 'folder',
+                        location: ':root/:desktop',
+                        application: 'FileGuide',
+                    },
                     {
                         id: 'e86ac874-6604-4c3e-87d6-a76a783a000c',
                         title: 'Картинка красивая',
@@ -66,9 +66,7 @@ const initialState:any = {
                         location: ':root/:desktop',
                         content: 'The_Weeknd_Dancing_In_The_Flames.mp4',
                         application: 'VideoGuide',
-                    }
-                    
-                    /*, 
+                    },
                     {
                         id: '91522911-c24c-4550-a2d9-75a4d794ba0d',
                         name: 'Вторая папка',
@@ -76,7 +74,10 @@ const initialState:any = {
                         type: 'folder',
                         location: ':root/:desktop',
                         application: 'FileGuide'
-                    }, 
+                    }
+                    
+                    /*, 
+                   
                     {
                         id: 'a1012d85-f577-4560-8cef-23e8b331ee81',
                         name: 'Текстовый файл',
@@ -96,13 +97,46 @@ const initialState:any = {
                 ]
             }, 
             {
-                id: 'id-applications',
-                name: ':applications',
-                title: 'Приложения',
+                id: 'id-images',
+                name: ':images',
+                title: 'Изображения',
                 type: 'folder',
                 location: ':root',
                 application: 'FileGuide',
-                
+                children: [
+                    {
+                        id: 'afa15092-6ed4-4cbd-b30c-040964731f67',
+                        title: 'Фон 1',
+                        type: 'image',
+                        location: ':root/:desktop',
+                        content: 'image3.jpg',
+                        application: 'ImageGuide',
+                    },
+                    {
+                        id: 'deed553c-9b4f-48e1-80ef-3d44de7a940a',
+                        title: 'Фон 2',
+                        type: 'image',
+                        location: ':root/:desktop',
+                        content: 'image4.jpg',
+                        application: 'ImageGuide',
+                    },
+                    {
+                        id: 'c465fcd8-9cea-4961-b1c0-a1b6c52a5a28',
+                        title: 'Фон 3',
+                        type: 'image',
+                        location: ':root/:desktop',
+                        content: 'image5.jpg',
+                        application: 'ImageGuide',
+                    },
+                    {
+                        id: '18daa609-779c-49ea-bf7b-593fd058e3d5',
+                        title: 'Фон 4',
+                        type: 'image',
+                        location: ':root/:desktop',
+                        content: 'image6.jpg',
+                        application: 'ImageGuide',
+                    }
+                ]
             }, 
             {
                 id: 'id-recyclebin',

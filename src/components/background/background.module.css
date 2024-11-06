@@ -27,7 +27,9 @@
     backdrop-filter: blur(10px) brightness(0.5);
 }
 
-.background img {
+.backgroundImage {
     width: 100%;
     min-height: 100%;
+    background-size: cover;
+    transition: 1s;
 }

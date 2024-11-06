@@ -1,36 +1,30 @@
-import React, { MouseEvent, useRef, useState } from 'react';
+import { useState } from 'react';
 import css from './app.module.css';
 import ContentBar from '../content-bar/content-bar';
 import BottomBar from '../bottom-bar/bottom-bar';
-import { useDispatch, useOutsideAlerter, useSelector } from '../../services/types/hooks';
+import { useDispatch, useSelector } from '../../services/types/hooks';
 import Background from '../background/background';
 import StartMenuBar from '../start-menu-bar/start-menu-bar';
 
 import {
     DndContext,
-    closestCenter,
-    MouseSensor,
-    TouchSensor,
     DragOverlay,
     useSensor,
     useSensors,
-    DragStartEvent,
-    DragEndEvent,
     PointerSensor,
     pointerWithin,
 } from '@dnd-kit/core';
-import { arrayMove, SortableContext, rectSortingStrategy } from '@dnd-kit/sortable';
+import { arrayMove } from '@dnd-kit/sortable';
 import { snapCenterToCursor } from '@dnd-kit/modifiers';
-import { addStartMenuTiles, addStartMenuTilesUid, checkStartMenu, removeStartMenuTiles, removeStartMenuTilesUid, repositionStartMenuPined, repositionStartMenuTiles } from '../../services/actions/start-menu';
-import StartMenuIcon from '../start-menu-icon/start-menu-icon';
-import StartMenuTile from '../start-menu-tile/start-menu-tile';
-import Sortable from '../../utils/sortable/sortable';
+import { addStartMenuTilesUid, removeStartMenuTiles, repositionStartMenuPined, repositionStartMenuTiles } from '../../services/actions/start-menu';
+import StartMenuIcon from '../start-menu-bar/start-menu-icon/start-menu-icon';
+import StartMenuTile from '../start-menu-bar/start-menu-tile/start-menu-tile';
 import uuid from 'react-uuid';
 import NavBarIcon from '../nav-bar/nav-bar-icon/nav-bar-icon';
 import { addNavBarUid, removeNavBar, repositionNavBar } from '../../services/actions/nav-bar';
-import { adjustScale } from '@dnd-kit/core/dist/utilities';
 import { INavBarItem } from '../../services/reducers/nav-bar';
 import { IStartMenuItem } from '../../services/reducers/start-menu';
+import BlurLayer from '../blur-layer/blur-layer';
 
 const App = () => {
     const dispatch = useDispatch();
@@ -168,18 +162,20 @@ const App = () => {
     //     easing: 'cubic-bezier(0.18, 0.67, 0.6, 1.22)',
     // }:null;
 
-    const brightnessLevel = useSelector((store) => store.system.brightness);
-    const brightness = 30+(0.7*brightnessLevel);
+    const { brightness } = useSelector((store) => store.system);
+    const brightnessLevel = 30+(0.7*brightness.value);
 
 
     return(
-        <main id="main" style={{filter: 'brightness('+brightness+'%)'}} className={css.mainContainer} onContextMenu={(e:MouseEvent<HTMLDivElement>) => e.preventDefault()}>
+        <main id="main" style={{filter: 'brightness('+brightnessLevel+'%)'}} className={css.mainContainer}>
             <DndContext collisionDetection={pointerWithin} onDragStart={handleDragStart} onDragOver={handleDragOver} onDragEnd={handleDragEnd} autoScroll={false} sensors={dndSensors}>
-                <Background blurState={backgroundBlurState} />
-                <StartMenuBar view={isStartMenu} />
-                <ContentBar view={!isStartMenu} />
+                <Background />
+                <BlurLayer view={isStartMenu} />
+                <ContentBar view={true} />
                 <BottomBar />
-                <DragOverlay  modifiers={[snapCenterToCursor]}>
+                {isStartMenu&&<StartMenuBar view={isStartMenu} />}
+                
+                <DragOverlay modifiers={[snapCenterToCursor]}>
                     <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                         {activeDnd.type=='startMenuIcon'?(<StartMenuIcon id={activeDnd.id} setShowPined={null} />):null}    
                         {activeDnd.type=='startMenuTile'?(<StartMenuTile id={activeDnd.id} />):null}    

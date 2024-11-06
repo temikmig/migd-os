@@ -1,8 +1,6 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import css from './clock.module.css';
-import { ui_addNull, ui_monthName } from '../../ui/ui';
 import { Component } from './component/component';
-import { Moon } from './component/moon/moon';
 
 export const appProps = {
     canExpand: false,

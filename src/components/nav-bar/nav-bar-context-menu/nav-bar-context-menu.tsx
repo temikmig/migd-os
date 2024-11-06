@@ -6,6 +6,7 @@ import uuid from 'react-uuid';
 import { checkStartMenu } from '../../../services/actions/start-menu';
 import { IOpenWindowItem } from '../../../services/reducers/open-windows';
 import { INavBarItem } from '../../../services/reducers/nav-bar';
+import { SETTINGS_APP } from '../../../utils/config';
 
 type T = {
     appId: string, 
@@ -22,7 +23,7 @@ const NavBarContextMenu:FC<T> = ({appId, handleOpenApp, setIsContextMenu}) => {
 
     const isPined = useSelector((store) => store.navBar.apps).some((app:INavBarItem) => app.id==appId);
 
-    const handleCloseWindow = (e:MouseEvent<SVGElement>) => {
+    const handleCloseWindow = (e:MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
 
         setIsContextMenu(false);
@@ -70,9 +71,11 @@ const NavBarContextMenu:FC<T> = ({appId, handleOpenApp, setIsContextMenu}) => {
                     <div className={`${css.startMenuContextMenuItem}`} onClick={handleRemoveNavBar}>Открепить приложение</div> 
                 </div>   
                 }
+                {appId!=SETTINGS_APP&&
                 <div className={css.startMenuContextMenuGroup}>   
                     <div className={`${css.startMenuContextMenuItem}`} onClick={handleOpenWindow}>Открыть приложение</div> 
                 </div> 
+                }
                 {/* {!sortable&&appId==FILEGUIDE_APP?
                 <>
                     <div className={css.startMenuContextMenuGroup}>        

@@ -7,9 +7,7 @@ type T = {
 
 const StartMenuContSearch:FC<T> = ({view}) => {
     return(
-        <div className={css.startSearchBox}>
-            <input type="text" placeholder="Поиск..."></input>
-        </div>
+        <></>
     );
 }
 

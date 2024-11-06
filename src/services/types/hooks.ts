@@ -83,7 +83,7 @@ export const useContextMenu = () => {
 
   const hideContextMenu = useCallback(() => {
     setContextMenuVisible(false);
-  }, []);
+  }, [contextMenuVisible]);
 
   return { showContextMenu, hideContextMenu, contextMenuVisible, menuPosition };
 };

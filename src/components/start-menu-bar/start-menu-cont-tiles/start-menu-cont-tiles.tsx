@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import css from './start-menu-cont-tiles.module.css';
-import StartMenuTile from '../../start-menu-tile/start-menu-tile';
+import StartMenuTile from '../start-menu-tile/start-menu-tile';
 import { useSelector } from '../../../services/types/hooks';
 import { SortableContext } from '@dnd-kit/sortable';
 import { DragOverlay, useDroppable } from '@dnd-kit/core';

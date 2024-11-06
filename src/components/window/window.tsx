@@ -38,10 +38,10 @@ const Window:FC<TWindow> = ({title, id, properties, winProps, winStates, applica
 
     const style = {
         left: !isExpand?`${properties.left}px`:`0px`,
-        top: !isExpand?`${properties.top}px`:`0px`,
+        top: isScreenActive?`${properties.top}px`:(!isCollapse?(!isExpand?`${properties.top}px`:`0px`):`2200px`),
         width: !isExpand?`${properties.width}px`:`100%`,
         height: !isExpand?`${properties.height}px`:`100%`,
-        transition: isExpand?`0.3s`:undefined,
+        transition: isExpand||isCollapse?`0.75s`:undefined,
         pointerEvents: isCollapse?`none`:undefined,
         zIndex: isActive||isScreenActive?10:isCollapse?1:undefined, 
         transform: dndKitCSS.Translate.toString(transform)
@@ -75,6 +75,7 @@ const Window:FC<TWindow> = ({title, id, properties, winProps, winStates, applica
     // dispatch(toActiveWindow(props.id));
 
     const outsideAlerterRef = useOutsideAlerter(() => {
+        console.log('outwin'+id)
         isActive&&dispatch(toDisactiveWindows());
     });
 

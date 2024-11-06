@@ -5,12 +5,7 @@ import { changeBluetooth, changeFlightmode, changeFocusmode, changeHotspot, chan
 import VolumeHandler from '../../../ui/volume-handler/volume-handler';
 import BrightnessHandler from '../../../ui/brightness-handler/brightness-handler';
 import ControlCenterHandler from './control-center-handler/control-center-handler';
-import ControlCenterHandlerIconWifi from './control-center-handler-icons/control-center-handler-icon-wifi';
-import ControlCenterHandlerIconBluetooth from './control-center-handler-icons/control-center-handler-icon-bluetooth';
-import ControlCenterHandlerIconFlightmode from './control-center-handler-icons/control-center-handler-icon-filghtmode';
-import ControlCenterHandlerIconFocusmode from './control-center-handler-icons/control-center-handler-icon-focusmode';
-import ControlCenterHandlerIconHotspot from './control-center-handler-icons/control-center-handler-icon-hotspot';
-import ControlCenterHandlerIconVPN from './control-center-handler-icons/control-center-handler-icon-vpn';
+import { SVGIconBluetooth, SVGIconFlightmode, SVGIconFocusmode, SVGIconHotspot, SVGIconVPN, SVGIconWifi } from '../../../ui/svg-icons';
 
 const ControlCenter:FC = () => {
     const { wifi, bluetooth, flightmode, focusmode, hotspot, vpn } = useSelector((store) => store.system);
@@ -18,38 +13,38 @@ const ControlCenter:FC = () => {
     const dispatch = useDispatch();
 
     const handleChangeWifi = (e:MouseEvent<HTMLDivElement>) => {
-        dispatch(changeWifi(!wifi));
+        dispatch(changeWifi(!wifi.enabled));
     }
 
     const handleChangeBluetooth = (e:MouseEvent<HTMLDivElement>) => {
-        dispatch(changeBluetooth(!bluetooth));
+        dispatch(changeBluetooth(!bluetooth.enabled));
     }
 
     const handleChangeFlightmode = (e:MouseEvent<HTMLDivElement>) => {
-        dispatch(changeFlightmode(!flightmode));
+        dispatch(changeFlightmode(!flightmode.enabled));
     }
 
     const handleChangeFocusmode = (e:MouseEvent<HTMLDivElement>) => {
-        dispatch(changeFocusmode(!focusmode));
+        dispatch(changeFocusmode(!focusmode.enabled));
     }
 
     const handleChangeHotspot = (e:MouseEvent<HTMLDivElement>) => {
-        dispatch(changeHotspot(!hotspot));
+        dispatch(changeHotspot(!hotspot.enabled));
     }
 
     const handleChangeVPN = (e:MouseEvent<HTMLDivElement>) => {
-        dispatch(changeVpn(!vpn));
+        dispatch(changeVpn(!vpn.enabled));
     }
 
     return(
         <div className={css.controlCenterCont}>
             <div className={css.controlCenterHandlerCont}>
-                <ControlCenterHandler handleClick={handleChangeWifi} active={wifi} title="Wi-Fi"><ControlCenterHandlerIconWifi /></ControlCenterHandler>
-                <ControlCenterHandler handleClick={handleChangeBluetooth} active={bluetooth} title="Bluetooth"><ControlCenterHandlerIconBluetooth /></ControlCenterHandler>
-                <ControlCenterHandler handleClick={handleChangeFlightmode} active={flightmode} title="Полет"><ControlCenterHandlerIconFlightmode /></ControlCenterHandler>
-                <ControlCenterHandler handleClick={handleChangeFocusmode} active={focusmode} title="Не беспокоить"><ControlCenterHandlerIconFocusmode /></ControlCenterHandler>
-                <ControlCenterHandler handleClick={handleChangeHotspot} active={hotspot} title="Точка доступа"><ControlCenterHandlerIconHotspot /></ControlCenterHandler>
-                <ControlCenterHandler handleClick={handleChangeVPN} active={vpn} title="VPN"><ControlCenterHandlerIconVPN /></ControlCenterHandler>
+                <ControlCenterHandler handleClick={handleChangeWifi} active={wifi.enabled} title="Wi-Fi"><SVGIconWifi /></ControlCenterHandler>
+                <ControlCenterHandler handleClick={handleChangeBluetooth} active={bluetooth.enabled} title="Bluetooth"><SVGIconBluetooth /></ControlCenterHandler>
+                <ControlCenterHandler handleClick={handleChangeFlightmode} active={flightmode.enabled} title="Полет"><SVGIconFlightmode /></ControlCenterHandler>
+                <ControlCenterHandler handleClick={handleChangeFocusmode} active={focusmode.enabled} title="Не беспокоить"><SVGIconFocusmode /></ControlCenterHandler>
+                <ControlCenterHandler handleClick={handleChangeHotspot} active={hotspot.enabled} title="Точка доступа"><SVGIconHotspot /></ControlCenterHandler>
+                <ControlCenterHandler handleClick={handleChangeVPN} active={vpn.enabled} title="VPN"><SVGIconVPN /></ControlCenterHandler>
             </div>
             <div className={css.controlCenterHandlerSliderCont}>
                 <div className={css.controlCenterHandlerSlider}>

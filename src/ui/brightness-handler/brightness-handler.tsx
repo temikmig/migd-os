@@ -6,7 +6,7 @@ import { changeBrightness } from '../../services/actions/system';
 import BrightnessIcon from '../brightness-icon/brightness-icon';
 
 const BrightnessHandler:FC = () => {
-    const brightnessLevel = useSelector((store) => store.system.brightness);
+    const { brightness } = useSelector((store) => store.system);
 
     const dispatch = useDispatch();
 
@@ -20,10 +20,10 @@ const BrightnessHandler:FC = () => {
     return(
         <div className={css.brightnessHandlerCont}>
             <div className={css.brightnessHandlerIcon}>
-                <BrightnessIcon level={brightnessLevel} />
+                <BrightnessIcon level={brightness.value} />
             </div>
             <div className={css.brightnessHandlerSlider}>
-                <SliderComponent value={brightnessLevel} color="#353535" handleChange={handleChandeBrightness} handleInput={handleChandeBrightness} />
+                <SliderComponent value={brightness.value} color="#353535" handleChange={handleChandeBrightness} handleInput={handleChandeBrightness} />
             </div>
         </div>
     );

@@ -1,12 +1,17 @@
 import {
     CHANGE_VOLUME,
+    CHANGE_VOLUME_CONTROLBAR,
     CHANGE_BRIGHTNESS,
+    CHANGE_BRIGHTNESS_CONTROLBAR,
     CHANGE_WIFI,
+    CHANGE_WIFI_CONTROLBAR,
     CHANGE_BLUETOOTH,
+    CHANGE_BLUETOOTH_CONTROLBAR,
     CHANGE_FLIGHTMODE,
     CHANGE_FOCUSMODE,
     CHANGE_HOTSPOT,
-    CHANGE_VPN
+    CHANGE_VPN,
+    CHANGE_WALLAPER
 } from '../constants/system';
 
 export interface IChangeVolumeAction {
@@ -14,9 +19,19 @@ export interface IChangeVolumeAction {
     readonly volume: number
 }
 
+export interface IChangeVolumeControlBarAction {
+    readonly type: typeof CHANGE_VOLUME_CONTROLBAR;
+    readonly controlBar: boolean
+}
+
 export interface IChangeBrightnessAction {
     readonly type: typeof CHANGE_BRIGHTNESS;
     readonly brightness: number
+}
+
+export interface IChangeBrightnessControlBarAction {
+    readonly type: typeof CHANGE_BRIGHTNESS_CONTROLBAR;
+    readonly controlBar: boolean
 }
 
 export interface IChangeWifiAction {
@@ -24,9 +39,19 @@ export interface IChangeWifiAction {
     readonly wifi: boolean
 }
 
+export interface IChangeWifiControlBarAction {
+    readonly type: typeof CHANGE_WIFI_CONTROLBAR;
+    readonly controlBar: boolean
+}
+
 export interface IChangeBluetoothAction {
     readonly type: typeof CHANGE_BLUETOOTH;
     readonly bluetooth: boolean
+}
+
+export interface IChangeBluetoothControlBarAction {
+    readonly type: typeof CHANGE_BLUETOOTH_CONTROLBAR;
+    readonly controlBar: boolean
 }
 
 export interface IChangeFlightmodeAction {
@@ -49,9 +74,19 @@ export interface IChangeVpnAction {
     readonly vpn: boolean
 }
 
+export interface IChangeWallaperAction {
+    readonly type: typeof CHANGE_WALLAPER;
+    readonly content: string
+}
+
 export const changeVolume = (volume:number):IChangeVolumeAction => ({
     type: CHANGE_VOLUME, 
     volume
+});
+
+export const changeVolumeControlBar = (controlBar:boolean):IChangeVolumeControlBarAction => ({
+    type: CHANGE_VOLUME_CONTROLBAR, 
+    controlBar
 });
 
 export const changeBrightness = (brightness:number):IChangeBrightnessAction => ({
@@ -59,14 +94,29 @@ export const changeBrightness = (brightness:number):IChangeBrightnessAction => (
     brightness
 });
 
+export const changeBrightnessControlBar = (controlBar:boolean):IChangeBrightnessControlBarAction => ({
+    type: CHANGE_BRIGHTNESS_CONTROLBAR, 
+    controlBar
+});
+
 export const changeWifi = (wifi:boolean):IChangeWifiAction => ({
     type: CHANGE_WIFI, 
     wifi
 });
 
+export const changeWifiControlBar = (controlBar:boolean):IChangeWifiControlBarAction => ({
+    type: CHANGE_WIFI_CONTROLBAR, 
+    controlBar
+});
+
 export const changeBluetooth = (bluetooth:boolean):IChangeBluetoothAction => ({
     type: CHANGE_BLUETOOTH, 
     bluetooth
+});
+
+export const changeBluetoothControlBar = (controlBar:boolean):IChangeBluetoothControlBarAction => ({
+    type: CHANGE_BLUETOOTH_CONTROLBAR, 
+    controlBar
 });
 
 export const changeFlightmode = (flightmode:boolean):IChangeFlightmodeAction => ({
@@ -89,12 +139,22 @@ export const changeVpn = (vpn:boolean):IChangeVpnAction => ({
     vpn
 });
 
+export const changeWallaper = (content:string):IChangeWallaperAction => ({
+    type: CHANGE_WALLAPER, 
+    content
+});
+
 export type TSystemActions =
   | IChangeVolumeAction
+  | IChangeVolumeControlBarAction
   | IChangeBrightnessAction
+  | IChangeBrightnessControlBarAction
   | IChangeWifiAction
+  | IChangeWifiControlBarAction
   | IChangeBluetoothAction
+  | IChangeBluetoothControlBarAction
   | IChangeFlightmodeAction
   | IChangeFocusmodeAction
   | IChangeHotspotAction
-  | IChangeVpnAction;
+  | IChangeVpnAction
+  | IChangeWallaperAction;

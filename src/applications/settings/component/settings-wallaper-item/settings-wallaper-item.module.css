@@ -1,0 +1,20 @@
+.settingsWallaperCont {
+    width: 160px;
+    height: 90px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #eee;
+    border: 1px #ddd solid;
+    border-radius: 10px;
+    box-sizing: border-box;
+    transition: 0.2s;
+}
+
+.settingsWallaperCont:hover {
+    opacity: 0.8
+}
+
+.settingsWallaperCont:active {
+    transform: scale(0.9)
+}

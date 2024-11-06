@@ -1,6 +1,6 @@
 import { FC, useMemo } from 'react';
 import css from './start-menu-cont-apps-list-pined.module.css';
-import StartMenuIcon from '../../../start-menu-icon/start-menu-icon';
+import StartMenuIcon from '../../start-menu-icon/start-menu-icon';
 import { useSelector } from '../../../../services/types/hooks';
 
 import {

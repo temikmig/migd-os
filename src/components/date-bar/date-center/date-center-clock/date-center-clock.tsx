@@ -40,7 +40,7 @@ const DateCenterClock:FC<T> = ({calendarRef}) => {
     }, []);
 
     const handleToday = (e:MouseEvent<HTMLDivElement>) => {
-        calendarRef.current.scrollTop = ui_heightCalendar({year: year, month: month, day: 1});
+        calendarRef.current.scrollTop = ui_heightCalendar({year: year, month: month, day: 1}, 30);
     }
 
     return(

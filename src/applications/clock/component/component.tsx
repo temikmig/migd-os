@@ -1,6 +1,5 @@
 import { FC, useEffect, useState } from 'react';
 import css from './component.module.css'; 
-import SliderComponent from '../../../ui/slider-component/slider-component';
 import Gradient from "javascript-color-gradient";
 import { ui_addNull, ui_monthName } from '../../../ui/ui';
 import { Moon } from './moon/moon';

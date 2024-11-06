@@ -23,12 +23,12 @@ const DateCenterCalendar:FC<T> = ({calendarRef}) => {
     const currMonth = currDate.getMonth();
 
     const [ monthList, setMonthList ] = useState([{year: currYear, month: currMonth}]);
-    const [ scroll, setScroll ] = useState(ui_heightCalendar({year: currYear, month: currMonth, day: 1}));
+    const [ scroll, setScroll ] = useState(ui_heightCalendar({year: currYear, month: currMonth, day: 1}, 30));
 
-    const calendarHeight = ui_heightCalendar({year: CALENDAR_END.year, month: CALENDAR_END.month, day: 31});
+    const calendarHeight = ui_heightCalendar({year: CALENDAR_END.year, month: CALENDAR_END.month, day: 31}, 30);
 
     useEffect(() => {
-        calendarRef.current.scrollTop = ui_heightCalendar({year: currYear, month: currMonth, day: 1});
+        calendarRef.current.scrollTop = ui_heightCalendar({year: currYear, month: currMonth, day: 1}, 30);
     }, []);
 
     const handleScroll = (e:MouseEvent<HTMLDivElement>) => {
@@ -46,14 +46,14 @@ const DateCenterCalendar:FC<T> = ({calendarRef}) => {
 
         const pYear = pMonth==11?monthList[0].year-1:monthList[0].year;
 
-        calendarRef.current.scrollTop = ui_heightCalendar({year: pYear, month: pMonth, day: 1});
+        calendarRef.current.scrollTop = ui_heightCalendar({year: pYear, month: pMonth, day: 1}, 30);
     }
 
     const handleNext = (e:MouseEvent<SVGElement>) => {
         const nMonth = monthList[0].month+1;
         const nYear = nMonth==0?monthList[0].year+1:monthList[0].year;
 
-        calendarRef.current.scrollTop = ui_heightCalendar({year: nYear, month: nMonth, day: 1});
+        calendarRef.current.scrollTop = ui_heightCalendar({year: nYear, month: nMonth, day: 1}, 30);
     }
 
     const wdays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];

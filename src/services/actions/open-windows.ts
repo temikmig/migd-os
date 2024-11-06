@@ -1,5 +1,6 @@
 import {
     OPEN_WINDOW,
+    OPEN_WINDOW_ONCE,
     RESIZE_WINDOW, 
     REPOSITION_WINDOW,
     TO_ACTIVE_WINDOW,
@@ -14,6 +15,11 @@ import { IOpenWindowItem, IWindowPproperties } from '../reducers/open-windows';
 
 interface IOpenWindowAction {
     readonly type: typeof OPEN_WINDOW;
+    readonly windowData: IOpenWindowItem;
+}
+
+interface IOpenWindowOnceAction {
+    readonly type: typeof OPEN_WINDOW_ONCE;
     readonly windowData: IOpenWindowItem;
 }
 
@@ -69,6 +75,11 @@ export const openWindow = (windowData:any):IOpenWindowAction => ({
     windowData
 });
 
+export const openWindowOnce = (windowData:any):IOpenWindowOnceAction => ({
+    type: OPEN_WINDOW_ONCE,
+    windowData
+});
+
 export const resizeWindow = (id:string, windowProperties:any):IResizeWindowAction => ({
     type: RESIZE_WINDOW,
     id,
@@ -118,6 +129,7 @@ export const closeWindow = (uid:string):ICloseWindowAction => ({
 
 export type TOpenedWindowsActions =
   | IOpenWindowAction
+  | IOpenWindowOnceAction
   | IResizeWindowAction
   | IRepositionWindowAction
   | IToActiveWindowAction

@@ -83,10 +83,12 @@ const ContentBar:FC<T> = ({view}) => {
       useSensor(PointerSensor, { activationConstraint: { distance: 10 } })
     );
       
+    const contentBarRef:any = React.createRef();
+
     return(
-      <CSSTransition in={view} timeout={400} classNames={contTransition} unmountOnExit>
+      <CSSTransition nodeRef={contentBarRef} in={view} timeout={400} classNames={contTransition} unmountOnExit>
         <DndContext modifiers={[restrictToParentElement]} sensors={dndSensors} autoScroll={false} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-          <div className={css.contentBar}>
+          <div ref={contentBarRef} className={css.contentBar}>
             <WindowsBar />
             <DesktopBar activeIcon={activeIcon} />
           </div>

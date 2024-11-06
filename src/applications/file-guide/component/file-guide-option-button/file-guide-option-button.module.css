@@ -1,0 +1,27 @@
+.fileGuideOptionButton {
+    min-width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    user-select: none;
+    color: #9c9a9a;
+}
+
+.fileGuideOptionButtonActive svg {
+    color: #444
+}
+
+.fileGuideOptionButton svg {
+    width: 16px;
+    height: 16px;
+    fill: #9c9a9a
+}
+
+.fileGuideOptionButtonActive svg {
+    width: 16px;
+    height: 16px;
+    fill: #444
+}

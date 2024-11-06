@@ -11,20 +11,20 @@ type T = {
     }
 }
 
-export const VolumeHandler:FC<T> = ({volume, controls}) => {
-    const systemVolumeLevel = useSelector((store) => store.system.volume);
+export const VolumeHandler:FC<T> = ({controls}) => {
+    const { volume } = useSelector((store) => store.system);
 
     const [ volLevel, setVolLevel ] = useState(100);
 
     useEffect(() => {
-        controls.volume(volLevel/100*systemVolumeLevel/100);
-    }, [volLevel, systemVolumeLevel]);
+        controls.volume(volLevel/100*volume.value/100);
+    }, [volLevel, volume]);
 
     const handleChangeVolLevel = (e:MouseEvent<HTMLInputElement>) => {
         const inputTarget = e.target as HTMLInputElement;
         const value = Number(inputTarget.value);
         setVolLevel(value);
-        controls.volume(value/100*systemVolumeLevel/100);
+        controls.volume(value/100*volume.value/100);
     }
     
     return(

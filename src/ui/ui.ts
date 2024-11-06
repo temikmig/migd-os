@@ -1,7 +1,7 @@
 import uuid from "react-uuid";
 import { openWindow } from "../services/actions/open-windows";
 import { useDispatch } from "../services/types/hooks";
-import { DOCUMENT_HEIGHT, DOCUMENT_WIDTH, CALENDAR_BEG, CALENDAR_END } from "../utils/config";
+import { DOCUMENT_HEIGHT, DOCUMENT_WIDTH, CALENDAR_BEG, CALENDAR_END, FILEGUIDE_APP, DELETE_BIN_APP } from "../utils/config";
 
 export const ui_monthName = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
 export const ui_monthNameI = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
@@ -28,13 +28,13 @@ export const ui_to_time = (time:number):string => {
     return ui_addNull(hours)+':'+ui_addNull(minutes)+':'+ui_addNull(seconds);
 }
 
-export const ui_heightCalendar = (end:any) => {
+export const ui_heightCalendar = (end:any, heightItem:number) => {
     
 
     const dateBeg = new Date(CALENDAR_BEG.year, CALENDAR_BEG.month, 1);
     const dateEnd = new Date(end.year, end.month, end.day);
 
-    return Math.ceil((ui_startOfWeek(dateEnd) - ui_startOfWeek(dateBeg)) / (7 * 24 * 60 * 60 * 1000)) * 30;
+    return Math.ceil((ui_startOfWeek(dateEnd) - ui_startOfWeek(dateBeg)) / (7 * 24 * 60 * 60 * 1000)) * heightItem;
 }
 
 export const ui_dateAdd = (date:any, days:any) => {
@@ -66,7 +66,8 @@ export function actionOpenApp(id: string, name: string, currentSizes: { height: 
             isDragging: true
         },
         application: name,
-        applicationId: id
+        applicationId: id,
+        structureId: id==FILEGUIDE_APP?'id-root':(id==DELETE_BIN_APP?'id-recyclebin':undefined)
     });
 }
 

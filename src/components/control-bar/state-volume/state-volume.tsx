@@ -5,8 +5,13 @@ import ControlVolume from '../control-volume/control-volume';
 import { useOutsideAlerter, useSelector } from '../../../services/types/hooks';
 import VolumeIcon from '../../../ui/volume-icon/volume-icon';
 import ContextMenuBottom from '../../../utils/context-menu-bottom/context-menu-bottom';
+import { IValueControl } from '../../../services/reducers/system';
 
-const StateVolume:FC = () => {
+type T = {
+    volume:IValueControl
+}
+
+const StateVolume:FC<T> = ({volume}) => {
     const [ openedControl, setOpenedControl ] = useState(false);
 
     const handleClick = (e:MouseEvent<HTMLDivElement>) => {
@@ -17,12 +22,10 @@ const StateVolume:FC = () => {
         setOpenedControl(false);
     });
 
-    const volume = useSelector((store) => store.system.volume);
-
     return(
         <div className={cssCont.controlBarIconContainer} ref={outsideAlerterRef}>
-            <div className={`${css.controlBarIconCont} ${openedControl&&cssCont.controlBarIconContActive}`} onClick={handleClick}>
-                <VolumeIcon color="#000000" level={volume} />
+            <div className={`${cssCont.controlBarIconCont} ${openedControl&&cssCont.controlBarIconContActive}`} onClick={handleClick}>
+                <VolumeIcon color="#000000" level={volume.value} />
             </div>
             <ContextMenuBottom view={openedControl}><ControlVolume /></ContextMenuBottom>
         </div>

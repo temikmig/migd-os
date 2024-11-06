@@ -1,0 +1,10 @@
+.calendarMonth {
+    position: absolute;
+    width: 100%;
+    opacity: 0.3;
+}
+
+.calendarMonthActive {
+    z-index: 1;
+    opacity: 1;
+}

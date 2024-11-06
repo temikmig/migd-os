@@ -2,7 +2,7 @@
 //     COPY_FILE
 // } from '../constants/file-structure';
 
-import { DELETE_BIN_APP, FILEGUIDE_APP} from "../../utils/config";
+import { DELETE_BIN_APP, FILEGUIDE_APP, SETTINGS_APP} from "../../utils/config";
 
 export interface IApplications {
     data: Array<IApplicationItem>
@@ -27,7 +27,7 @@ const initialState:IApplications = {
         },
         {
             id: DELETE_BIN_APP,
-            name: 'RecycleBin',
+            name: 'FileGuide',
             title: 'Корзина',
             icon: '/apps-icons/delete-bin.svg',
             list: false
@@ -74,6 +74,13 @@ const initialState:IApplications = {
             icon: '/apps-icons/video-guide.svg',
             list: true
         }, 
+        {
+            id: SETTINGS_APP,
+            name: 'Settings',
+            title: 'Настройки',
+            icon: '/apps-icons/settings.svg',
+            list: false
+        },
         {
             id: 'bc117402-e668-4c1f-ae59-c11d7ed7386b',
             name: 'adobeIllustrator',
