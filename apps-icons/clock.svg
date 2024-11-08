@@ -1,0 +1,12 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256">
+    <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="none" stroke-linecap="none" stroke-linejoin="none" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+        <g transform="scale(2,2)">
+            <path d="M64,14c-27.61424,0 -50,22.38576 -50,50c0,27.61424 22.38576,50 50,50c27.61424,0 50,-22.38576 50,-50c0,-27.61424 -22.38576,-50 -50,-50z" fill="#ffffff" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter"></path>
+            <path d="M64,14c-27.61424,0 -50,22.38576 -50,50c0,27.61424 22.38576,50 50,50c27.61424,0 50,-22.38576 50,-50c0,-27.61424 -22.38576,-50 -50,-50z" fill="none" stroke="#444b54" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M81.7,81.7l-17.7,-17.7l24.7,-24.7" fill="none" stroke="#444b54" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M64,64h-35" fill="none" stroke="#ff5576" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M64,57c-3.86599,0 -7,3.13401 -7,7c0,3.86599 3.13401,7 7,7c3.86599,0 7,-3.13401 7,-7c0,-3.86599 -3.13401,-7 -7,-7z" fill="#ffffff" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter"></path>
+            <path d="M64,57c-3.86599,0 -7,3.13401 -7,7c0,3.86599 3.13401,7 7,7c3.86599,0 7,-3.13401 7,-7c0,-3.86599 -3.13401,-7 -7,-7z" fill="none" stroke="#444b54" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+        </g>
+    </g>
+</svg>
