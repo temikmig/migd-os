@@ -75,7 +75,6 @@ const Window:FC<TWindow> = ({title, id, properties, winProps, winStates, applica
     // dispatch(toActiveWindow(props.id));
 
     const outsideAlerterRef = useOutsideAlerter(() => {
-        console.log('outwin'+id)
         isActive&&dispatch(toDisactiveWindows());
     });
 

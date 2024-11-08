@@ -1,24 +1,28 @@
-import React, { useState } from 'react';
+import React, { MouseEvent, useContext, useState } from 'react';
 import css from './control-bar-handler.module.css';
 import ControlWifi from '../control-wifi/control-wifi';
 import ContextMenuBottom from '../../../utils/context-menu-bottom/context-menu-bottom';
 import { useOutsideAlerter } from '../../../services/types/hooks';
 import ControlCenter from '../control-center/control-center';
+import { contextMenuContext } from '../../app/app';
 
 const ControlBarHandler = () => {
-    const [ openedControlCenter, setOpenedControlCenter ] = useState(false);
+    // const [ openedControlCenter, setOpenedControlCenter ] = useState(false);
+    const { openedControl, setOpenedControl } = useContext(contextMenuContext);
 
-    const handleClick = (e:any) => {
-        setOpenedControlCenter(!openedControlCenter);
+    const handleClick = (e:MouseEvent<HTMLDivElement>) => {
+        setOpenedControl(openedControl=='control-center'?'':'control-center');
     }
 
     const outsideAlerterRef = useOutsideAlerter(() => {
-        setOpenedControlCenter(false);
+        if(openedControlView) setOpenedControl('');
     });
+
+    const openedControlView = openedControl=='control-center';
 
     return(
         <div ref={outsideAlerterRef}>
-        <div className={`${css.controlBarHandlerCont} ${openedControlCenter&&css.controlBarHandlerContActive}`} onClick={handleClick}>
+        <div className={`${css.controlBarHandlerCont} ${openedControlView&&css.controlBarHandlerContActive}`} onClick={handleClick}>
             <svg width="20px" height="20px" viewBox="0,0,256,256">
                 <g fill="#000">
                     <g transform="scale(10.66667,10.66667)">
@@ -27,7 +31,7 @@ const ControlBarHandler = () => {
                 </g>
             </svg>
         </div>
-        <ContextMenuBottom view={openedControlCenter}><ControlCenter /></ContextMenuBottom>
+        <ContextMenuBottom view={openedControlView}><ControlCenter /></ContextMenuBottom>
         </div>
     )
 }

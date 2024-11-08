@@ -8,7 +8,6 @@ type T = {
 }
 
 const DateCenterCalendarWeek:FC<T> = ({days}) => {
-    console.log(days)
     return(
         <div className={css.dateCenterCalendarWeek}>
             {days.map((day, index) => <DateCenterCalendarDay key={index} day={day} />)}

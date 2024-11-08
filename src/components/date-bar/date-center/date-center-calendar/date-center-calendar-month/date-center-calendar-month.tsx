@@ -34,7 +34,6 @@ const DateCenterCalendarMonth:FC<T> = ({month, year, active}) => {
         weeksArr.push(daysArr);
     }
 
-    console.log(weeksArr)
     const monthPosition = ui_heightCalendar({year: year, month: month, day: 1}, 30);
 
     const style = {

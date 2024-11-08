@@ -45,7 +45,7 @@ export const ui_dateAdd = (date:any, days:any) => {
 }
 
 export const ui_daysofmonth = (month:number) => {
-    console.log(month);
+
 }
 
 

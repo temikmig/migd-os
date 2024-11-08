@@ -1,19 +1,25 @@
-import React, { useState, MouseEvent, useRef } from 'react';
+import React, { useState, MouseEvent, useRef, useContext } from 'react';
 import css from './desktop-bar.module.css';
 import FileGuideIcon from '../file-guide-icon/file-guide-icon';
 import { DndContext, DragOverlay, MouseSensor, PointerSensor, pointerWithin, TouchSensor, useDroppable, useSensor, useSensors } from '@dnd-kit/core';
 import { restrictToParentElement, snapCenterToCursor } from '@dnd-kit/modifiers';
 import { createPortal } from 'react-dom';
-import { useContextMenu, useDispatch, useSelector } from '../../services/types/hooks';
-import { openWindow } from '../../services/actions/open-windows';
+import { useDispatch, useOutsideAlerter, useSelector } from '../../services/types/hooks';
+import { openWindow, toActiveWindow } from '../../services/actions/open-windows';
 import uuid from 'react-uuid';
 import { repositionDesktopIcon } from '../../services/actions/desktop-icons';
 import { ContextMenu } from '../../utils/context-menu/context-menu';
 import { mergeRefs } from 'react-merge-refs';
 import Draggable from '../../utils/draggable/draggable';
 import FileGuideIconDesktop from '../file-guide-icon-desktop/file-guide-icon-desktop';
+import { contextMenuContext } from '../app/app';
+import { iconsContext } from '../content-bar/content-bar';
+import { SETTINGS_APP } from '../../utils/config';
+import { actionOpenApp } from '../../ui/ui';
+import { IApplicationItem } from '../../services/reducers/applications';
+import * as appsList from '../../applications';
 
-const DesktopBar = ({activeIcon}:any) => {
+const DesktopBar = () => {
     const { setNodeRef } = useDroppable({
         id: "desktop",
         data: {
@@ -24,24 +30,43 @@ const DesktopBar = ({activeIcon}:any) => {
     const dispatch = useDispatch();
 
     const fileStructure = useSelector((store) => store.fileStructure.data);
+    const openedWindows = useSelector((store) => store.openedWindows.data);
 
     const desktopData = fileStructure.children.find((item:any) => item.id=='id-desktop').children;
 
     const [desktopIcons, setDesktopIcons ] = useState(desktopData);
+
+    const apps = appsList;
+
+    const currentProps = eval('apps.Settings.appProps');
+    const currentSizes = eval('apps.Settings.appSizes');
+
+    const handleOpenSettings = () => {
+        const openedWindow = openedWindows.find((window:any) => window.applicationId==SETTINGS_APP);
+        
+        if(openedWindow) {
+            dispatch(toActiveWindow(openedWindow.id));
+        } else {
+            setTimeout(() => {
+                dispatch(actionOpenApp(SETTINGS_APP, 'Settings', currentSizes, currentProps));
+            }, 300);
+        }
+    }
 
     const contextMenuItems = [
         [
             {title: 'Создать папку', action: (e:any) => handleCreateFolder}
         ],
         [
-            {title: 'Сменить обои...', action: (e:any) => handleChangeWallapers},
-            {title: 'Открыть настройки', action: (e:any) => handleOpenSettings}
+            {title: 'Открыть настройки', action: handleOpenSettings}
         ]
     ];
 
-    const { showContextMenu, hideContextMenu, contextMenuVisible, menuPosition } = useContextMenu();
+    const { showContextMenu, hideContextMenu, setContextMenuItems } = useContext(contextMenuContext);
     
     const handleContextMenu = (e:any) => {
+        e.stopPropagation();
+        setContextMenuItems(contextMenuItems);
         showContextMenu(e);
     } 
 
@@ -49,21 +74,28 @@ const DesktopBar = ({activeIcon}:any) => {
         hideContextMenu();
         alert('Создать папку');
     }
-
-    const handleChangeWallapers = (e:any) => {
-        hideContextMenu();
-        alert('Сменить обои');
-    }
-
-    const handleOpenSettings = (e:any) => {
-        hideContextMenu();
-        alert('Открыть настройки');
-    }
     
     const desktopRef = useRef(null);
 
+    const { activeIcon, setActiveIcon, renameIcon, setRenameIcon } = useContext(iconsContext);
+
+    const handleOutsideFileGuide = (e:MouseEvent<HTMLDivElement>) => {
+        if(activeIcon.startsWith('desktop')) {
+            e.stopPropagation();
+            setActiveIcon('');
+            setRenameIcon('');
+        }
+    } 
+
+    const outsideAlerterRef = useOutsideAlerter(() => {
+        if(activeIcon.startsWith('desktop')) {
+            setActiveIcon('');
+            setRenameIcon('');
+        }
+    });
+
     return(
-        <div className={css.desktopCont} ref={mergeRefs([setNodeRef, desktopRef])} onContextMenu={handleContextMenu}>
+        <div className={css.desktopCont} ref={mergeRefs([setNodeRef, desktopRef, outsideAlerterRef])} onMouseDown={handleOutsideFileGuide} onContextMenu={handleContextMenu}>
             {desktopIcons.map((item:any) => 
             <Draggable id={item.id} uid={item.id} key={item.id} type="fileGuideIcon">
                 <FileGuideIconDesktop id={item.id} />
@@ -72,7 +104,6 @@ const DesktopBar = ({activeIcon}:any) => {
             <DragOverlay>
                 {activeIcon?(<FileGuideIconDesktop id={activeIcon} active/>):null}
             </DragOverlay>
-            <ContextMenu visible={contextMenuVisible} position={menuPosition} contextMenuItems={contextMenuItems} hideContextMenu={hideContextMenu} />
         </div>
     )
 }

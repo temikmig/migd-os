@@ -16,7 +16,7 @@ export const SettingsPageWallapers:FC<T> = () => {
         <>
             <h1 className={css.settingsHeader}>Обои на рабочий стол</h1>
             <div className={css.settingsContWallapers}>
-                {desktopData.map((item:any) => <SettingsWallaperItem content={item.content} />)}
+                {desktopData.map((item:any) => <SettingsWallaperItem key={item.id} content={item.content} />)}
             </div>
         </>
     );

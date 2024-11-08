@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { createContext, MouseEvent, useMemo, useState } from 'react';
 import css from './app.module.css';
 import ContentBar from '../content-bar/content-bar';
 import BottomBar from '../bottom-bar/bottom-bar';
-import { useDispatch, useSelector } from '../../services/types/hooks';
+import { useContextMenu, useDispatch, useSelector } from '../../services/types/hooks';
 import Background from '../background/background';
 import StartMenuBar from '../start-menu-bar/start-menu-bar';
 
@@ -25,6 +25,16 @@ import { addNavBarUid, removeNavBar, repositionNavBar } from '../../services/act
 import { INavBarItem } from '../../services/reducers/nav-bar';
 import { IStartMenuItem } from '../../services/reducers/start-menu';
 import BlurLayer from '../blur-layer/blur-layer';
+import { ContextMenu, IContextMenuItems } from '../../utils/context-menu/context-menu';
+
+export const contextMenuContext = createContext({
+    contextMenuItems: [[{title: '', action: (e:any) => {}}]],
+    setContextMenuItems: (contextMenuItems:IContextMenuItems[][]) => {},
+    showContextMenu: (e:any) => {},
+    hideContextMenu: () => {},
+    openedControl: '',
+    setOpenedControl: (openedControl:string) => {}
+});
 
 const App = () => {
     const dispatch = useDispatch();
@@ -75,7 +85,6 @@ const App = () => {
                     setActiveDnd({id: id, uid: startUid, type: 'navBarIcon'});
                 }
             } else {
-                // console.log('active = '+activeDnd.type);
                 setActiveDnd({id: id, uid: ev.active.id, type: 'startMenuIcon'});
                 if(includeTilesApplications.includes(id)&&activeDnd.type!='startMenuIcon'&&activeDnd.type!='navBarIcon') dispatch(removeStartMenuTiles(id));
                 if(includeNavBarApplications.includes(id)&&activeDnd.type=='navBarIcon') dispatch(removeNavBar(id));
@@ -165,13 +174,27 @@ const App = () => {
     const { brightness } = useSelector((store) => store.system);
     const brightnessLevel = 30+(0.7*brightness.value);
 
+    const { showContextMenu, hideContextMenu, contextMenuVisible, menuPosition } = useContextMenu();
+
+    const [ contextMenuItems, setContextMenuItems ] = useState([[{title: '', action: (e:any) => {}}]]);
+    const [ openedControl, setOpenedControl ] = useState('');
+
+    const value = useMemo(() => ({
+        contextMenuItems,
+        setContextMenuItems,
+        showContextMenu,
+        hideContextMenu,
+        openedControl,
+        setOpenedControl
+    }), [contextMenuItems, openedControl]);
 
     return(
-        <main id="main" style={{filter: 'brightness('+brightnessLevel+'%)'}} className={css.mainContainer}>
+        <contextMenuContext.Provider value={value}>
+        <main id="main" style={{filter: 'brightness('+brightnessLevel+'%)'}} className={css.mainContainer} onContextMenu={(e:MouseEvent<HTMLDivElement>) => e.preventDefault()}>
             <DndContext collisionDetection={pointerWithin} onDragStart={handleDragStart} onDragOver={handleDragOver} onDragEnd={handleDragEnd} autoScroll={false} sensors={dndSensors}>
                 <Background />
                 <BlurLayer view={isStartMenu} />
-                <ContentBar view={true} />
+                <ContentBar />
                 <BottomBar />
                 {isStartMenu&&<StartMenuBar view={isStartMenu} />}
                 
@@ -183,7 +206,9 @@ const App = () => {
                     </div> 
                 </DragOverlay>
             </DndContext>
+            <ContextMenu visible={contextMenuVisible} position={menuPosition} contextMenuItems={contextMenuItems} hideContextMenu={hideContextMenu} />
         </main>
+        </contextMenuContext.Provider>
     )
 }
 

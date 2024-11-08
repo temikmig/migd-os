@@ -31,7 +31,13 @@
     font-size: 11px;
     margin-top: 5px;
     font-weight: bold;
-    /* text-shadow: 0px 1px 3px #000; */
     user-select: none;
     text-align: center;
+}
+
+.fileGuideItemName input {
+    width: 100%;
+    outline: none;
+    border: 1px #444 solid;
+    border-radius: 5px;
 }

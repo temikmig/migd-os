@@ -7,17 +7,28 @@
     gap: 10px;
     font-size: 12px;
     user-select: none;
-    color: #9c9a9a;
+    color: #c4c0c0;
+    border-radius: 5px;
+    padding: 0px 5px;
+    transition: 0.2s;
 }
 
-.fileGuideOptionButtonActive svg {
+.fileGuideOptionButtonActive {
     color: #444
+}
+
+.fileGuideOptionButtonActive:hover {
+    background: #d2d2d2;
+}
+
+.fileGuideOptionButtonActive:active {
+    scale: 0.95;
 }
 
 .fileGuideOptionButton svg {
     width: 16px;
     height: 16px;
-    fill: #9c9a9a
+    fill: #c4c0c0
 }
 
 .fileGuideOptionButtonActive svg {

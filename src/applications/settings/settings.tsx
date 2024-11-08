@@ -29,8 +29,7 @@ export const App:FC = ({id}:any) => {
     const value = useMemo(() => ({
         activeItem, setActiveItem
     }), [activeItem]);
-      
-    //   console.log(isOver);
+    
     return(
         <settingsContext.Provider value={value}>
             <Component />

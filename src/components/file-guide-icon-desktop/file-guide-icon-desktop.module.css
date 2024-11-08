@@ -35,3 +35,10 @@
     user-select: none;
     text-align: center;
 }
+
+.fileGuideItemName input {
+    width: 100%;
+    outline: none;
+    border: 1px #444 solid;
+    border-radius: 5px;
+}

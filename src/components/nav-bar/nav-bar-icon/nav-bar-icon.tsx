@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useState } from 'react';
+import { FC, MouseEvent, useContext, useState } from 'react';
 import css from './nav-bar-icon.module.css';
 import { TNavBarIcon } from '../../../utils/types';
 import { useDispatch, useOutsideAlerter, useSelector } from '../../../services/types/hooks';
@@ -12,6 +12,7 @@ import NavBarContextScreens from '../nav-bar-context-screens/nav-bar-context-scr
 import ContextMenuBottom from '../../../utils/context-menu-bottom/context-menu-bottom';
 import { IApplicationItem } from '../../../services/reducers/applications';
 import { IOpenWindowItem } from '../../../services/reducers/open-windows';
+import { contextMenuContext } from '../../app/app';
 
 
 const NavBarIcon:FC<TNavBarIcon> = ({id, sortable}) => {
@@ -25,8 +26,10 @@ const NavBarIcon:FC<TNavBarIcon> = ({id, sortable}) => {
 
     const isStartMenu:boolean = useSelector((store) => store.startMenu.opened);
 
+    const { openedControl, setOpenedControl } = useContext(contextMenuContext);
+
     const [ isContextMenu, setIsContextMenu ] = useState(false);
-    const [ showScreens, setShowScreens ] = useState(false);
+    // const [ showScreens, setShowScreens ] = useState(false);
     
     const dispatch = useDispatch();
 
@@ -47,10 +50,8 @@ const NavBarIcon:FC<TNavBarIcon> = ({id, sortable}) => {
     }
 
     const сlickAction = (e:MouseEvent<HTMLDivElement>) => {
-        setIsContextMenu(false);
-
         if(isOpenedApp) {
-            if(!isStartMenu) setShowScreens(true); else setIsContextMenu(true);
+            if(!isStartMenu) setOpenedControl(id+'-navScreenMenu'); else setOpenedControl(id+'-navContextMenu');
         } else {
             dispatch(checkStartMenu(false));
             
@@ -61,8 +62,7 @@ const NavBarIcon:FC<TNavBarIcon> = ({id, sortable}) => {
     }
 
     const contextMenuAction = (e:MouseEvent<HTMLDivElement>) => {
-        setIsContextMenu(true);
-        setShowScreens(false);
+        setOpenedControl(id+'-navContextMenu');
         e.preventDefault();
     }
 
@@ -74,17 +74,24 @@ const NavBarIcon:FC<TNavBarIcon> = ({id, sortable}) => {
     }
 
     const outsideAlerterRef = useOutsideAlerter(() => {
-        setShowScreens(false);
-        setIsContextMenu(false);
+        if(openedControl==id+'-navContextMenu'||openedControl==id+'-navScreenMenu') setOpenedControl('');
+        // setShowScreens(false);
+        // setIsContextMenu(false);
     });
+
+    // setOpenedControl(id+'-navScreenMenu');
+    // setOpenedControl(id+'-navContextMenu');
+
+    const showScreens = openedControl==id+'-navScreenMenu';
+    const showContextMenu =  openedControl==id+'-navContextMenu';
     
     return(
         <div className={`${css.navBarIconCont} ${!sortable&&css.navBarIconNon} ${isOpenedApp&&css.navBarIconOpened}`} onClick={сlickAction} onContextMenu={contextMenuAction} ref={outsideAlerterRef}>
             <div className={css.navBarIcon}>
                 <img src={sortable&&id==FILEGUIDE_APP?'/apps-icons/folder.svg':icon} />
             </div>
-            <ContextMenuBottom view={showScreens}><NavBarContextScreens appId={id} setShowScreens={setShowScreens} /></ContextMenuBottom>
-            <ContextMenuBottom view={isContextMenu}><NavBarContextMenu appId={id} handleOpenApp={handleOpenApp} setIsContextMenu={setIsContextMenu} /></ContextMenuBottom>
+            <ContextMenuBottom view={showScreens}><NavBarContextScreens appId={id} /></ContextMenuBottom>
+            <ContextMenuBottom view={showContextMenu}><NavBarContextMenu appId={id} handleOpenApp={handleOpenApp} /></ContextMenuBottom>
         </div>
     )
 }

@@ -1,6 +1,8 @@
 import React, { createContext, FC, useEffect, useMemo, useState } from 'react';
 import css from './audio-guide.module.css';
 import Component from './component/component'
+import { useSelector } from '../../services/types/hooks';
+import { findNodeType } from '../../utils/config';
 
 export const appIcon = '/apps-icons/audio-guide.svg';
 
@@ -45,6 +47,16 @@ export const App:FC<T> = ({id, structureId}) => {
         strId, setStrId,
         background, setBackground
     }), [strId, background]);
+
+    const fileStructure = useSelector((store) => store.fileStructure.data);
+
+    const allAudio = findNodeType('audio', fileStructure);
+
+    useEffect(() => {
+        if(strId==undefined) {
+            setStrId(allAudio[0]);
+        }
+    }, []);
 
     return(
         <audioGuideContext.Provider value={value}>

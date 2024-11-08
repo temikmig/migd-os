@@ -1,6 +1,8 @@
 import React, { createContext, FC, useEffect, useMemo, useState } from 'react';
 import css from './video-guide.module.css';
 import Component from './component/component'
+import { useSelector } from '../../services/types/hooks';
+import { findNodeType } from '../../utils/config';
 
 export const appIcon = '/apps-icons/video-guide.svg';
 
@@ -39,6 +41,16 @@ export const App:FC<T> = ({id, structureId}) => {
     const value = useMemo(() => ({
         strId, setStrId
     }), [strId]);
+
+    const fileStructure = useSelector((store) => store.fileStructure.data);
+
+    const allVideo = findNodeType('video', fileStructure);
+
+    useEffect(() => {
+        if(strId==undefined) {
+            setStrId(allVideo[0]);
+        }
+    }, []);
 
     return(
         <videoGuideContext.Provider value={value}>

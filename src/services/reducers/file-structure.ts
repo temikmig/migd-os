@@ -1,8 +1,14 @@
+import { findNode } from '../../utils/config';
 import { 
-    COPY_FILE
+    COPY_STRUCTURE,
+    CUT_STRUCTURE,
+    RENAME_STRUCTURE,
+    DELETE_STRUCTURE
 } from '../constants/file-structure';
 
 const initialState:any = {
+    clipboard: [],
+    cutboard: [],
     data: {
         id: 'id-root',
         name: ':root',
@@ -21,11 +27,12 @@ const initialState:any = {
                 children: [
                     {
                         id: '5a01d6cc-4b2c-4529-8701-90fb89300763',
-                        name: 'Папка',
-                        title: 'Папка',
+                        name: 'Новая папка',
+                        title: 'Новая папка',
                         type: 'folder',
                         location: ':root/:desktop',
                         application: 'FileGuide',
+                        children: []
                     },
                     {
                         id: 'e86ac874-6604-4c3e-87d6-a76a783a000c',
@@ -66,34 +73,7 @@ const initialState:any = {
                         location: ':root/:desktop',
                         content: 'The_Weeknd_Dancing_In_The_Flames.mp4',
                         application: 'VideoGuide',
-                    },
-                    {
-                        id: '91522911-c24c-4550-a2d9-75a4d794ba0d',
-                        name: 'Вторая папка',
-                        title: 'Приложения',
-                        type: 'folder',
-                        location: ':root/:desktop',
-                        application: 'FileGuide'
                     }
-                    
-                    /*, 
-                   
-                    {
-                        id: 'a1012d85-f577-4560-8cef-23e8b331ee81',
-                        name: 'Текстовый файл',
-                        title: 'Текстовый файл',
-                        type: 'file',
-                        location: ':root/:desktop',
-                        application: 'TextEditor'
-                    }, 
-                    {
-                        id: 'cd24949d-fbdc-4539-a7bb-f51d6a3d0916',
-                        name: 'calc',
-                        title: 'Калькулятор',
-                        type: 'file',
-                        location: ':root/:desktop',
-                        application: 'Calculator'
-                    }*/
                 ]
             }, 
             {
@@ -113,16 +93,8 @@ const initialState:any = {
                         application: 'ImageGuide',
                     },
                     {
-                        id: 'deed553c-9b4f-48e1-80ef-3d44de7a940a',
-                        title: 'Фон 2',
-                        type: 'image',
-                        location: ':root/:desktop',
-                        content: 'image4.jpg',
-                        application: 'ImageGuide',
-                    },
-                    {
                         id: 'c465fcd8-9cea-4961-b1c0-a1b6c52a5a28',
-                        title: 'Фон 3',
+                        title: 'Фон 2',
                         type: 'image',
                         location: ':root/:desktop',
                         content: 'image5.jpg',
@@ -130,7 +102,7 @@ const initialState:any = {
                     },
                     {
                         id: '18daa609-779c-49ea-bf7b-593fd058e3d5',
-                        title: 'Фон 4',
+                        title: 'Фон 3',
                         type: 'image',
                         location: ':root/:desktop',
                         content: 'image6.jpg',
@@ -144,7 +116,8 @@ const initialState:any = {
                 title: 'Корзина',
                 type: 'folder',
                 location: ':root',
-                application: 'FileGuide'
+                application: 'FileGuide',
+                children: []
             }
         ]
     }
@@ -152,9 +125,16 @@ const initialState:any = {
 
 export const fileStructureReducer = (state = initialState, action:any) => { 
     switch (action.type) {
-        case COPY_FILE: return { 
-            ...state, 
-        }
+        // case RENAME_STRUCTURE: { 
+        //     const structure = [...state.data];
+
+        //     function text(s) {
+        //         return s;
+        //     }
+
+        //     return text(structure);
+            
+        // }
 
         default: return state
     }

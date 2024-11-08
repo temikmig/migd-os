@@ -1,4 +1,4 @@
-import { MouseEvent, FC } from 'react';
+import { MouseEvent, FC, useContext } from 'react';
 import css from './start-menu-tile.module.css';
 import { defaultAppProps, defaultAppSizes } from '../../../utils/config';
 
@@ -9,6 +9,7 @@ import { checkStartMenu, removeStartMenuTiles } from '../../../services/actions/
 import { actionOpenApp } from '../../../ui/ui';
 import { ContextMenu } from '../../../utils/context-menu/context-menu';
 import { IApplicationItem } from '../../../services/reducers/applications';
+import { contextMenuContext } from '../../app/app';
 
 type T = {
     id:string
@@ -50,8 +51,6 @@ const StartMenuTile:FC<T> = ({id}) => {
         // }
     }
 
-    const { showContextMenu, hideContextMenu, contextMenuVisible, menuPosition } = useContextMenu();
-
     const handleRemoveStartMenuTiles = (e:MouseEvent<HTMLDivElement>) => {
         dispatch(removeStartMenuTiles(id))
     }
@@ -65,7 +64,11 @@ const StartMenuTile:FC<T> = ({id}) => {
         ]
     ];
 
+    const { showContextMenu, hideContextMenu, setContextMenuItems } = useContext(contextMenuContext);
+
     const handleContextMenu = (e:MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
+        setContextMenuItems(contextMenuItems);
         showContextMenu(e);
     } 
 
@@ -74,7 +77,6 @@ const StartMenuTile:FC<T> = ({id}) => {
         <div className={css.startMenuTile} onClick={сlickAction} onContextMenu={handleContextMenu}>
             {(CurrentTile)?<CurrentTile />:<div className={css.startMenuTileIcon}><img src={icon} /></div>}
         </div>
-        <ContextMenu visible={contextMenuVisible} position={menuPosition} contextMenuItems={contextMenuItems} hideContextMenu={hideContextMenu} />
         </>
     )
 }

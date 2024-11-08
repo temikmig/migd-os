@@ -1,6 +1,8 @@
-import React, { createContext, FC, useMemo, useState } from 'react';
+import React, { createContext, FC, useEffect, useMemo, useState } from 'react';
 import css from './image-guide.module.css';
 import Component from './component/component';
+import { useSelector } from '../../services/types/hooks';
+import { findNodeType } from '../../utils/config';
 
 export const appIcon = '/apps-icons/image-guide.svg';
 
@@ -33,6 +35,16 @@ export const App:FC<T> = ({id, structureId}) => {
     const value = useMemo(() => ({
         strId, setStrId
     }), [strId]);
+
+    const fileStructure = useSelector((store) => store.fileStructure.data);
+
+    const allImages = findNodeType('image', fileStructure);
+
+    useEffect(() => {
+        if(strId==undefined) {
+            setStrId(allImages[0]);
+        }
+    }, [])
 
     return(
         <imageGuideContext.Provider value={value}>

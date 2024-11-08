@@ -12,12 +12,12 @@ type TContextMenu = {
         x: number,
         y: number
     };
-    contextMenuItems: IContextMenuItems[][];
+    contextMenuItems: IContextMenuItems[][]|null;
     hideContextMenu: () => void,
     nodeRef?: any
 }
 
-interface IContextMenuItems {
+export interface IContextMenuItems {
     title: string, 
     action: (e:MouseEvent<HTMLDivElement>) => void
 }
@@ -49,7 +49,7 @@ export const ContextMenuCont:FC<TContextMenu> = ({position, contextMenuItems, hi
 
     return(
         <div ref={mergeRefs([contextMenuRef, outsideAlerterRef, nodeRef])} style={style} className={css.contextMenu}>
-            {contextMenuItems.map((group, index) => 
+            {contextMenuItems&&contextMenuItems.map((group, index) => 
                 <div className={css.contextMenuGroup} key={index}>
                     {group.map((item, index) => <div key={index} className={css.contextMenuItem} onMouseDown={hideContextMenu} onClick={item.action}>{item.title}</div>)}
                 </div>

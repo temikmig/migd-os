@@ -1,14 +1,14 @@
-import React, { MouseEvent, FC } from 'react';
+import React, { MouseEvent, FC, useContext } from 'react';
 import css from './start-menu-icon.module.css';
 import { defaultAppProps, defaultAppSizes } from '../../../utils/config';
 
 import * as appsList from '../../../applications';
-import { useContextMenu, useDispatch, useSelector } from '../../../services/types/hooks';
+import { useDispatch, useSelector } from '../../../services/types/hooks';
 import { addStartMenuPined, addStartMenuTiles, checkStartMenu, removeStartMenuPined, removeStartMenuTiles } from '../../../services/actions/start-menu';
 import { actionOpenApp } from '../../../ui/ui';
-import { ContextMenu } from '../../../utils/context-menu/context-menu';
 import { addNavBar, removeNavBar } from '../../../services/actions/nav-bar';
 import { IApplicationItem } from '../../../services/reducers/applications';
+import { contextMenuContext } from '../../app/app';
 
 type T = {
     id: string,
@@ -47,8 +47,6 @@ const StartMenuIcon:FC<T> = ({id, setShowPined}) => {
         }, 300)
     }
 
-    const { showContextMenu, hideContextMenu, contextMenuVisible, menuPosition } = useContextMenu();
-    
     const handleAddStartMenuTiles = (e:MouseEvent<HTMLDivElement>) => {
         dispatch(addStartMenuTiles(id))
     }
@@ -89,7 +87,11 @@ const StartMenuIcon:FC<T> = ({id, setShowPined}) => {
         ]
     ];
 
+    const { showContextMenu, hideContextMenu, setContextMenuItems } = useContext(contextMenuContext);
+
     const handleContextMenu = (e:MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
+        setContextMenuItems(contextMenuItems);
         showContextMenu(e);
     } 
 
@@ -99,7 +101,6 @@ const StartMenuIcon:FC<T> = ({id, setShowPined}) => {
             <div className={css.startMenuItemIcon}><img src={icon} /></div>
             <div className={css.startMenuItemName}>{ title }</div>
         </div>
-        <ContextMenu visible={contextMenuVisible} position={menuPosition} contextMenuItems={contextMenuItems} hideContextMenu={hideContextMenu} />
         </>
     )
 }

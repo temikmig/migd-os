@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { createContext, FC, useMemo, useState } from 'react';
 import css from './content-bar.module.css';
 import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { restrictToParentElement } from '@dnd-kit/modifiers';
@@ -13,27 +13,23 @@ import { IOpenWindowItem } from '../../services/reducers/open-windows';
 import { IDesktopIconItem } from '../../services/reducers/desktop-icons';
 
 type T = {
-  view: boolean
+
 }
 
-const ContentBar:FC<T> = ({view}) => {
+export const iconsContext = createContext({
+  activeIcon: '',
+  setActiveIcon: (activeIcon:string) => {},
+  renameIcon: '',
+  setRenameIcon: (renameIcon:string) => {}
+});
+
+const ContentBar:FC<T> = () => {
     const dispatch = useDispatch();
 
-    const contTransition = {
-      enter: cssCont.contEnter,
-      enterActive: cssCont.contEnterActive,
-      exit: cssCont.contExit,
-      exitActive: cssCont.contExitActive
-    }
-
-    const [activeIcon, setActiveIcon] = useState(null);
+    const [activeIcon, setActiveIcon] = useState('');
+    const [renameIcon, setRenameIcon] = useState('');
 
     const openedWindows = useSelector((store) => store.openedWindows);
-    // const iconsPositions = useSelector((store) => store.desktopIconsPosition);
-
-    // const iconsPositionsList = iconsPositions.length>0&&iconsPositions.map((icon:IDesktopIconItem) => icon.properties);
-
-    // console.log(iconsPositionsList);
 
     function handleDragStart(ev:any) {
       const isActiveWindow = openedWindows.activeWindow==ev.active.id?true:false;
@@ -42,7 +38,6 @@ const ContentBar:FC<T> = ({view}) => {
 
       if(type=='fileGuideIcon') {
         setActiveIcon(ev.active.id);
-        
       }
 
       if(type=='window') {
@@ -54,8 +49,6 @@ const ContentBar:FC<T> = ({view}) => {
       const type = ev.active.data.current.type;
 
       if(type=='fileGuideIcon') {
-        console.log(ev)
-
         const target = ev.activatorEvent.target.parentNode.parentNode;
         const targetProps = target.getBoundingClientRect();
         const desktopProps = target.parentNode.getBoundingClientRect();
@@ -66,7 +59,7 @@ const ContentBar:FC<T> = ({view}) => {
           left: rLeft, top: rTop
         }));
 
-        setActiveIcon(null);
+        setActiveIcon('');
       }
 
       if(type=='window') {
@@ -82,18 +75,23 @@ const ContentBar:FC<T> = ({view}) => {
     const dndSensors = useSensors(
       useSensor(PointerSensor, { activationConstraint: { distance: 10 } })
     );
-      
-    const contentBarRef:any = React.createRef();
+
+    const value = useMemo(() => ({
+        activeIcon,
+        setActiveIcon,
+        renameIcon,
+        setRenameIcon
+    }), [activeIcon, renameIcon]);
 
     return(
-      <CSSTransition nodeRef={contentBarRef} in={view} timeout={400} classNames={contTransition} unmountOnExit>
+      <iconsContext.Provider value={value}>
         <DndContext modifiers={[restrictToParentElement]} sensors={dndSensors} autoScroll={false} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-          <div ref={contentBarRef} className={css.contentBar}>
+          <div className={css.contentBar}>
             <WindowsBar />
-            <DesktopBar activeIcon={activeIcon} />
+            <DesktopBar />
           </div>
         </DndContext>
-      </CSSTransition>
+      </iconsContext.Provider>
     );
 }
 

@@ -127,6 +127,10 @@ const Resizable:FC<TResizable> = (props) => {
             node.style.height = height+'px';
             node.style.top = top+'px';
         };
+
+        document.onmouseup = (e) => {
+            document.onmousemove = null;
+        };
     }
 
     const resizeTopRight = (e:MouseEvent<HTMLDivElement>) => {
@@ -165,6 +169,10 @@ const Resizable:FC<TResizable> = (props) => {
             node.style.width = width+'px';
             node.style.height = height+'px';
             node.style.top = top+'px';
+        };
+
+        document.onmouseup = (e) => {
+            document.onmousemove = null;
         };
     }
 
@@ -217,6 +225,10 @@ const Resizable:FC<TResizable> = (props) => {
             node.style.height = height+'px';
             node.style.top = top+'px';
         };
+
+        document.onmouseup = (e) => {
+            document.onmousemove = null;
+        };
     }
 
     const resizeBottomRight = (e:MouseEvent<HTMLDivElement>) => {
@@ -241,6 +253,10 @@ const Resizable:FC<TResizable> = (props) => {
 
             node.style.width = width+'px';
             node.style.height = height+'px';
+        };
+
+        document.onmouseup = (e) => {
+            document.onmousemove = null;
         };
     }
 
@@ -280,6 +296,10 @@ const Resizable:FC<TResizable> = (props) => {
             node.style.height = height+'px';
             node.style.width = width+'px';
             node.style.left = left+'px';
+        };
+
+        document.onmouseup = (e) => {
+            document.onmousemove = null;
         };
     }
 

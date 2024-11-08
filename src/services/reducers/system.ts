@@ -70,7 +70,7 @@ const initialState:ISystem = {
     vpn: {
         enabled: false
     },
-    wallaper: 'image1.jpg'
+    wallaper: 'image3.jpg'
 };
 
 export const systemReducer = (state = initialState, action:TSystemActions):ISystem => { 

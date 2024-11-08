@@ -1,4 +1,4 @@
-import { FC, MouseEvent } from 'react';
+import { FC, MouseEvent, useContext } from 'react';
 import css from './nav-bar-context-menu.module.css';
 import { useDispatch, useOutsideAlerter, useSelector } from '../../../services/types/hooks';
 import { addNavBarUid, removeNavBar } from '../../../services/actions/nav-bar';
@@ -7,14 +7,14 @@ import { checkStartMenu } from '../../../services/actions/start-menu';
 import { IOpenWindowItem } from '../../../services/reducers/open-windows';
 import { INavBarItem } from '../../../services/reducers/nav-bar';
 import { SETTINGS_APP } from '../../../utils/config';
+import { contextMenuContext } from '../../app/app';
 
 type T = {
     appId: string, 
-    handleOpenApp: () => void,
-    setIsContextMenu: (IsContextMenu:boolean) => void
+    handleOpenApp: () => void
 }
 
-const NavBarContextMenu:FC<T> = ({appId, handleOpenApp, setIsContextMenu}) => {
+const NavBarContextMenu:FC<T> = ({appId, handleOpenApp}) => {
     const dispatch = useDispatch();
 
     const allOpenedWindows = useSelector((store) => store.openedWindows.data);
@@ -23,10 +23,12 @@ const NavBarContextMenu:FC<T> = ({appId, handleOpenApp, setIsContextMenu}) => {
 
     const isPined = useSelector((store) => store.navBar.apps).some((app:INavBarItem) => app.id==appId);
 
+    const { openedControl, setOpenedControl } = useContext(contextMenuContext);
+
     const handleCloseWindow = (e:MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
 
-        setIsContextMenu(false);
+        setOpenedControl('');
     }
 
     const handleAddNavBar = (e:MouseEvent<HTMLDivElement>) => {
@@ -46,7 +48,7 @@ const NavBarContextMenu:FC<T> = ({appId, handleOpenApp, setIsContextMenu}) => {
     const handleOpenWindow = (e:MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
 
-        setIsContextMenu(false);
+        setOpenedControl('');
         dispatch(checkStartMenu(false));
 
         setTimeout(() => {
@@ -55,8 +57,7 @@ const NavBarContextMenu:FC<T> = ({appId, handleOpenApp, setIsContextMenu}) => {
     }
 
     const outsideAlerterRef = useOutsideAlerter(() => {
-        setIsContextMenu(false);
-        console.log('outContext')
+        if(openedControl==appId+'-navContextMenu') setOpenedControl('');
     });
 
     return(

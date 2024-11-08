@@ -56,3 +56,35 @@
 .settingsSwitcherInfoContDesc {
     font-size: 11px;
 }
+
+.settingsData {
+    overflow-y: auto;
+    height: calc(100% - 131px);
+    padding: 10px;
+    color: #444;
+}
+
+.settingsData h1, 
+.settingsData h2, 
+.settingsData h3 {
+    margin: 0px 0px 10px 0px;
+    padding: 0px;
+}
+
+.settingsData h1 {
+    font-size: 24px;
+}
+
+.settingsData h2 {
+    font-size: 20px;
+}
+
+.settingsData h3 {
+    font-size: 16px;
+}
+
+.settingsData p {
+    font-size: 12px;
+    margin: 10px 0px;
+    padding: 0px;
+}
