@@ -1,7 +1,7 @@
 {
   "name": "migd-os",
   "version": "0.1.0",
-  "homepage": "./",
+  "homepage": "https://temikmig.github.io/migd-os",
   "private": true,
   "dependencies": {
     "@dnd-kit/core": "^6.1.0",
