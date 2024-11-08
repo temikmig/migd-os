@@ -1,0 +1,11 @@
+.moon {
+    animation: rotating 5s linear infinite;
+    transform-box: border-box;
+    transform-origin: center;
+}
+
+@keyframes rotating {
+    0% { transform: rotateZ(-10deg); }
+    50% { transform: rotateZ(10deg); }
+    100% { transform: rotateZ(-10deg); }
+  }

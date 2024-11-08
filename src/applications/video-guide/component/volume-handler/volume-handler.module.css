@@ -1,0 +1,14 @@
+.volumeHandlerCont {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    user-select: none;
+}
+
+.volumeHandlerIcon {
+    width: 20px;
+}
+
+.volumeHandlerSlider {
+    flex: auto;
+}

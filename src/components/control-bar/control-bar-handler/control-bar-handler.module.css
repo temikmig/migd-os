@@ -1,0 +1,22 @@
+.controlBarHandlerCont {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(255 255 255 / 20%);
+    border-radius: 50%;
+}
+
+.controlBarHandlerCont:hover {
+    background: rgb(255 255 255 / 30%);
+}
+
+.controlBarHandlerContActive {
+    background: rgb(255 255 255 / 60%);
+    transform: rotateZ(180deg);
+}
+
+.controlBarHandlerContActive:hover {
+    background: rgb(255 255 255 / 50%);
+}

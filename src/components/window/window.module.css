@@ -1,0 +1,134 @@
+.windowCont {
+    border-radius: 10px;
+    /* border: 1px rgba(180, 180, 180, 0.9) solid; */
+    background: rgba(209, 209, 209, 0.8);
+    backdrop-filter: blur(5px);
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 30%);
+    opacity: 1;
+    transform: scale(1) translateY(0px);
+    transition: opacity 300ms, transform 300ms;
+}
+
+.windowContEnter {
+    opacity: 0;
+    transform: scale(0.9);
+}
+  
+.windowContEnterActive {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 300ms, transform 300ms;
+}
+  
+.windowContExit {
+    opacity: 1;
+}
+  
+.windowContExitActive {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 300ms, transform 300ms;
+}
+
+.windowCont.windowContExpand {
+    border-radius: 0px 0px 10px 10px;
+    transition: 0.3s;
+}
+
+.windowCont.windowContActive {
+    box-shadow: 0px 0px 15px 0px rgb(0 0 0 / 50%);
+    z-index: 10;
+    /* transition: 0.5s; */
+}
+
+.windowCont.windowContScreenActive {
+    /* opacity: 0; */
+    background: transparent;
+    transition: 0.2s;
+}
+
+.windowCont.windowContScreenActive div {
+    opacity: 0;
+    /* background: transparent; */
+}
+
+.windowCont.windowContCollapse.activeScreenWindows {
+    opacity: 1;
+}
+
+
+.windowHeader {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 4;
+}
+
+.windowHeaderHandler {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    box-sizing: border-box;
+}
+
+.windowHeaderTitle {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 13px;
+    user-select: none;
+    flex: auto;
+    z-index: 1;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.windowHeaderControl {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    z-index: 3;
+    padding: 0px 0px 0px 10px;
+}
+
+.windowContent {
+    /* background: #fff; */
+    flex: auto;
+    height: 100%;
+}
+
+.windowHeaderControlCollapse {
+    width: 17px;
+    height: 17px;
+    background-image: url(../../icons/collapse.svg);
+    background-size: 17px;
+}
+
+.windowHeaderControlExpand {
+    width: 18px;
+    height: 18px;
+    background-image: url(../../icons/expand.svg);
+    background-size: 18px;
+}
+
+.windowHeaderControlClose {
+    width: 18px;
+    height: 18px;
+    background-image: url(../../icons/close.svg);
+    background-size: 18px;
+}

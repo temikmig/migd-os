@@ -1,0 +1,68 @@
+.startMenuContextMenu {
+    border: 1px rgb(209 205 205 / 10%) solid;
+    background: rgb(209 205 205 / 80%);
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    position: absolute;
+    bottom: 40px;
+    left: 0px;
+    overflow: hidden;
+}
+
+.startMenuContextMenuItem {
+    user-select: none;
+    font-size: 14px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+    color: #444;
+}
+
+.contextMenuEnter {
+    opacity: 0;
+    transform: translateY(10px);
+}
+  
+.contextMenuEnterActive {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 200ms, transform 200ms;
+}
+  
+.contextMenuExit {
+    opacity: 1;
+}
+  
+.contextMenuExitActive {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 200ms, transform 200ms;
+}
+
+.startMenuContextMenuItem:hover {
+    background: rgb(209 205 205 / 80%);
+}
+
+.startMenuContextMenuItem::before {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 30px;
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    margin-right: 10px;
+}
+
+.startMenuContextMenuItemLock:before {
+    background-image: url(../../../icons/lock.svg);
+}
+
+.startMenuContextMenuItemReboot:before {
+    background-image: url(../../../icons/reboot.svg);
+}
+
+.startMenuContextMenuItemShutdown:before {
+    background-image: url(../../../icons/shutdown.svg);
+}

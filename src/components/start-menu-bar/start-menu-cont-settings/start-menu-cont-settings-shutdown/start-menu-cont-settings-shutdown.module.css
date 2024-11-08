@@ -1,0 +1,14 @@
+.shutdownIcon {
+    width: 40px;
+    height: 40px;
+    background-image: url(../../../../icons/shutdown.svg);
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px;
+    position: relative;
+}
+
+.shutdownIcon:hover {
+    background-color: rgba(0,0,0,0.1);
+}

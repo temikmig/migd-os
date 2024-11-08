@@ -1,0 +1,38 @@
+.calendarTile {
+    width: 150px;
+    height: 150px;
+    background-color: #e5e5e5;
+    border-radius: 10px;
+    margin: -11px;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+.calendarTileWeekDay {
+    width: 100%;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    font-weight: bold;
+    color: #d22c2c;
+}
+
+.calendarTileDay {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 70px;
+}
+
+.calendarTileMonth {
+    width: 100%;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+}

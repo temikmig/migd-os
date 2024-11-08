@@ -1,0 +1,36 @@
+.fileGuideNodeItem {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    user-select: none;
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px transparent solid;
+}
+
+.fileGuideNodeItem:hover {
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px #aaa solid;
+}
+
+.fileGuideNodeItem img {
+    width: 20px;
+    height: 20px;
+}
+
+.fileGuideNodeItem span {
+    flex: auto;
+    display: flex;
+    align-items: center;
+    height: 20px;
+    font-size: 12px;
+    white-space: nowrap;
+    color: #444;
+}
+
+.fileGuideNodeList {
+    padding-left: 10px;
+    border-left: 1px solid #444;
+    margin: 0px;
+}

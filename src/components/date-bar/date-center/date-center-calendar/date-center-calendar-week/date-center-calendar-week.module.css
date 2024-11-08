@@ -1,0 +1,8 @@
+.dateCenterCalendarWeek {
+    display: flex;
+    height: 30px;
+}
+
+.dateCenterCalendarWeek:first-child {
+    justify-content: flex-end;
+}

@@ -1,0 +1,34 @@
+.dateCenterCalendarDay,
+.dateCenterCalendarWDay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 40px; 
+    border-radius: 5px;
+    border: 2px transparent solid;
+    box-sizing: border-box;
+    font-size: 12px;
+    color: #000;
+}
+
+.dateCenterCalendarWDay {
+    font-weight: bold;
+}
+
+.dateCenterCalendarWDay:nth-child(7n),
+.dateCenterCalendarWDay:nth-child(7n-1),
+.dateCenterCalendarWeekendDay {
+    color: #ac2323 !important;
+}
+
+/*
+.dateCenterCalendarDay:hover {
+    background: rgb(195, 195, 195);
+    border-color: rgb(162, 162, 162);
+}
+*/
+
+.dateCenterCalendarCurrentDay {
+    border-color: rgb(58, 96, 190);
+}

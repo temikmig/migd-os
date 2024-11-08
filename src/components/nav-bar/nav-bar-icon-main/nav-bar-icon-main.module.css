@@ -1,0 +1,35 @@
+.navBarIconMainCont {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+    box-sizing: border-box;
+    padding: 0px 0px 0px 0px;
+    user-select: none;
+}
+
+.navBarIconMain {
+    width: 40px;
+    height: 40px;
+    border-radius: 15px;
+    box-sizing: border-box;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navBarIconMainCont:hover .navBarIconMain img {
+    width: 40px;
+    height: 40px;
+    pointer-events: none;
+}
+
+.navBarIconMain img {
+    width: 45px;
+    height: 45px;
+    transition: 0.2s;
+    
+}

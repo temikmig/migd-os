@@ -1,0 +1,60 @@
+.dateCenterCalendarCont {
+    width: 280px;
+    height: 210px;
+    overflow-y: scroll;
+    user-select: none;
+    padding: 0px 10px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.dateCenterCalendarCont::-webkit-scrollbar {
+    display: none;
+  }
+
+.dateCenterCalendarBody {
+    width: 100%;
+    position: relative;
+}
+
+.dateCenterCalendarWeekdaysCont {
+    display: flex;
+    margin: 10px;
+    user-select: none;
+}
+
+.dateCenterCalendarHandlerCont {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px #c6c6c6 solid;
+    user-select: none;
+}
+
+.dateCenterCalendarHandlerContHeader {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+}
+
+.dateCenterCalendarHandlerContBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.dateCenterCalendarHandlerContBar svg {
+    width: 20px;
+    height: 20px;
+    transition: 0.2s;
+}
+
+.dateCenterCalendarHandlerContBar svg:hover {
+    fill: #6c6c6c
+}
+
+.dateCenterCalendarHandlerContBar svg:active {
+    transform: scale(0.9);
+}

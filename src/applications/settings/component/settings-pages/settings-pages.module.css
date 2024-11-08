@@ -1,0 +1,90 @@
+.settingsHeader {
+    font-size: 18px;
+    height: 34px;
+    margin: 0px;
+    padding: 38px 10px 0px 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px #e8e8e8 solid;
+    background: #efefef;
+}
+
+.settingsCont {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    gap: 10px
+}
+
+.settingsContWallapers {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fill, 160px);
+    grid-template-rows: repeat(auto-fill, 90px);
+    padding: 10px;
+}
+
+.settingsContBorder {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    border-bottom: 1px #e8e8e8 solid;
+    background: #f6f6f6;
+}
+
+.settingsHandler {
+    flex: auto
+}
+
+.settingsHandlerPersent {
+    width: 56px;
+    font-size: 14px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.settingsSwitcherInfoContHead {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.settingsSwitcherInfoContDesc {
+    font-size: 11px;
+}
+
+.settingsData {
+    overflow-y: auto;
+    height: calc(100% - 131px);
+    padding: 10px;
+    color: #444;
+}
+
+.settingsData h1, 
+.settingsData h2, 
+.settingsData h3 {
+    margin: 0px 0px 10px 0px;
+    padding: 0px;
+}
+
+.settingsData h1 {
+    font-size: 24px;
+}
+
+.settingsData h2 {
+    font-size: 20px;
+}
+
+.settingsData h3 {
+    font-size: 16px;
+}
+
+.settingsData p {
+    font-size: 12px;
+    margin: 10px 0px;
+    padding: 0px;
+}

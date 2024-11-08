@@ -1,0 +1,15 @@
+.dateCenterCalendarMonth {
+    position: absolute;
+}
+
+.dateCenterCalendarMonthActive {
+    z-index: 1;
+}
+
+.dateCenterCalendarMonth div {
+    opacity: 0.5;
+}
+
+.dateCenterCalendarMonthActive div {
+    opacity: 1;
+}

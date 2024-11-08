@@ -1,0 +1,66 @@
+.contextMenu {
+    background-color: #d6dbe1; 
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); 
+    border-radius: 8px;
+    padding: 5px;
+    box-sizing: border-box;
+    overflow: hidden;
+    width: 250px;
+    position: absolute;
+    z-index: 99;
+    filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.3));
+}
+
+.contextMenuGroup {
+    border-bottom: 1px #b2b7bc solid;
+    padding: 5px 0px;
+}
+
+.contextMenuGroup:first-child {
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.contextMenuGroup:last-child {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    border-bottom: none;
+}
+
+.contextMenuItem {
+    user-select: none;
+    font-size: 13px;
+    height: 25px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    padding: 0px 8px;
+    color: #222;
+}
+
+.contextMenuItem:hover {
+    background: #4d9eef;
+    color: #fff;
+}
+
+.contextMenuEnter {
+    opacity: 0;
+    transform: translateY(10px);
+}
+  
+.contextMenuEnterActive {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 200ms, transform 200ms;
+}
+  
+.contextMenuExit {
+    opacity: 1;
+}
+  
+.contextMenuExitActive {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 200ms, transform 200ms;
+}

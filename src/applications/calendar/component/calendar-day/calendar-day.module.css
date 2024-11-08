@@ -1,0 +1,58 @@
+.calendarDay {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 3px;
+    height: 75px;
+    flex: auto;
+    box-sizing: border-box;
+    grid-row-start: 1;
+    background: #fff;
+    border-bottom: 1px #d8d8d8 solid;
+    font-size: 15px;
+}
+
+.calendarWDay {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 3px;
+    height: 30px;
+    flex: auto;
+    box-sizing: border-box;
+    grid-row-start: 1;
+    background: inherit;
+    font-size: 15px;
+}
+
+.calendarWeekendDay {
+    background: #f4f4f4;
+}
+
+.calendarDay .calendarDayNum,
+.calendarWDay .calendarDayNum
+{
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+    color: #262525;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.calendarCurrentDay .calendarDayNum {
+    background: #f53232;
+    color: #fff;
+}
+
+.calendarWDay:nth-child(7n) .calendarDayNum,
+.calendarWDay:nth-child(7n-1) .calendarDayNum {
+    color: #b82c2c;
+}
+
+.calendarWeekendDay .calendarDayNum {
+    color: #918c8c;
+}

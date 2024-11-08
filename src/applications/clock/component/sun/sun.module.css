@@ -1,0 +1,10 @@
+.rays {
+    animation: rotating 20s linear infinite;
+    transform-box: border-box;
+    transform-origin: center;
+}
+
+@keyframes rotating {
+    from { transform: rotateZ(0deg); }
+    to { transform: rotateZ(360deg); }
+}

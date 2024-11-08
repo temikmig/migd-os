@@ -1,0 +1,86 @@
+.blurLayer {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    background: rgba(46, 45, 45, 0.3);
+    backdrop-filter: brightness(0.3) blur(5px);
+    animation: blurAnimation 0.5s;
+    display: flex;
+    flex-direction: column;
+    z-index: 5;
+}
+
+@keyframes blurAnimation {
+    0% {
+        opacity: 0;
+        /* transform: translateY(100px); */
+    }
+
+    100% {
+        opacity: 1;
+        /* transform: translateY(0px); */
+    }
+}
+
+.contEnter {
+    opacity: 0;
+    /* position: absolute; */
+    top: 0px;
+    left: 0px;
+}
+  
+.contEnterActive {
+    opacity: 1;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    transition: 0.5s;
+}
+  
+.contExit {
+    /* position: absolute; */
+    top: 0px;
+    left: 0px;
+    opacity: 1;
+}
+  
+.contExitActive {
+    opacity: 0;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    transition: 0.5s;
+}
+
+
+
+
+
+.background:after,
+.blurBackground:after,
+.blackBlurBackground:after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    transition: 0.3s;
+}
+
+.blurBackground:after {
+    backdrop-filter: blur(20px);
+}
+
+.blackBlurBackground:after {
+    backdrop-filter: blur(10px) brightness(0.5);
+}
+
+.backgroundImage {
+    width: 100%;
+    min-height: 100%;
+    background-size: cover;
+    transition: 1s;
+}

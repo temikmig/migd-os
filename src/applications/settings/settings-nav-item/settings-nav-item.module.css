@@ -1,0 +1,73 @@
+.settingsNavItem {
+    height: 34px;
+    padding: 0px 5px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    user-select: none;
+}
+
+.settingsNavItem img {
+    filter:invert(1);
+    width: 20px;
+    height: 20px;
+}
+
+.settingsNavItemActive {
+    position: relative;
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.settingsNavItemActive:first-child::before {
+    content: '';
+    display: none;
+}
+
+/* .settingsNavItemActive:last-child::after {
+    content: '';
+    display: none;
+} */
+
+/* .settingsNavItemActive:before {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: -10px;
+    right: 0px;
+    background-image: radial-gradient(circle at 0 0, transparent 0px, transparent 10px, #ffffff 0px);
+}
+
+.settingsNavItemActive:after {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    bottom: -10px;
+    right: 0px;
+    background-image: radial-gradient(circle at 0 100% , transparent 10px, transparent 10px, #ffffff 10px);
+} */
+
+.settingsNavItemIcon {
+    width: 24px;
+    height: 24px;
+    border-radius: 8px;
+    background-color: #315aca;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.settingsNavItemIcon svg {
+    fill: #fff;
+    width: 16px;
+    height: 16px;
+}
+
+.settingsNavItemIcon svg g {
+    fill: #fff;
+}

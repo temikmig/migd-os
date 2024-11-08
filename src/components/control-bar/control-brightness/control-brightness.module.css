@@ -1,0 +1,14 @@
+.controlVolumeCont {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    user-select: none;
+}
+
+h1.header {
+    padding: 0px 0px 10px 0px;
+    margin: 0px;
+    font-size: 14px;
+    color: #353535;
+    user-select: none;
+}

@@ -1,0 +1,35 @@
+.background {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    /* background: #f00; */
+}
+
+.background:after,
+.blurBackground:after,
+.blackBlurBackground:after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    transition: 0.3s;
+}
+
+.blurBackground:after {
+    backdrop-filter: blur(20px);
+}
+
+.blackBlurBackground:after {
+    backdrop-filter: blur(10px) brightness(0.5);
+}
+
+.backgroundImage {
+    width: 100%;
+    min-height: 100%;
+    background-size: cover;
+    transition: 1s;
+}

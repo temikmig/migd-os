@@ -1,0 +1,12 @@
+.startMenuAppsContList {
+    width: 420px;
+    /* padding-bottom: 10px; */
+    height: 330px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    overflow-y: auto;
+    position: relative;
+    /* background: #f00; */
+    
+}

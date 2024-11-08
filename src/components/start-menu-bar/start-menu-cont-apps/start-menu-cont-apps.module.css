@@ -1,0 +1,67 @@
+.startMenuAppsCont {
+    width: 420px;
+    padding-left: 10px;
+    /* padding-bottom: 10px; */
+    height: 100%;
+}
+
+.startMenuAppsSwitch {
+    display: flex;
+    height: 35px;
+    margin-bottom: 5px;
+}
+
+.startMenuAppsSwitchItem {
+    min-width: 50%;
+    flex: auto;
+    font-size: 12px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    border-bottom: 2px transparent solid;
+    transition: 0.3s;
+}
+
+.startMenuAppsSwitchItemActive {
+    border-bottom: 2px #fff solid;
+    color: #fff;
+}
+
+.contEnter {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: 0.2s;
+    /* transform: scale(0.95); */
+}
+
+.contEnterL {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: 0.2s;
+    /* transform: scale(0.95); */
+}
+  
+.contEnterActive {
+    opacity: 1;
+    transform: translateX(0);
+    transition: 0.2s;
+}
+  
+.contExit {
+    opacity: 1;
+}
+  
+.contExitActive {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: 0.2s;
+}
+  
+.contExitActiveL {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: 0.2s;
+}

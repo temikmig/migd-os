@@ -1,0 +1,25 @@
+.settingsIcon {
+    width: 150px;
+    height: 40px;
+    background-image: url(../../../../icons/settings.svg);
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 5px) 50%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    padding: 0px 10px;
+    color: #444;
+    user-select: none;
+    transition: 0.2s;
+}
+
+.settingsIcon:hover {
+    background-color: rgba(0,0,0,0.1);
+    color: #000;
+}
+
+.settingsIcon:active {
+    transform: scale(0.975);
+}

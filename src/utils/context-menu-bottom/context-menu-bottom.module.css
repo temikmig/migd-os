@@ -1,0 +1,20 @@
+.contextMenuBottomEnter {
+    opacity: 0;
+    transform: translateY(10px);
+}
+  
+.contextMenuBottomEnterActive {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 200ms, transform 200ms;
+}
+  
+.contextMenuBottomExit {
+    opacity: 1;
+}
+  
+.contextMenuBottomExitActive {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 200ms, transform 200ms;
+}

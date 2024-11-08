@@ -1,0 +1,39 @@
+.calcButton {
+    background: rgba(135, 135, 135, 0.2);
+    height: 49px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: #fff;
+    user-select: none;
+    transition: 0.2s;
+}
+
+.calcButton:hover {
+    opacity: 0.8;
+}
+
+.calcButton:active {
+    background: rgba(88, 88, 88, 0.2);
+}
+
+.calcButtonTopAction {
+    background: rgba(93, 92, 92, 0.2);
+}
+
+.calcButtonTopAction:active {
+    background: rgba(127, 127, 127, 0.2);
+}
+
+.calcButtonZero {
+    grid-column: span 2 / span 2;
+}
+
+.calcButtonAction {
+    background: rgba(226, 157, 7, 0.75);
+}
+
+.calcButtonAction:active {
+    background: rgba(170, 118, 4, 0.75);
+}

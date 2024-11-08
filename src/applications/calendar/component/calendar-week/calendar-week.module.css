@@ -1,0 +1,11 @@
+.calendarWeek {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: 1fr;
+    height: 75px;
+    gap: 1px;
+}
+
+.calendarWeek:first-child {
+    justify-content: end;
+}

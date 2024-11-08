@@ -1,0 +1,64 @@
+.startMenuTile {
+    display: inline-flex;
+    padding: 10px;
+    border: 1px rgba(0, 0, 0, 0.0) solid;
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    background: rgb(209 205 205 / 50%);
+    backdrop-filter: blur(5px);
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* transition: 1s; */
+    position: relative;
+}
+
+.startMenuTile:active {
+    filter: brightness(0.75);
+}
+
+.startMenuTileBig {
+    width: 310px;
+}
+
+/* .startMenuItem:hover {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px rgba(0, 0, 0, 0.3) solid;
+    border-radius: 5px;
+} */
+
+.startMenuTileIcon {
+    width: 100px;
+    height: 100px;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+.startMenuItemTile img {
+    width: 100px;
+    height: 100px;
+    pointer-events: none;
+}
+
+.startMenuItemTileEnter {
+    opacity: 0;
+    transform: scale(0.01);
+}
+  
+.startMenuItemTileEnterActive {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 200ms, transform 200ms;
+}
+  
+.startMenuItemTileExit {
+    opacity: 1;
+}
+  
+.startMenuItemTileExitActive {
+    opacity: 0;
+    transform: scale(0.01);
+    transition: opacity 200ms, transform 200ms;
+}
