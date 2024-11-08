@@ -1,6 +1,7 @@
 {
   "name": "migd-os",
   "version": "0.1.0",
+  "homepage": "./",
   "private": true,
   "dependencies": {
     "@dnd-kit/core": "^6.1.0",
@@ -42,7 +43,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -66,6 +69,7 @@
     "@types/javascript-color-gradient": "^2.4.2",
     "@types/react-resizable": "^3.0.8",
     "@types/react-transition-group": "^4.4.11",
+    "gh-pages": "^6.2.0",
     "use-resize-observer": "^9.1.0"
   }
 }
