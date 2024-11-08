@@ -3,7 +3,7 @@ import css from './file-guide.module.css';
 import { useDroppable } from '@dnd-kit/core';
 import Component from './component/component';
 
-export const appIcon = '/apps-icons/settings.svg';
+export const appIcon = 'apps-icons/settings.svg';
 
 export const appProps = {
     canExpand: true,

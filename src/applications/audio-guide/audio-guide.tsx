@@ -4,7 +4,7 @@ import Component from './component/component'
 import { useSelector } from '../../services/types/hooks';
 import { findNodeType } from '../../utils/config';
 
-export const appIcon = '/apps-icons/audio-guide.svg';
+export const appIcon = 'apps-icons/audio-guide.svg';
 
 export const appProps = {
     canExpand: true,
