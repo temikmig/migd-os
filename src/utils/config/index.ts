@@ -1,10 +1,10 @@
 export const defaultIcons = [{
     type: 'file',
-    icon: '/apps-icons/file.svg', 
+    icon: 'apps-icons/file.svg', 
 },
 {
     type: 'folder', 
-    icon: '/apps-icons/folder.svg'
+    icon: 'apps-icons/folder.svg'
 }]
 
 export const DOCUMENT_HEIGHT = window.innerHeight;

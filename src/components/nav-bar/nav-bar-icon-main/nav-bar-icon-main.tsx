@@ -5,7 +5,7 @@ const NavBarIconMain:FC = () => {
     return(
         <div className={css.navBarIconMainCont}>
             <div className={css.navBarIconMain}>
-                <img src="/apps-icons/menu.svg" />
+                <img src="apps-icons/menu.svg" />
             </div>
         </div>
     )

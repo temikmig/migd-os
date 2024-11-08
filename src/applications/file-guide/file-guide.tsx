@@ -2,7 +2,7 @@ import React, { createContext, FC, useMemo, useState } from 'react';
 import css from './file-guide.module.css';
 import Component from './component/component';
 
-export const appIcon = '/apps-icons/folder.svg';
+export const appIcon = 'apps-icons/folder.svg';
 
 export const appProps = {
     canExpand: true,

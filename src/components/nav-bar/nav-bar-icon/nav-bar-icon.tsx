@@ -88,7 +88,7 @@ const NavBarIcon:FC<TNavBarIcon> = ({id, sortable}) => {
     return(
         <div className={`${css.navBarIconCont} ${!sortable&&css.navBarIconNon} ${isOpenedApp&&css.navBarIconOpened}`} onClick={сlickAction} onContextMenu={contextMenuAction} ref={outsideAlerterRef}>
             <div className={css.navBarIcon}>
-                <img src={sortable&&id==FILEGUIDE_APP?'/apps-icons/folder.svg':icon} />
+                <img src={sortable&&id==FILEGUIDE_APP?'apps-icons/folder.svg':icon} />
             </div>
             <ContextMenuBottom view={showScreens}><NavBarContextScreens appId={id} /></ContextMenuBottom>
             <ContextMenuBottom view={showContextMenu}><NavBarContextMenu appId={id} handleOpenApp={handleOpenApp} /></ContextMenuBottom>

@@ -17,7 +17,7 @@ type T = {
 export const Component:FC<T> = ({id, structureId}) => {
     const fileStructure = useSelector((store) => store.fileStructure.data);
     const { title, content } = findNode(structureId, fileStructure);
-    const videoSrc = '/video/'+content;
+    const videoSrc = 'video/'+content;
 
     const [ showControl, setShowControl ] = useState(true);
 

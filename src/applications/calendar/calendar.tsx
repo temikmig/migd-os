@@ -4,7 +4,7 @@ import { useDroppable } from '@dnd-kit/core';
 import Component from './component/component';
 import { ui_monthName } from '../../ui/ui';
 
-export const appIcon = '/apps-icons/calendar.svg';
+export const appIcon = 'apps-icons/calendar.svg';
 
 export const appProps = {
     canExpand: true,
