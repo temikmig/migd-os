@@ -8,5 +8,11 @@
     overflow-y: auto;
     position: relative;
     /* background: #f00; */
-    
+    user-select: none;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
+
+.startMenuAppsContList::-webkit-scrollbar {
+    display: none;
+  }

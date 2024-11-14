@@ -45,7 +45,7 @@ export const AppTile:FC = () => {
     return(
         <article className={css.calendarTile}>
             <div className={css.calendarTileWeekDay}>{wdays[calendarDate.getDay()]}</div>
-            <div className={css.calendarTileDay}>2{calendarDate.getDate()}</div>
+            <div className={css.calendarTileDay}>{calendarDate.getDate()}</div>
             <div className={css.calendarTileMonth}>{ui_monthName[calendarDate.getMonth()]}</div>
         </article>
     )

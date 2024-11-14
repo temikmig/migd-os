@@ -11,4 +11,11 @@
     overflow-y: auto;
     /* position: relative; */
     /* background: rgba(255,255,255,0.2); */
+    user-select: none;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
+
+.startMenuTilesCont::-webkit-scrollbar {
+    display: none;
+  }
