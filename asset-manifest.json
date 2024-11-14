@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/migd-os/static/css/main.0f8af9cd.css",
+    "main.css": "/migd-os/static/css/main.da5c150d.css",
     "main.js": "/migd-os/static/js/main.3cb79370.js",
     "static/js/453.7db5db36.chunk.js": "/migd-os/static/js/453.7db5db36.chunk.js",
     "static/media/clock.svg": "/migd-os/static/media/clock.b71b09ba4c8834f4e71e.svg",
@@ -16,12 +16,12 @@
     "static/media/close.svg": "/migd-os/static/media/close.260fa61ec1dcab71c5e5.svg",
     "static/media/left.svg": "/migd-os/static/media/left.cbd7775ec19372bc1afd.svg",
     "static/media/right.svg": "/migd-os/static/media/right.8cd5be92152f8d91caa8.svg",
-    "main.0f8af9cd.css.map": "/migd-os/static/css/main.0f8af9cd.css.map",
+    "main.da5c150d.css.map": "/migd-os/static/css/main.da5c150d.css.map",
     "main.3cb79370.js.map": "/migd-os/static/js/main.3cb79370.js.map",
     "453.7db5db36.chunk.js.map": "/migd-os/static/js/453.7db5db36.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0f8af9cd.css",
+    "static/css/main.da5c150d.css",
     "static/js/main.3cb79370.js"
   ]
 }
