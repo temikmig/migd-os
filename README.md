@@ -21,7 +21,7 @@ migd-OS — это экспериментальный интерфейс, кот
 
 ### Demo
 
-![Demo](./screenshots/demo.png)
+![Demo](./screenshots/demo.gif)
 
 ### Рабочий стол
 
