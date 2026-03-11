@@ -1,6 +1,6 @@
 # migd-OS
 
-**migd-OS** — это интерактивный симулятор операционной системы, созданный на **React.js**.  
+**migd-OS** — это интерактивный симулятор операционной системы, созданный на **React**.  
 Проект демонстрирует работу оконного интерфейса, многозадачности и пользовательских настроек прямо в браузере.
 
 Попробовать онлайн:  
@@ -45,11 +45,11 @@ migd-OS — это экспериментальный интерфейс, кот
 
 ### Множественные окна
 
-Работайте сразу с несколькими окнами — перемещайте, открывайте и переключайтесь между задачами, как в настоящей ОС.
+Возможность работы сразу с несколькими окнами — перемещение, открытие и переключение между задачами, как в настоящей ОС.
 
 ### Настройки интерфейса
 
-Меняйте внешний вид системы и настраивайте UI под себя.
+Возможность менять внешний вид и настройки UI под себя.
 
 ### Интерактивный рабочий стол
 
@@ -59,11 +59,17 @@ migd-OS — это экспериментальный интерфейс, кот
 
 Благодаря React приложение работает плавно и мгновенно реагирует на действия пользователя.
 
----
-
 ## Стек технологий
 
-## ![TypeScript](https://img.shields.io/badge/TypeScript-20232A?style=for-the-badge&logo=typescript) ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react) ![Redux](https://img.shields.io/badge/Redux-20232A?style=for-the-badge&logo=redux) ![HTML](https://img.shields.io/badge/HTML5-20232A?style=for-the-badge&logo=html5) ![CSS](https://img.shields.io/badge/CSS3-20232A?style=for-the-badge&logo=css3) ![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-20232A?style=for-the-badge&logo=github)
+<p align="left">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react" />
+  <img src="https://img.shields.io/badge/TypeScript-20232A?style=for-the-badge&logo=typescript" />
+  <img src="https://img.shields.io/badge/Redux-20232A?style=for-the-badge&logo=redux" />
+  <img src="https://img.shields.io/badge/HTML5-20232A?style=for-the-badge&logo=html5" />
+  <img src="https://img.shields.io/badge/CSS3-20232A?style=for-the-badge&logo=css3" />
+</p>
+
+---
 
 ## Запуск проекта
 
